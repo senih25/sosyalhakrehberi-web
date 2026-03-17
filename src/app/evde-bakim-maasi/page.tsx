@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Evde Bakım Maaşı Rehberi",
   description:
     "Evde bakım maaşı için temel şartları, gerekli bilgileri ve ön değerlendirme mantığını sade bir dille açıklayan ana rehber sayfası.",
+  alternates: {
+    canonical: "/evde-bakim-maasi",
+  },
 };
 
 const promiseSections = [
@@ -30,7 +33,7 @@ const checklist = [
   "Aylık toplam hane geliri",
   "Hanedeki kişi sayısı",
   "Türkiye Cumhuriyeti vatandaşlık durumu",
-  "Türkiye’de ikamet bilgisi",
+  "Türkiye'de ikamet bilgisi",
 ];
 
 const faqItems = [
@@ -45,7 +48,7 @@ const faqItems = [
       "MVP yalnızca temel değerlendirme alanlarını kullanır. Kimlik numarası, açık adres veya belge yükleme istenmez.",
   },
   {
-    question: "Backend mantığı frontend’de mi çalışıyor?",
+    question: "Backend mantığı frontend'de mi çalışıyor?",
     answer:
       "Hayır. Uygunluk mantığı, threshold değerleri ve statü anlamları tamamen backend tarafından belirlenir.",
   },
@@ -62,10 +65,9 @@ export default function HomeCareAllowancePage() {
               Evde bakım maaşı için anlaşılır açıklama ve güvenli ön değerlendirme akışı
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">
-              Evde bakım maaşı, ağır engelli bireyin bakım ihtiyacına ilişkin belirli
-              koşullar altında değerlendirilen bir destek alanıdır. Bu sayfa, başvuru
-              öncesi hazırlık yapmanıza yardımcı olmak için sade açıklamalar ve hesaplama
-              aracına geçiş sunar.
+              Evde bakım maaşı, ağır engelli bireyin bakım ihtiyacına ilişkin belirli koşullar
+              altında değerlendirilen bir destek alanıdır. Bu sayfa, başvuru öncesi hazırlık
+              yapmanıza yardımcı olmak için sade açıklamalar ve hesaplama aracına geçiş sunar.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
@@ -130,6 +132,15 @@ export default function HomeCareAllowancePage() {
                 değerlendirme metadatası görünür. Böylece kullanıcı hangi bilgiyle ilerlediğini
                 açık biçimde anlar.
               </p>
+              <div className="rounded-2xl bg-slate-50 p-4">
+                <p className="text-sm font-semibold text-slate-900">En hızlı geçiş yolu</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700">
+                  Temel bilgileri biliyorsanız doğrudan hesaplama aracına geçebilirsiniz.
+                </p>
+                <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link mt-4 inline-flex">
+                  Hesaplama sayfasına git
+                </Link>
+              </div>
             </div>
           </article>
         </section>

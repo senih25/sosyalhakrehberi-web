@@ -93,8 +93,15 @@ function resultPrimaryAction(status: EligibilityStatus) {
     };
   }
 
+  if (status === "ELIGIBLE") {
+    return {
+      label: "Rehberde başvuru hazırlığını gözden geçir",
+      href: "/evde-bakim-maasi",
+    };
+  }
+
   return {
-    label: "Rehber sayfasına dön",
+    label: "Şartları rehber sayfasında tekrar incele",
     href: "/evde-bakim-maasi",
   };
 }
@@ -159,15 +166,16 @@ export default function HesaplamaPage() {
             Evde bakım maaşı için backend destekli ön değerlendirme
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-700">
-            Bu araç frontend tarafında uygunluk hesabı yapmaz. SocialRightOS backend
-            karar motoruna canonical endpoint üzerinden istek gönderir ve sonucu
-            açıklayıcı biçimde sunar.
+            Bu araç frontend tarafında uygunluk hesabı yapmaz. SocialRightOS backend karar
+            motoruna canonical endpoint üzerinden istek gönderir ve sonucu açıklayıcı biçimde sunar.
           </p>
 
-          <div
-            id="form-start"
-            className="mt-8 grid gap-5 md:grid-cols-2"
-          >
+          <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
+            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
+            yükleme bu aşamada istenmez.
+          </div>
+
+          <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
             <label className="form-field">
               <span>Engellilik oranı</span>
               <input
@@ -295,9 +303,7 @@ export default function HesaplamaPage() {
 
           {result && statusPanel ? (
             <section className={`mt-6 rounded-3xl border p-6 ${statusPanel.tone}`}>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em]">
-                {result.status}
-              </p>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em]">{result.status}</p>
               <h2 className="mt-3 text-2xl font-semibold">{statusPanel.title}</h2>
               <p className="mt-3 max-w-2xl text-sm leading-7">{statusPanel.description}</p>
 
@@ -387,8 +393,8 @@ export default function HesaplamaPage() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Önemli not</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Bu araç resmi kurum kararı yerine geçmez. Sonuçlar yalnızca başvuru öncesi
-              ön değerlendirme ve bilgi amaçlıdır.
+              Bu araç resmi kurum kararı yerine geçmez. Sonuçlar yalnızca başvuru öncesi ön
+              değerlendirme ve bilgi amaçlıdır.
             </p>
           </div>
 
