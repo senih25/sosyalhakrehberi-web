@@ -1,0 +1,80 @@
+export type EligibilityStatus = "ELIGIBLE" | "NOT_ELIGIBLE" | "NEEDS_INFO";
+
+export type EligibilityBenefitCode = "TR_HOME_CARE_ALLOWANCE";
+
+export type HomeCareEligibilityFacts = {
+  disability_rate?: number | null;
+  household_income?: number | null;
+  household_size?: number | null;
+  is_turkish_citizen?: boolean | null;
+  is_resident_in_tr?: boolean | null;
+};
+
+export type EligibilityCheckContext = {
+  jurisdiction?: "TR";
+  evaluation_date?: string;
+  request_id?: string;
+  policy_version?: string;
+};
+
+export type EligibilityCheckRequest = {
+  benefit_code: EligibilityBenefitCode;
+  facts: HomeCareEligibilityFacts;
+  context?: EligibilityCheckContext;
+};
+
+export type DecisionReason = {
+  code: string;
+  message: string;
+  severity: "INFO" | "WARNING" | "ERROR" | string;
+};
+
+export type MissingFact = {
+  key: string;
+  message: string;
+  priority?: number;
+  fact_group?: string;
+  how_to_obtain_url?: string;
+};
+
+export type RuleResult = {
+  rule_code: string;
+  passed: boolean;
+  value?: number | string | boolean | null;
+  threshold?: number | string | null;
+  message: string;
+  input_mode?: string;
+};
+
+export type EligibilityMetadata = {
+  engine_version: string;
+  evaluation_mode: string;
+  policy_code: string;
+  policy_version: string;
+  jurisdiction: string;
+  evaluation_date: string | null;
+  policy_jurisdiction?: string;
+  policy_effective_from?: string;
+  policy_source_effective_date?: string;
+  policy_snapshot_hash?: string;
+};
+
+export type EligibilityCheckResponse = {
+  decision_id: string;
+  request_id: string;
+  status: EligibilityStatus;
+  benefit_id: EligibilityBenefitCode | string;
+  reasons: DecisionReason[];
+  missing_facts: MissingFact[];
+  rule_results: Record<string, RuleResult> | RuleResult[];
+  metadata: EligibilityMetadata;
+};
+
+export type ApiErrorResponse = {
+  message: string;
+  error: string;
+  status: number;
+  correlation_id: string;
+  error_code?: string;
+  errors?: Record<string, string[]>;
+};
