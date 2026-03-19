@@ -34,7 +34,9 @@ test("maps missing facts into user guidance for needs info states", () => {
 
   assert.equal(viewModel.title, "Daha fazla bilgi gerekli");
   assert.equal(viewModel.missingInformation[0]?.title, "Vatandaşlık bilgisini netleştirin");
-  assert.match(viewModel.nextStepBody, /vatandaşlık/i);
+  assert.match(viewModel.nextStepBody, /eksik görünen bilgileri tamamlayın/i);
+  assert.equal(viewModel.checklistTitle, "Bilgileri tamamlayın");
+  assert.equal(viewModel.helperLinks[0]?.href, "/evde-bakim-maasi/hesaplama#form-start");
 });
 
 test("uses safe fallback copy for unknown reason codes without leaking technical identifiers", () => {
@@ -65,4 +67,17 @@ test("never throws and still returns a usable model when reasons and missing fac
   assert.equal(viewModel.primaryReason?.title, "Karar için daha fazla bilgi gerekiyor");
   assert.deepEqual(viewModel.secondaryReasons, []);
   assert.deepEqual(viewModel.missingInformation, []);
+  assert.equal(viewModel.helperLinks.length > 0, true);
+});
+
+test("returns status-specific guided links and checklist items for eligible states", () => {
+  const viewModel = buildDecisionViewModel({
+    status: "ELIGIBLE",
+    reasons: [],
+    missingFacts: [],
+  });
+
+  assert.equal(viewModel.checklistTitle, "Başvuru öncesi hazırlık");
+  assert.equal(viewModel.checklistItems.length, 3);
+  assert.equal(viewModel.helperLinks[0]?.href, "/evde-bakim-maasi");
 });
