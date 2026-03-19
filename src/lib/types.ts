@@ -6,8 +6,8 @@ export type HomeCareEligibilityFacts = {
   disability_rate?: number | null;
   household_income?: number | null;
   household_size?: number | null;
-  is_turkish_citizen?: boolean | null;
-  is_resident_in_tr?: boolean | null;
+  is_turkish_citizen?: boolean;
+  is_resident_in_tr?: boolean;
 };
 
 export type EligibilityCheckContext = {
