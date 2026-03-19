@@ -3,29 +3,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ApiClientError, checkEligibility } from "@/lib/api";
+import {
+  buildEligibilityPayload,
+  initialEligibilityFormState,
+  type EligibilityFormState,
+  type TriStateAttestation,
+} from "@/lib/eligibility-form";
 import type {
-  EligibilityCheckRequest,
   EligibilityCheckResponse,
   EligibilityStatus,
   MissingFact,
   RuleResult,
 } from "@/lib/types";
-
-type FormState = {
-  disabilityRate: string;
-  householdIncome: string;
-  householdSize: string;
-  isTurkishCitizen: boolean;
-  isResidentInTr: boolean;
-};
-
-const initialFormState: FormState = {
-  disabilityRate: "",
-  householdIncome: "",
-  householdSize: "",
-  isTurkishCitizen: true,
-  isResidentInTr: true,
-};
 
 const statusCopy: Record<
   EligibilityStatus,
@@ -66,14 +55,14 @@ const statusCopy: Record<
   },
 };
 
-function toNumber(value: string): number | null {
-  if (!value.trim()) {
-    return null;
-  }
-
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : null;
-}
+const triStateOptions: Array<{
+  label: string;
+  value: TriStateAttestation;
+}> = [
+  { label: "Evet", value: true },
+  { label: "Hayır", value: false },
+  { label: "Bilmiyorum", value: null },
+];
 
 function normalizeRuleResults(
   ruleResults: EligibilityCheckResponse["rule_results"],
@@ -106,8 +95,55 @@ function resultPrimaryAction(status: EligibilityStatus) {
   };
 }
 
+type TriStateFieldProps = {
+  className?: string;
+  legend: string;
+  name: string;
+  value: TriStateAttestation;
+  onChange: (value: TriStateAttestation) => void;
+};
+
+function TriStateField({
+  className,
+  legend,
+  name,
+  value,
+  onChange,
+}: TriStateFieldProps) {
+  return (
+    <fieldset className={className}>
+      <legend className="text-sm font-medium text-slate-900">{legend}</legend>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {triStateOptions.map((option) => {
+          const checked = value === option.value;
+
+          return (
+            <label
+              key={`${name}-${option.label}`}
+              className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition ${
+                checked
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-slate-400"
+              }`}
+            >
+              <input
+                className="sr-only"
+                type="radio"
+                name={name}
+                checked={checked}
+                onChange={() => onChange(option.value)}
+              />
+              <span>{option.label}</span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 export default function HesaplamaPage() {
-  const [form, setForm] = useState<FormState>(initialFormState);
+  const [form, setForm] = useState<EligibilityFormState>(initialEligibilityFormState);
   const [result, setResult] = useState<EligibilityCheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(
@@ -121,20 +157,7 @@ export default function HesaplamaPage() {
     setFieldErrors(null);
     setResult(null);
 
-    const payload: EligibilityCheckRequest = {
-      benefit_code: "TR_HOME_CARE_ALLOWANCE",
-      facts: {
-        disability_rate: toNumber(form.disabilityRate),
-        household_income: toNumber(form.householdIncome),
-        household_size: toNumber(form.householdSize),
-        is_turkish_citizen: form.isTurkishCitizen,
-        is_resident_in_tr: form.isResidentInTr,
-      },
-      context: {
-        jurisdiction: "TR",
-        request_id: crypto.randomUUID(),
-      },
-    };
+    const payload = buildEligibilityPayload(form, crypto.randomUUID());
 
     try {
       const response = await checkEligibility(payload);
@@ -167,12 +190,13 @@ export default function HesaplamaPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-700">
             Bu araç frontend tarafında uygunluk hesabı yapmaz. SocialRightOS backend karar
-            motoruna canonical endpoint üzerinden istek gönderir ve sonucu açıklayıcı biçimde sunar.
+            motoruna canonical endpoint üzerinden istek gönderir ve sonucu açıklayıcı biçimde
+            sunar.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
-            yükleme bu aşamada istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya
+            belge yükleme bu aşamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
@@ -227,32 +251,34 @@ export default function HesaplamaPage() {
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm font-medium text-slate-900">Temel doğrulamalar</p>
-              <label className="mt-3 flex items-center gap-3 text-sm text-slate-700">
-                <input
-                  type="checkbox"
-                  checked={form.isTurkishCitizen}
-                  onChange={(event) =>
-                    setForm((current) => ({
-                      ...current,
-                      isTurkishCitizen: event.target.checked,
-                    }))
-                  }
-                />
-                Türkiye Cumhuriyeti vatandaşı
-              </label>
-              <label className="mt-3 flex items-center gap-3 text-sm text-slate-700">
-                <input
-                  type="checkbox"
-                  checked={form.isResidentInTr}
-                  onChange={(event) =>
-                    setForm((current) => ({
-                      ...current,
-                      isResidentInTr: event.target.checked,
-                    }))
-                  }
-                />
-                Türkiye&apos;de ikamet ediyor
-              </label>
+              <p className="mt-2 text-xs leading-6 text-slate-600">
+                Emin değilseniz Bilmiyorum seçeneğini kullanın. Frontend tahmin üretmez; bilgi
+                backend&apos;e bilinmiyor olarak gönderilir.
+              </p>
+              <TriStateField
+                className="mt-4"
+                legend="Türkiye Cumhuriyeti vatandaşlık durumu"
+                name="isTurkishCitizen"
+                value={form.isTurkishCitizen}
+                onChange={(value) =>
+                  setForm((current) => ({
+                    ...current,
+                    isTurkishCitizen: value,
+                  }))
+                }
+              />
+              <TriStateField
+                className="mt-4"
+                legend="Türkiye&apos;de ikamet durumu"
+                name="isResidentInTr"
+                value={form.isResidentInTr}
+                onChange={(value) =>
+                  setForm((current) => ({
+                    ...current,
+                    isResidentInTr: value,
+                  }))
+                }
+              />
             </div>
           </div>
 
@@ -268,7 +294,7 @@ export default function HesaplamaPage() {
             <button
               type="button"
               onClick={() => {
-                setForm(initialFormState);
+                setForm(initialEligibilityFormState);
                 setResult(null);
                 setError(null);
                 setFieldErrors(null);
@@ -401,8 +427,8 @@ export default function HesaplamaPage() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Veri yaklaşımı</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Kimlik numarası, açık adres veya belge yükleme istenmez. MVP yalnızca gerekli
-              temel değerlendirme alanlarını kullanır.
+              Kimlik numarası, açık adres veya belge yükleme istenmez. MVP yalnızca gerekli temel
+              değerlendirme alanlarını kullanır.
             </p>
           </div>
 
