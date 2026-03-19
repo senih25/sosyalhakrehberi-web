@@ -18,6 +18,12 @@ const statusTone: Record<EligibilityStatus, string> = {
   NEEDS_INFO: "border-amber-200 bg-amber-50 text-amber-950",
 };
 
+const statusBadgeCopy: Record<EligibilityStatus, string> = {
+  ELIGIBLE: "Hazırlıkla devam edebilirsiniz",
+  NOT_ELIGIBLE: "Bilgileri yeniden gözden geçirin",
+  NEEDS_INFO: "Eksik bilgi tamamlanmalı",
+};
+
 const triStateOptions: Array<{
   label: string;
   value: TriStateAttestation;
@@ -37,13 +43,13 @@ function resultPrimaryAction(status: EligibilityStatus) {
 
   if (status === "ELIGIBLE") {
     return {
-      label: "Rehberde başvuru hazırlığını gözden geçir",
+      label: "Başvuru rehberine git",
       href: "/evde-bakim-maasi",
     };
   }
 
   return {
-    label: "Şartları rehber sayfasında tekrar incele",
+    label: "Şartları rehber sayfasında incele",
     href: "/evde-bakim-maasi",
   };
 }
@@ -152,8 +158,8 @@ export default function HesaplamaPage() {
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya
-            belge yükleme bu aşamada istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
+            yükleme bu aşamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
@@ -285,18 +291,26 @@ export default function HesaplamaPage() {
           ) : null}
 
           {result && decisionView ? (
-            <section
-              className={`mt-6 rounded-3xl border p-6 ${statusTone[result.status]}`}
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.22em]">{result.status}</p>
-              <h2 className="mt-3 text-2xl font-semibold">{decisionView.title}</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7">{decisionView.summary}</p>
+            <section className={`mt-6 rounded-3xl border p-6 ${statusTone[result.status]}`}>
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em]">
+                    {result.status}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold">{decisionView.title}</h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-7">{decisionView.summary}</p>
+                </div>
 
-              <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Kararın özeti</h3>
+                <div className="rounded-2xl bg-white/80 px-4 py-3 text-sm font-medium">
+                  {statusBadgeCopy[result.status]}
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+                <div className="rounded-2xl bg-white/70 p-5">
+                  <h3 className="font-semibold">Bu sonuç ne anlama geliyor?</h3>
                   {decisionView.primaryReason ? (
-                    <div className="mt-3">
+                    <div className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-4">
                       <p className="text-sm font-medium">{decisionView.primaryReason.title}</p>
                       <p className="mt-2 text-sm leading-7">
                         {decisionView.primaryReason.body}
@@ -307,7 +321,7 @@ export default function HesaplamaPage() {
                   {decisionView.secondaryReasons.length > 0 ? (
                     <ul className="mt-4 space-y-3 text-sm leading-7">
                       {decisionView.secondaryReasons.map((reason) => (
-                        <li key={`${reason.title}-${reason.body}`}>
+                        <li key={`${reason.title}-${reason.body}`} className="rounded-2xl bg-white/70 p-4">
                           <span className="font-medium">{reason.title}</span>
                           <p className="mt-1">{reason.body}</p>
                         </li>
@@ -316,7 +330,7 @@ export default function HesaplamaPage() {
                   ) : null}
                 </div>
 
-                <div className="rounded-2xl bg-white/70 p-4">
+                <div className="rounded-2xl bg-white/70 p-5">
                   <h3 className="font-semibold">{decisionView.nextStepTitle}</h3>
                   <p className="mt-3 text-sm leading-7">{decisionView.nextStepBody}</p>
                   {primaryAction ? (
@@ -327,12 +341,36 @@ export default function HesaplamaPage() {
                 </div>
               </div>
 
+              <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                <div className="rounded-2xl bg-white/70 p-5">
+                  <h3 className="font-semibold">{decisionView.checklistTitle}</h3>
+                  <ul className="mt-4 space-y-3 text-sm leading-7">
+                    {decisionView.checklistItems.map((item) => (
+                      <li key={item} className="rounded-2xl bg-white/70 px-4 py-3">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl bg-white/70 p-5">
+                  <h3 className="font-semibold">Yararlı yönlendirmeler</h3>
+                  <div className="mt-4 flex flex-col gap-3">
+                    {decisionView.helperLinks.map((link) => (
+                      <Link key={`${link.href}-${link.label}`} href={link.href} className="secondary-link inline-flex">
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               {decisionView.missingInformation.length > 0 ? (
-                <div className="mt-5 rounded-2xl bg-white/70 p-4">
+                <div className="mt-5 rounded-2xl bg-white/70 p-5">
                   <h3 className="font-semibold">Tamamlanması iyi olacak bilgiler</h3>
-                  <ul className="mt-3 space-y-3 text-sm leading-7">
+                  <ul className="mt-4 space-y-3 text-sm leading-7">
                     {decisionView.missingInformation.map((fact) => (
-                      <li key={`${fact.title}-${fact.body}`}>
+                      <li key={`${fact.title}-${fact.body}`} className="rounded-2xl bg-white/70 p-4">
                         <span className="font-medium">{fact.title}</span>
                         <p className="mt-1">{fact.body}</p>
                       </li>

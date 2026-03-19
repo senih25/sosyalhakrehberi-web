@@ -9,6 +9,11 @@ export type ExplanationItem = {
   body: string;
 };
 
+export type GuidedLink = {
+  href: string;
+  label: string;
+};
+
 export type DecisionViewModel = {
   title: string;
   summary: string;
@@ -17,6 +22,9 @@ export type DecisionViewModel = {
   missingInformation: ExplanationItem[];
   nextStepTitle: string;
   nextStepBody: string;
+  checklistTitle: string;
+  checklistItems: string[];
+  helperLinks: GuidedLink[];
 };
 
 type ReasonDescriptor = {
@@ -113,6 +121,66 @@ const fallbackReasonByStatus: Record<
   },
 };
 
+const checklistByStatus: Record<
+  EligibilityStatus,
+  { title: string; items: string[]; links: GuidedLink[] }
+> = {
+  ELIGIBLE: {
+    title: "Başvuru öncesi hazırlık",
+    items: [
+      "Gelir ve hane bilgilerinizi başvuru öncesinde tekrar gözden geçirin.",
+      "Bakım ihtiyacını destekleyen güncel bilgi ve belgeleri hazır tutun.",
+      "Resmi başvuru öncesinde rehber sayfasındaki şartları son kez okuyun.",
+    ],
+    links: [
+      {
+        href: "/evde-bakim-maasi",
+        label: "Başvuru rehberini incele",
+      },
+      {
+        href: "/evde-bakim-maasi/hesaplama#form-start",
+        label: "Bilgileri yeniden kontrol et",
+      },
+    ],
+  },
+  NOT_ELIGIBLE: {
+    title: "Tekrar kontrol edilmesi iyi olur",
+    items: [
+      "Vatandaşlık ve ikamet seçimlerinizi doğru yaptığınızdan emin olun.",
+      "Toplam hane geliri ve kişi sayısını güncel bilgilerle tekrar girin.",
+      "Koşulları daha ayrıntılı okumak için rehber sayfasına dönün.",
+    ],
+    links: [
+      {
+        href: "/evde-bakim-maasi",
+        label: "Şartları rehber sayfasında incele",
+      },
+      {
+        href: "/evde-bakim-maasi/hesaplama#form-start",
+        label: "Bilgileri düzelterek tekrar dene",
+      },
+    ],
+  },
+  NEEDS_INFO: {
+    title: "Bilgileri tamamlayın",
+    items: [
+      "Eksik veya emin olmadığınız alanları netleştirin.",
+      "Vatandaşlık ve ikamet bilgisini mümkünse kesin seçimle tamamlayın.",
+      "Gelir ve hane bilgilerini girdikten sonra yeniden ön değerlendirme alın.",
+    ],
+    links: [
+      {
+        href: "/evde-bakim-maasi/hesaplama#form-start",
+        label: "Eksik bilgileri tamamla",
+      },
+      {
+        href: "/evde-bakim-maasi",
+        label: "Hangi bilgilerin gerektiğini rehberde gör",
+      },
+    ],
+  },
+};
+
 function normalizeCode(code: string): string {
   return code.trim().toLowerCase();
 }
@@ -150,6 +218,7 @@ export function buildDecisionViewModel(input: {
   const mappedReasons = reasons.map((reason) => mapReasonToExplanation(reason, status));
   const [primaryReason, ...secondaryReasons] = mappedReasons;
   const missingInformation = missingFacts.map(mapMissingFactToExplanation);
+  const checklist = checklistByStatus[status];
 
   if (status === "NEEDS_INFO") {
     return {
@@ -163,9 +232,12 @@ export function buildDecisionViewModel(input: {
         },
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Sonraki adım",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
-        "Eksik görünen alanları tamamlayın. Özellikle vatandaşlık, ikamet, gelir ve hane bilgilerini netleştirmek sonucu iyileştirebilir.",
+        "Önce eksik görünen bilgileri tamamlayın. Sonrasında aynı ekrandan yeniden ön değerlendirme alarak sonucu netleştirebilirsiniz.",
+      checklistTitle: checklist.title,
+      checklistItems: checklist.items,
+      helperLinks: checklist.links,
     };
   }
 
@@ -181,9 +253,12 @@ export function buildDecisionViewModel(input: {
         },
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Sonraki adım",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
         "Başvuru öncesinde gelir, hane ve bakım koşullarına ilişkin bilgilerinizi düzenli biçimde hazırlamanız faydalı olur.",
+      checklistTitle: checklist.title,
+      checklistItems: checklist.items,
+      helperLinks: checklist.links,
     };
   }
 
@@ -198,8 +273,11 @@ export function buildDecisionViewModel(input: {
       },
     secondaryReasons,
     missingInformation,
-    nextStepTitle: "Sonraki adım",
+    nextStepTitle: "Şimdi ne yapmalı?",
     nextStepBody:
-      "Girilen bilgileri tekrar kontrol edin. Özellikle vatandaşlık, ikamet, gelir ve hane bilgilerini doğru girdiğinizden emin olun.",
+      "Önce girilen temel bilgileri yeniden kontrol edin. Özellikle vatandaşlık, ikamet, gelir ve hane verilerindeki farklılıklar sonucu etkileyebilir.",
+    checklistTitle: checklist.title,
+    checklistItems: checklist.items,
+    helperLinks: checklist.links,
   };
 }
