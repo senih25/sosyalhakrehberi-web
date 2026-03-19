@@ -152,8 +152,8 @@ export default function HesaplamaPage() {
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
-            yükleme bu aşamada istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya
+            belge yükleme bu aşamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
