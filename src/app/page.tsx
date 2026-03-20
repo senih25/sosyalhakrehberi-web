@@ -63,6 +63,12 @@ const trustNotes = [
 
 const guideLinks = [
   {
+    href: "/blog",
+    title: "Blog ve rehber yazilari",
+    body:
+      "Testlerden sonra okunabilecek aciklamalari, yol gosterici yazi dizilerini ve rehber icerikleri tek yerde toplar.",
+  },
+  {
     href: "/evde-bakim-maasi",
     title: "Evde Bakim Maasi ana rehberi",
     body:
@@ -217,6 +223,33 @@ export default function Home() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-10 lg:py-8">
+        <article className="card-panel">
+          <p className="eyebrow">Proje bilgisi</p>
+          <h2 className="mt-4 text-2xl font-semibold text-slate-950">
+            Bu yuzey bir kamu kurumu portali degil, sosyal hizmet anlayisiyla kurulan bir rehberlik
+            projesidir
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-700">
+            Sosyal Hak Rehberi resmi karar vermez. Amaci, test sonuclarini sade bir dille sunmak,
+            kullaniciyi ilgili rehber iceriklere yonlendirmek ve ilk adimi daha anlasilir hale
+            getirmektir.
+          </p>
+        </article>
+
+        <aside className="card-panel">
+          <h2 className="text-xl font-semibold text-slate-950">Daha fazla bilgi</h2>
+          <div className="mt-4 flex flex-col gap-3">
+            <Link href="/hakkimizda" className="secondary-link">
+              Hakkimizda sayfasini ac
+            </Link>
+            <Link href="/blog" className="secondary-link">
+              Blog ve rehberleri gor
+            </Link>
+          </div>
+        </aside>
       </section>
     </main>
   );

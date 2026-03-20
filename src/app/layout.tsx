@@ -68,6 +68,12 @@ export default function RootLayout({
                 <Link href="/" className="secondary-link compact-link">
                   Testler
                 </Link>
+                <Link href="/blog" className="secondary-link compact-link">
+                  Blog
+                </Link>
+                <Link href="/hakkimizda" className="secondary-link compact-link">
+                  Hakkimizda
+                </Link>
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
                   Evde Bakim
                 </Link>
@@ -103,6 +109,12 @@ export default function RootLayout({
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                 <Link href="/" className="secondary-link compact-link">
                   Tum testler
+                </Link>
+                <Link href="/blog" className="secondary-link compact-link">
+                  Blog
+                </Link>
+                <Link href="/hakkimizda" className="secondary-link compact-link">
+                  Hakkimizda
                 </Link>
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
                   Evde Bakim rehberi
