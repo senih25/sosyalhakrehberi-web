@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { OldAgeToolPageClient } from "./OldAgeToolPageClient";
 
 export const metadata: Metadata = {
-  title: "65 yas ayligi uygunluk testi",
+  title: "65 yaş aylığı uygunluk testi",
   description:
-    "65 yas ayligi icin daha buyuk yazi, sade form ve backend destekli on degerlendirme sunan public tool page.",
+    "65 yaş aylığı için daha büyük yazı, sade form ve anlaşılır ön değerlendirme sunan sayfa.",
   alternates: {
     canonical: "/65-yas-ayligi-uygunluk-testi",
   },

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog ve rehber yazilari",
+  title: "Blog ve rehber yazıları",
   description:
-    "Sosyal hak testlerinden yonlenebileceginiz rehber yazilari, temel aciklamalar ve basvuru oncesi bilgi sayfalari.",
+    "Sosyal hak testlerinden yönlenebileceğiniz rehber yazıları, temel açıklamalar ve başvuru öncesi bilgi sayfaları.",
   alternates: {
     canonical: "/blog",
   },
@@ -13,34 +13,34 @@ export const metadata: Metadata = {
 const featuredPosts = [
   {
     href: "/evde-bakim-maasi",
-    title: "Evde Bakim Maasi ana rehberi",
-    category: "Evde Bakim",
+    title: "Evde Bakım Maaşı ana rehberi",
+    category: "Evde Bakım",
     body:
-      "On degerlendirme aracindan once veya sonra okunabilecek temel cerceveyi, sinirlari ve sonucu nasil yorumlamaniz gerektigini toplar.",
+      "Ön değerlendirme aracından önce veya sonra okunabilecek temel çerçeveyi, sınırları ve sonucu nasıl yorumlamanız gerektiğini toplar.",
   },
   {
     href: "/gss-gelir-testi/rehber",
     title: "GSS gelir testi rehberi",
     category: "GSS",
     body:
-      "Gelir, sosyal guvence ve sigorta sorularinin neden soruldugunu aciklar; sonuc ekranini sade bir dille yorumlar.",
+      "Gelir, sosyal güvence ve sigorta sorularının neden sorulduğunu açıklar; sonuç ekranını sade bir dille yorumlar.",
   },
   {
     href: "/65-yas-ayligi-uygunluk-testi/rehber",
-    title: "65 Yas Ayligi rehberi",
-    category: "65 Yas",
+    title: "65 Yaş Aylığı rehberi",
+    category: "65 Yaş",
     body:
-      "Yas, gelir, es durumu ve sosyal guvence bilgilerinin neden istendigini ve eksik bilgi sonucunun ne anlattigini aciklar.",
+      "Yaş, gelir, eş durumu ve sosyal güvence bilgilerinin neden istendiğini ve eksik bilgi sonucunun ne anlattığını açıklar.",
   },
 ];
 
 const contentTopics = [
-  "Sartlar ve temel uygunluk basliklari",
-  "Gelir ve hane bilgisini dogru hazirlama",
-  "Basvuru oncesi hazirlik adimlari",
-  "Gerekli belgeleri anlamaya yardimci rehberler",
-  "Ret veya eksik bilgi nedenlerini sade dille aciklayan yazi dizileri",
-  "Sik sorulan sorular ve kisa cevaplar",
+  "Şartlar ve temel uygunluk başlıkları",
+  "Gelir ve hane bilgisini doğru hazırlama",
+  "Başvuru öncesi hazırlık adımları",
+  "Gerekli belgeleri anlamaya yardımcı rehberler",
+  "Ret veya eksik bilgi nedenlerini sade dille açıklayan yazı dizileri",
+  "Sık sorulan sorular ve kısa cevaplar",
 ];
 
 export default function BlogPage() {
@@ -51,19 +51,19 @@ export default function BlogPage() {
           <article className="card-panel">
             <p className="eyebrow">Blog ve Rehberler</p>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Testlerden sonra yolunuzu bulmaniza yardim eden rehber sayfalari
+              Testlerden sonra yolunuzu bulmanıza yardım eden rehber sayfaları
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-700">
-              Bu sayfa sosyal hak testlerinden yonleneceginiz rehber yazilarini bir araya getirir.
-              Amacimiz teknik dili azaltmak, sonraki adimi gostermek ve kullanicinin sitede dogal
-              bicimde ilerlemesini saglamaktir.
+              Bu sayfa sosyal hak testlerinden yönleneceğiniz rehber yazılarını bir araya getirir.
+              Amacımız teknik dili azaltmak, sonraki adımı göstermek ve kullanıcının sitede doğal
+              biçimde ilerlemesini sağlamaktır.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link href="/" className="primary-link">
-                Testlere don
+                Testlere dön
               </Link>
               <Link href="/hakkimizda" className="secondary-link">
-                Hakkimizda
+                Hakkımızda
               </Link>
             </div>
           </article>
@@ -71,15 +71,15 @@ export default function BlogPage() {
           <aside className="card-panel">
             <h2 className="text-xl font-semibold text-slate-950">Bu sayfada ne var?</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Blog yuzeyi kurum duyurusu veya resmi mevzuat servisi degildir. Testlerden sonra
-              kullanicinin anlayacagi dilde aciklama, rehberlik ve bir sonraki adim yonlendirmesi
+              Blog yüzeyi kurum duyurusu veya resmî mevzuat servisi değildir. Testlerden sonra
+              kullanıcının anlayacağı dilde açıklama, rehberlik ve bir sonraki adım yönlendirmesi
               sunar.
             </p>
           </aside>
         </section>
 
         <section className="card-panel">
-          <h2 className="text-2xl font-semibold text-slate-950">One cikan rehberler</h2>
+          <h2 className="text-2xl font-semibold text-slate-950">Öne çıkan rehberler</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {featuredPosts.map((post) => (
               <article key={post.href} className="rounded-2xl bg-slate-50 p-5">
@@ -89,7 +89,7 @@ export default function BlogPage() {
                 <h3 className="mt-3 text-lg font-semibold text-slate-950">{post.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-700">{post.body}</p>
                 <Link href={post.href} className="secondary-link mt-4 inline-flex">
-                  Yaziyi ac
+                  Yazıyı aç
                 </Link>
               </article>
             ))}
@@ -98,7 +98,7 @@ export default function BlogPage() {
 
         <section className="card-panel">
           <h2 className="text-2xl font-semibold text-slate-950">
-            Blog yapisinda isleyecegimiz ana basliklar
+            Blog yapısında işleyeceğimiz ana başlıklar
           </h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {contentTopics.map((topic) => (

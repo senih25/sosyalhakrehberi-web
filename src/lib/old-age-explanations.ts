@@ -28,68 +28,68 @@ const reasonMap: Array<{
   {
     matcher: (code) => code.includes("age"),
     item: {
-      title: "Yas kosulu sonucu etkiliyor",
-      body: "Girilen yas bilgisi 65 yas ayligi on degerlendirmesinde temel kosullardan biridir.",
+      title: "Yaş koşulu sonucu etkiliyor",
+      body: "Girilen yaş bilgisi 65 yaş aylığı ön değerlendirmesinde temel koşullardan biridir.",
     },
   },
   {
     matcher: (code) => code.includes("income"),
     item: {
       title: "Gelir bilgisi sonucu etkiliyor",
-      body: "Kendi geliriniz ve varsa es geliriniz birlikte degerlendirmeyi etkileyebilir.",
+      body: "Kendi geliriniz ve varsa eş geliriniz birlikte değerlendirmeyi etkileyebilir.",
     },
   },
   {
     matcher: (code) => code.includes("social_security"),
     item: {
-      title: "Sosyal guvence bilgisi sonucu etkiliyor",
-      body: "Sosyal guvence durumunuz 65 yas ayligi icin on degerlendirme sonucunu degistirebilir.",
+      title: "Sosyal güvence bilgisi sonucu etkiliyor",
+      body: "Sosyal güvence durumunuz 65 yaş aylığı için ön değerlendirme sonucunu değiştirebilir.",
     },
   },
   {
     matcher: (code) => code.includes("pension"),
     item: {
-      title: "Emekli ayligi bilgisi sonucu etkiliyor",
-      body: "Halen emekli ayligi alip almadiginiz bu testte sonucu etkileyen bilgilerden biridir.",
+      title: "Emekli aylığı bilgisi sonucu etkiliyor",
+      body: "Hâlen emekli aylığı alıp almadığınız bu testte sonucu etkileyen bilgilerden biridir.",
     },
   },
 ];
 
 const missingFactMap: Record<string, OldAgeExplanationItem> = {
   spouse_monthly_income: {
-    title: "Es gelir bilgisini tamamlayin",
-    body: "Eger esiniz varsa, aylik gelir bilgisini girmeniz daha guvenli bir on degerlendirme saglar.",
+    title: "Eş gelir bilgisini tamamlayın",
+    body: "Eğer eşiniz varsa, aylık gelir bilgisini girmeniz daha güvenli bir ön değerlendirme sağlar.",
   },
   age: {
-    title: "Yasinizi girin",
-    body: "Yas bilgisi 65 yas ayligi icin temel kosullardan biridir.",
+    title: "Yaşınızı girin",
+    body: "Yaş bilgisi 65 yaş aylığı için temel koşullardan biridir.",
   },
   has_spouse: {
-    title: "Esiniz olup olmadigini secin",
-    body: "Es durumu gelir bilgisinin nasil yorumlanacagini etkileyebilir.",
+    title: "Eşiniz olup olmadığını seçin",
+    body: "Eş durumu gelir bilgisinin nasıl yorumlanacağını etkileyebilir.",
   },
   has_social_security: {
-    title: "Sosyal guvence durumunu secin",
-    body: "Sosyal guvence bilgisi olmadan sistem eksik bilgi sonucu dondurebilir.",
+    title: "Sosyal güvence durumunu seçin",
+    body: "Sosyal güvence bilgisi olmadan sistem eksik bilgi sonucu döndürebilir.",
   },
   receives_pension: {
-    title: "Emekli ayligi durumunu secin",
-    body: "Mevcut emekli ayligi bilgisi sonuc acisindan etkili olabilir.",
+    title: "Emekli aylığı durumunu seçin",
+    body: "Mevcut emekli aylığı bilgisi sonuç açısından etkili olabilir.",
   },
 };
 
 const fallbackByStatus: Record<EligibilityStatus, OldAgeExplanationItem> = {
   ELIGIBLE: {
-    title: "65 yas ayligi icin olumlu gorunuyor",
-    body: "Mevcut bilgilerle backend motoru olumlu bir on degerlendirme dondurdu.",
+    title: "65 yaş aylığı için olumlu görünüyor",
+    body: "Mevcut bilgilerle değerlendirme sistemi olumlu bir ön değerlendirme döndürdü.",
   },
   NOT_ELIGIBLE: {
-    title: "65 yas ayligi icin uygun gorunmuyor",
-    body: "Mevcut bilgilerle backend motoru olumsuz bir on degerlendirme dondurdu.",
+    title: "65 yaş aylığı için uygun görünmüyor",
+    body: "Mevcut bilgilerle değerlendirme sistemi olumsuz bir ön değerlendirme döndürdü.",
   },
   NEEDS_INFO: {
-    title: "Karar icin ek bilgi gerekiyor",
-    body: "Sistem guvenli bir on karar vermek icin ilave bilgi istiyor.",
+    title: "Karar için ek bilgi gerekiyor",
+    body: "Sistem güvenli bir ön karar vermek için ilave bilgi istiyor.",
   },
 };
 
@@ -107,8 +107,8 @@ function mapReason(reason: DecisionReason, status: EligibilityStatus): OldAgeExp
 function mapMissingFact(fact: MissingFact): OldAgeExplanationItem {
   return (
     missingFactMap[fact.key] ?? {
-      title: "Bir bilgiyi tamamlayin",
-      body: fact.message || "Eksik gorunen bilgiyi netlestirdikten sonra yeniden deneyebilirsiniz.",
+      title: "Bir bilgiyi tamamlayın",
+      body: fact.message || "Eksik görünen bilgiyi netleştirdikten sonra yeniden deneyebilirsiniz.",
     }
   );
 }
@@ -125,18 +125,18 @@ export function buildOldAgeDecisionViewModel(input: {
 
   if (status === "ELIGIBLE") {
     return {
-      title: "65 yas ayligi icin uygun gorunuyorsunuz",
+      title: "65 yaş aylığı için uygun görünüyorsunuz",
       summary:
-        "Backend motoru mevcut bilgilerle olumlu bir on degerlendirme dondurdu. Bu sonuc resmi karar yerine gecmez.",
+        "Değerlendirme sistemi mevcut bilgilerle olumlu bir ön değerlendirme döndürdü. Bu sonuç resmî karar yerine geçmez.",
       primaryReason: primaryReason ?? fallbackByStatus[status],
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
-        "Yas, gelir ve sosyal guvence bilgilerinizi not edin. Basvuru oncesinde resmi kurumdan guncel yonlendirme almaniz faydali olur.",
+        "Yaş, gelir ve sosyal güvence bilgilerinizi not edin. Başvuru öncesinde resmî kurumdan güncel yönlendirme almanız faydalı olur.",
       helperLinks: [
         { href: "/65-yas-ayligi-uygunluk-testi#form-start", label: "Bilgileri yeniden kontrol et" },
-        { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+        { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
       ],
     };
   }
@@ -145,33 +145,33 @@ export function buildOldAgeDecisionViewModel(input: {
     return {
       title: "Daha fazla bilgi gerekli",
       summary:
-        "Sistem mevcut bilgilerle guvenli bir on karar uretemedi. Eksik alanlari tamamlayip tekrar deneyebilirsiniz.",
+        "Sistem mevcut bilgilerle güvenli bir ön karar üretemedi. Eksik alanları tamamlayıp tekrar deneyebilirsiniz.",
       primaryReason: primaryReason ?? fallbackByStatus[status],
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
-        "Ozellikle es durumu ve gelir bilgisi eksikse bunlari netlestirip ayni ekrandan yeniden on degerlendirme alin.",
+        "Özellikle eş durumu ve gelir bilgisi eksikse bunları netleştirip aynı ekrandan yeniden ön değerlendirme alın.",
       helperLinks: [
         { href: "/65-yas-ayligi-uygunluk-testi#form-start", label: "Eksik bilgileri tamamla" },
-        { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+        { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
       ],
     };
   }
 
   return {
-    title: "65 yas ayligi icin uygun gorunmuyorsunuz",
+    title: "65 yaş aylığı için uygun görünmüyorsunuz",
     summary:
-      "Backend motoru girilen bilgilerle olumsuz bir on degerlendirme dondurdu. Bu sonuc resmi kurum karari yerine gecmez.",
+      "Değerlendirme sistemi girilen bilgilerle olumsuz bir ön değerlendirme döndürdü. Bu sonuç resmî kurum kararı yerine geçmez.",
     primaryReason: primaryReason ?? fallbackByStatus[status],
     secondaryReasons,
     missingInformation,
-    nextStepTitle: "Simdi ne yapmali?",
+    nextStepTitle: "Şimdi ne yapmalı?",
     nextStepBody:
-      "Girilen yas, gelir ve sosyal guvence bilgilerini yeniden kontrol edin. Varsa es gelirini de mutlaka dogru girin.",
+      "Girilen yaş, gelir ve sosyal güvence bilgilerini yeniden kontrol edin. Varsa eş gelirini de mutlaka doğru girin.",
     helperLinks: [
-      { href: "/65-yas-ayligi-uygunluk-testi#form-start", label: "Bilgileri duzelterek tekrar dene" },
-      { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+      { href: "/65-yas-ayligi-uygunluk-testi#form-start", label: "Bilgileri düzelterek tekrar dene" },
+      { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
     ],
   };
 }

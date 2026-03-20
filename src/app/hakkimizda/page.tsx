@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Hakkimizda",
+  title: "Hakkımızda",
   description:
-    "Sosyal Hak Rehberi'nin amacini, vizyonunu, misyonunu ve kamu kurumu olmadigina dair acik bilgilendirmeyi iceren sayfa.",
+    "Sosyal Hak Rehberi'nin amacını, vizyonunu, misyonunu ve kamu kurumu olmadığına dair açık bilgilendirmeyi içeren sayfa.",
   alternates: {
     canonical: "/hakkimizda",
   },
@@ -12,32 +12,32 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    title: "Kamu kurumu hizmeti degiliz",
+    title: "Kamu kurumu hizmeti değiliz",
     body:
-      "Sosyal Hak Rehberi resmi bir kurum, kamu portali veya baglayici karar mercii degildir. Sitedeki sonuclar ve yazilar yalnizca on bilgilendirme ve rehberlik amaci tasir.",
+      "Sosyal Hak Rehberi resmî bir kurum, kamu portalı veya bağlayıcı karar mercii değildir. Sitedeki sonuçlar ve yazılar yalnızca ön bilgilendirme ve rehberlik amacı taşır.",
   },
   {
-    title: "Sosyal hizmet anlayisiyla hareket ediyoruz",
+    title: "Sosyal hizmet anlayışıyla hareket ediyoruz",
     body:
-      "Amacimiz sosyal haklara erisimi kolaylastirmak, karmasik basliklari anlasilir dile cevirmek ve kullanicinin ilk adimi daha guvenli atmasina yardim etmektir.",
+      "Amacımız sosyal haklara erişimi kolaylaştırmak, karmaşık başlıkları anlaşılır dile çevirmek ve kullanıcının ilk adımı daha güvenli atmasına yardım etmektir.",
   },
   {
-    title: "Karar kurallari bu sayfada kurulmaz",
+    title: "Karar kuralları bu sayfada kurulmaz",
     body:
-      "Bu site resmi karar vermez. Gosterilen on degerlendirme, ayrica kurulan degerlendirme yapisindan gelir ve burada yeniden hesaplanmaz.",
+      "Bu site resmî karar vermez. Gösterilen ön değerlendirme, ayrıca kurulan değerlendirme yapısından gelir ve burada yeniden hesaplanmaz.",
   },
 ];
 
 const missionItems = [
-  "Sosyal hak basliklarini daha anlasilir hale getirmek",
-  "Dusuk dijital yeterlilikte kullanicilar icin sade arayuzler kurmak",
-  "Test sonucu ile rehber icerigi arasinda dogal bir akis saglamak",
+  "Sosyal hak başlıklarını daha anlaşılır hale getirmek",
+  "Düşük dijital yeterlilikte kullanıcılar için sade arayüzler kurmak",
+  "Test sonucu ile rehber içeriği arasında doğal bir akış sağlamak",
 ];
 
 const visionItems = [
-  "Sosyal haklara erisimde guvenilir bir yol gosterici yuz olmak",
-  "Test ve rehber deneyimini tek bir anlasilir yuzeyde bulusturmak",
-  "Kullaniciya teknik degil, yonlendirici ve saygili bir deneyim sunmak",
+  "Sosyal haklara erişimde güvenilir bir yol gösterici yüz olmak",
+  "Test ve rehber deneyimini tek bir anlaşılır yüzeyde buluşturmak",
+  "Kullanıcıya teknik değil, yönlendirici ve saygılı bir deneyim sunmak",
 ];
 
 export default function AboutPage() {
@@ -46,31 +46,31 @@ export default function AboutPage() {
       <div className="mx-auto max-w-5xl space-y-8">
         <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <article className="card-panel">
-            <p className="eyebrow">Hakkimizda</p>
+            <p className="eyebrow">Hakkımızda</p>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Sosyal Hak Rehberi, kamu kurumu hizmeti degil; sosyal hizmet anlayisiyla kurulan bir
+              Sosyal Hak Rehberi, kamu kurumu hizmeti değil; sosyal hizmet anlayışıyla kurulan bir
               rehberlik projesidir
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-700">
-              Bu proje, sosyal hak basliklarina ulasmak isteyen kisilerin test, aciklama ve rehber
-              icerikleri ayni yerde bulabilmesi icin kuruldu. Amacimiz resmi kurum yerine gecmek
-              degil; ilk adimi daha anlasilir, daha sakin ve daha guvenli hale getirmektir.
+              Bu proje, sosyal hak başlıklarına ulaşmak isteyen kişilerin test, açıklama ve rehber
+              içerikleri aynı yerde bulabilmesi için kuruldu. Amacımız resmî kurum yerine geçmek
+              değil; ilk adımı daha anlaşılır, daha sakin ve daha güvenli hale getirmektir.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link href="/" className="primary-link">
-                Testlere don
+                Testlere dön
               </Link>
               <Link href="/blog" className="secondary-link">
-                Blog ve rehberleri gor
+                Blog ve rehberleri gör
               </Link>
             </div>
           </article>
 
           <aside className="card-panel">
-            <h2 className="text-xl font-semibold text-slate-950">Acik not</h2>
+            <h2 className="text-xl font-semibold text-slate-950">Açık not</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Buradaki sonuc ekranlari resmi karar yerine gecmez. Nihai hak sahipligi, ilgili kurum
-              incelemesi ve guncel uygulama cercevesinde belirlenir.
+              Buradaki sonuç ekranları resmî karar yerine geçmez. Nihai hak sahipliği, ilgili kurum
+              incelemesi ve güncel uygulama çerçevesinde belirlenir.
             </p>
           </aside>
         </section>

@@ -29,74 +29,74 @@ const reasonMap: Array<{
     matcher: (code) => code.includes("active_insurance"),
     item: {
       title: "Aktif sigorta durumu sonucu etkiliyor",
-      body: "Aktif sigortaniz varsa GSS gelir testi ihtiyaci farkli degerlendirilebilir.",
+      body: "Aktif sigortanız varsa GSS gelir testi ihtiyacı farklı değerlendirilebilir.",
     },
   },
   {
     matcher: (code) => code.includes("social_security"),
     item: {
-      title: "Sosyal guvence bilgisi sonucu etkiliyor",
-      body: "Sosyal guvence durumunuz GSS gelir testi gerekip gerekmedigini etkileyebilir.",
+      title: "Sosyal güvence bilgisi sonucu etkiliyor",
+      body: "Sosyal güvence durumunuz GSS gelir testi gerekip gerekmediğini etkileyebilir.",
     },
   },
   {
     matcher: (code) => code.includes("dependent"),
     item: {
-      title: "Bakmakla yukumluluk durumu sonucu etkiliyor",
-      body: "Bir yakin uzerinden kapsamdaysaniz GSS gelir testi ihtiyaci farkli olabilir.",
+      title: "Bakmakla yükümlülük durumu sonucu etkiliyor",
+      body: "Bir yakın üzerinden kapsamdaysanız GSS gelir testi ihtiyacı farklı olabilir.",
     },
   },
   {
     matcher: (code) => code.includes("income"),
     item: {
       title: "Gelir bilgisi sonucu etkiliyor",
-      body: "Girilen gelir bilgisi GSS gelir testi on degerlendirmesinde belirleyici gorunuyor.",
+      body: "Girilen gelir bilgisi GSS gelir testi ön değerlendirmesinde belirleyici görünüyor.",
     },
   },
   {
     matcher: (code) => code.includes("household"),
     item: {
       title: "Hane bilgisi sonucu etkiliyor",
-      body: "Hanedeki kisi sayisi ve toplam gelir birlikte degerlendirmeyi etkileyebilir.",
+      body: "Hanedeki kişi sayısı ve toplam gelir birlikte değerlendirmeyi etkileyebilir.",
     },
   },
 ];
 
 const missingFactMap: Record<string, GssExplanationItem> = {
   has_social_security: {
-    title: "Sosyal guvence bilginizi netlestirin",
-    body: "Sosyal guvenceniz olup olmadigini secerseniz sistem daha net bir on degerlendirme sunabilir.",
+    title: "Sosyal güvence bilginizi netleştirin",
+    body: "Sosyal güvenceniz olup olmadığını seçerseniz sistem daha net bir ön değerlendirme sunabilir.",
   },
   has_active_insurance: {
-    title: "Aktif sigorta durumunu secin",
-    body: "Aktif sigorta bilgisi GSS gelir testi ihtiyacini dogrudan etkileyebilir.",
+    title: "Aktif sigorta durumunu seçin",
+    body: "Aktif sigorta bilgisi GSS gelir testi ihtiyacını doğrudan etkileyebilir.",
   },
   is_covered_as_dependent: {
-    title: "Yakin uzerinden kapsam durumunu secin",
-    body: "Bir yakin uzerinden saglik guvencesi kapsamindaysaniz sonucu etkileyebilir.",
+    title: "Yakın üzerinden kapsam durumunu seçin",
+    body: "Bir yakın üzerinden sağlık güvencesi kapsamındaysanız sonucu etkileyebilir.",
   },
   gross_household_income: {
     title: "Toplam hane gelirini girin",
-    body: "Brut toplam hane geliri GSS gelir testinde sorulan temel bilgilerden biridir.",
+    body: "Brüt toplam hane geliri GSS gelir testinde sorulan temel bilgilerden biridir.",
   },
   household_size: {
-    title: "Hanedeki kisi sayisini girin",
-    body: "Hanedeki kisi sayisi gelir bilgisinin yorumlanmasinda kullanilir.",
+    title: "Hanedeki kişi sayısını girin",
+    body: "Hanedeki kişi sayısı gelir bilgisinin yorumlanmasında kullanılır.",
   },
 };
 
 const fallbackByStatus: Record<EligibilityStatus, GssExplanationItem> = {
   ELIGIBLE: {
-    title: "GSS gelir testi acisindan olumlu gorunuyor",
-    body: "Mevcut bilgilerle backend motoru GSS gelir testi icin olumlu bir on degerlendirme dondurdu.",
+    title: "GSS gelir testi açısından olumlu görünüyor",
+    body: "Mevcut bilgilerle değerlendirme sistemi GSS gelir testi için olumlu bir ön değerlendirme döndürdü.",
   },
   NOT_ELIGIBLE: {
-    title: "GSS gelir testi acisindan farkli bir durum gorunuyor",
-    body: "Mevcut bilgilerle backend motoru GSS gelir testi icin olumsuz bir on degerlendirme dondurdu.",
+    title: "GSS gelir testi açısından farklı bir durum görünüyor",
+    body: "Mevcut bilgilerle değerlendirme sistemi GSS gelir testi için olumsuz bir ön değerlendirme döndürdü.",
   },
   NEEDS_INFO: {
     title: "Daha fazla bilgi gerekli",
-    body: "Sistem guvenli bir on karar icin ek bilgiye ihtiyac duyuyor.",
+    body: "Sistem güvenli bir ön karar için ek bilgiye ihtiyaç duyuyor.",
   },
 };
 
@@ -114,8 +114,8 @@ function mapReason(reason: DecisionReason, status: EligibilityStatus): GssExplan
 function mapMissingFact(fact: MissingFact): GssExplanationItem {
   return (
     missingFactMap[fact.key] ?? {
-      title: "Bir bilgiyi tamamlayin",
-      body: fact.message || "Eksik gorunen bilgiyi netlestirdikten sonra yeniden deneyebilirsiniz.",
+      title: "Bir bilgiyi tamamlayın",
+      body: fact.message || "Eksik görünen bilgiyi netleştirdikten sonra yeniden deneyebilirsiniz.",
     }
   );
 }
@@ -132,53 +132,53 @@ export function buildGssDecisionViewModel(input: {
 
   if (status === "ELIGIBLE") {
     return {
-      title: "GSS gelir testi icin uygun gorunuyorsunuz",
+      title: "GSS gelir testi için uygun görünüyorsunuz",
       summary:
-        "Backend motoru mevcut bilgilerle olumlu bir on degerlendirme uretti. Bu sonuc resmi karar yerine gecmez.",
+        "Değerlendirme sistemi mevcut bilgilerle olumlu bir ön değerlendirme üretti. Bu sonuç resmî karar yerine geçmez.",
       primaryReason: primaryReason ?? fallbackByStatus[status],
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
-        "Sosyal guvence ve gelir bilginizi not edin, sonra basvuru veya bilgi alma surecinde resmi kurum yonlendirmesini takip edin.",
+        "Sosyal güvence ve gelir bilginizi not edin, sonra başvuru veya bilgi alma sürecinde resmî kurum yönlendirmesini takip edin.",
       helperLinks: [
         { href: "/gss-gelir-testi#form-start", label: "Bilgileri yeniden kontrol et" },
-        { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+        { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
       ],
     };
   }
 
   if (status === "NEEDS_INFO") {
     return {
-      title: "Karar icin ek bilgi gerekli",
+      title: "Karar için ek bilgi gerekli",
       summary:
-        "Sistem, mevcut bilgilerle guvenli bir GSS gelir testi sonucu uretemedi. Eksik veya emin olmadiginiz alanlari tamamlayin.",
+        "Sistem, mevcut bilgilerle güvenli bir GSS gelir testi sonucu üretemedi. Eksik veya emin olmadığınız alanları tamamlayın.",
       primaryReason: primaryReason ?? fallbackByStatus[status],
       secondaryReasons,
       missingInformation,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalı?",
       nextStepBody:
-        "Sosyal guvence, aktif sigorta ve yakin uzerinden kapsam sorularini netlestirip ayni ekrandan tekrar deneyin.",
+        "Sosyal güvence, aktif sigorta ve yakın üzerinden kapsam sorularını netleştirip aynı ekrandan tekrar deneyin.",
       helperLinks: [
         { href: "/gss-gelir-testi#form-start", label: "Eksik bilgileri tamamla" },
-        { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+        { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
       ],
     };
   }
 
   return {
-    title: "GSS gelir testi icin uygun gorunmuyorsunuz",
+    title: "GSS gelir testi için uygun görünmüyorsunuz",
     summary:
-      "Backend motoru girilen bilgilerle olumsuz bir on degerlendirme dondurdu. Bu sonuc resmi kurum karari yerine gecmez.",
+      "Değerlendirme sistemi girilen bilgilerle olumsuz bir ön değerlendirme döndürdü. Bu sonuç resmî kurum kararı yerine geçmez.",
     primaryReason: primaryReason ?? fallbackByStatus[status],
     secondaryReasons,
     missingInformation,
-    nextStepTitle: "Simdi ne yapmali?",
+    nextStepTitle: "Şimdi ne yapmalı?",
     nextStepBody:
-      "Girilen bilgileri yeniden kontrol edin. Ozellikle aktif sigorta, sosyal guvence ve yakin uzerinden kapsam durumu sonucu degistirebilir.",
+      "Girilen bilgileri yeniden kontrol edin. Özellikle aktif sigorta, sosyal güvence ve yakın üzerinden kapsam durumu sonucu değiştirebilir.",
     helperLinks: [
-      { href: "/gss-gelir-testi#form-start", label: "Bilgileri duzelterek tekrar dene" },
-      { href: "/#hangi-testi-secmeliyim", label: "Diger testlere don" },
+      { href: "/gss-gelir-testi#form-start", label: "Bilgileri düzelterek tekrar dene" },
+      { href: "/#hangi-testi-secmeliyim", label: "Diğer testlere dön" },
     ],
   };
 }

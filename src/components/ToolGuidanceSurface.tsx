@@ -33,16 +33,14 @@ export function ToolGuidanceSurface({
         ) : null}
 
         <article className="rounded-2xl bg-white/70 p-4">
-          <h3 className="text-base font-semibold text-slate-950">Ilgili rehberler</h3>
+          <h3 className="text-base font-semibold text-slate-950">İlgili rehberler</h3>
           <div className="mt-3 space-y-3">
             {model.relatedGuides.map((guide) => (
               <article key={`${guide.href}-${guide.label}`} className="rounded-2xl bg-white/80 p-3">
                 <Link
                   href={guide.href}
                   className="secondary-link inline-flex"
-                  onClick={() =>
-                    analytics.trackLinkClick("guidance", "guide", guide.href)
-                  }
+                  onClick={() => analytics.trackLinkClick("guidance", "guide", guide.href)}
                 >
                   {guide.label}
                 </Link>
@@ -53,16 +51,14 @@ export function ToolGuidanceSurface({
         </article>
 
         <article className="rounded-2xl bg-white/70 p-4">
-          <h3 className="text-base font-semibold text-slate-950">Diger testler</h3>
+          <h3 className="text-base font-semibold text-slate-950">Diğer testler</h3>
           <div className="mt-3 space-y-3">
             {model.otherTests.map((otherTool) => (
               <article key={`${otherTool.href}-${otherTool.label}`} className="rounded-2xl bg-white/80 p-3">
                 <Link
                   href={otherTool.href}
                   className="secondary-link inline-flex"
-                  onClick={() =>
-                    analytics.trackLinkClick("guidance", "tool", otherTool.href)
-                  }
+                  onClick={() => analytics.trackLinkClick("guidance", "tool", otherTool.href)}
                 >
                   {otherTool.label}
                 </Link>

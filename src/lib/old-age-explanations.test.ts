@@ -15,7 +15,7 @@ test("maps age-related not eligible reasons into user-facing copy", () => {
     missingFacts: [],
   });
 
-  assert.equal(model.primaryReason?.title, "Yas kosulu sonucu etkiliyor");
+  assert.equal(model.primaryReason?.title, "Yaş koşulu sonucu etkiliyor");
 });
 
 test("maps spouse income missing facts into completion guidance", () => {
@@ -30,7 +30,7 @@ test("maps spouse income missing facts into completion guidance", () => {
     ],
   });
 
-  assert.equal(model.missingInformation[0]?.title, "Es gelir bilgisini tamamlayin");
+  assert.equal(model.missingInformation[0]?.title, "Eş gelir bilgisini tamamlayın");
   assert.equal(model.helperLinks[0]?.href, "/65-yas-ayligi-uygunluk-testi#form-start");
 });
 
@@ -48,5 +48,5 @@ test("uses safe fallback text for unknown old-age reason codes", () => {
   });
 
   assert.doesNotMatch(model.primaryReason?.body ?? "", /UNMAPPED_REASON/);
-  assert.match(model.title, /uygun gorunuyorsunuz/i);
+  assert.match(model.title, /uygun görünüyorsunuz/i);
 });

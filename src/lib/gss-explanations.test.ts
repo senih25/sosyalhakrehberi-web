@@ -16,7 +16,7 @@ test("maps active insurance reasons into user-facing GSS copy", () => {
   });
 
   assert.equal(model.primaryReason?.title, "Aktif sigorta durumu sonucu etkiliyor");
-  assert.match(model.summary, /olumsuz bir on degerlendirme/i);
+  assert.match(model.summary, /olumsuz bir ön değerlendirme/i);
 });
 
 test("maps missing GSS facts into completion guidance", () => {
@@ -31,7 +31,7 @@ test("maps missing GSS facts into completion guidance", () => {
     ],
   });
 
-  assert.equal(model.missingInformation[0]?.title, "Sosyal guvence bilginizi netlestirin");
+  assert.equal(model.missingInformation[0]?.title, "Sosyal güvence bilginizi netleştirin");
   assert.equal(model.helperLinks[0]?.href, "/gss-gelir-testi#form-start");
 });
 
@@ -49,5 +49,5 @@ test("uses safe fallback text for unknown GSS reason codes", () => {
   });
 
   assert.doesNotMatch(model.primaryReason?.body ?? "", /UNMAPPED_REASON/);
-  assert.match(model.title, /uygun gorunuyorsunuz/i);
+  assert.match(model.title, /uygun görünüyorsunuz/i);
 });

@@ -22,14 +22,14 @@ const statusTone: Record<EligibilityStatus, string> = {
 };
 
 const statusBadgeCopy: Record<EligibilityStatus, string> = {
-  ELIGIBLE: "On degerlendirme olumlu",
+  ELIGIBLE: "Ön değerlendirme olumlu",
   NOT_ELIGIBLE: "Bilgileri yeniden kontrol edin",
-  NEEDS_INFO: "Eksik bilgi tamamlanmali",
+  NEEDS_INFO: "Eksik bilgi tamamlanmalı",
 };
 
 const triStateOptions: Array<{ label: string; value: TriStateAttestation }> = [
   { label: "Evet", value: true },
-  { label: "Hayir", value: false },
+  { label: "Hayır", value: false },
   { label: "Bilmiyorum", value: null },
 ];
 
@@ -42,7 +42,7 @@ function resultPrimaryAction(status: EligibilityStatus) {
   }
 
   return {
-    label: "Ana sayfada diger testleri gor",
+    label: "Ana sayfada diğer testleri gör",
     href: "/#hangi-testi-secmeliyim",
   };
 }
@@ -126,7 +126,7 @@ export function GssToolPageClient() {
         setError(err.message);
         setFieldErrors(err.details ?? null);
       } else {
-        setError("Beklenmeyen bir hata olustu. Lutfen daha sonra tekrar deneyin.");
+        setError("Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
       }
     } finally {
       setIsSubmitting(false);
@@ -150,106 +150,97 @@ export function GssToolPageClient() {
         <section className="card-panel">
           <p className="eyebrow">GSS Gelir Testi</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-            GSS gelir testi icin hizli ve aciklayici on degerlendirme
+            GSS gelir testi için hızlı ve açıklayıcı ön değerlendirme
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">
-            Bu sayfa resmi karar vermez. Girdiginiz bilgiler degerlendirilir, sonuc size sade bir dille gosterilir ve sonraki adim anlatilir.
+            Bu sayfa resmî karar vermez. Girdiğiniz bilgiler değerlendirilir, sonuç size sade bir
+            dille gösterilir ve sonraki adım anlatılır.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Yalnizca temel bilgiler sorulur: toplam hane geliri, hanedeki kisi sayisi ve sosyal
-            guvence durumu. Emin olmadiginiz sorularda Bilmiyorum secenegini kullanabilirsiniz.
+            Yalnızca temel bilgiler sorulur: toplam hane geliri, hanedeki kişi sayısı ve sosyal
+            güvence durumu. Emin olmadığınız sorularda Bilmiyorum seçeneğini kullanabilirsiniz.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
             <label className="form-field">
-              <span>Brut toplam hane geliri (aylik)</span>
+              <span>Brüt toplam hane geliri (aylık)</span>
               <input
                 type="number"
                 min="0"
                 value={form.grossHouseholdIncome}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      grossHouseholdIncome: event.target.value,
-                    }));
-                  }
-                }
-                placeholder="Orn. 30000"
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    grossHouseholdIncome: event.target.value,
+                  }));
+                }}
+                placeholder="Örn. 30000"
               />
             </label>
 
             <label className="form-field">
-              <span>Hanedeki kisi sayisi</span>
+              <span>Hanedeki kişi sayısı</span>
               <input
                 type="number"
                 min="1"
                 value={form.householdSize}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      householdSize: event.target.value,
-                    }));
-                  }
-                }
-                placeholder="Orn. 3"
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    householdSize: event.target.value,
+                  }));
+                }}
+                placeholder="Örn. 3"
               />
             </label>
           </div>
 
           <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm font-medium text-slate-900">Sosyal guvence durumu</p>
+            <p className="text-sm font-medium text-slate-900">Sosyal güvence durumu</p>
             <p className="mt-2 text-xs leading-6 text-slate-600">
-              Bu sorulari bilmiyorsaniz Bilmiyorum secenegi degerlendirme sirasinda eksik bilgi olarak
-              ele alinir. Sayfa sizin yerinize tahmin yurutmez.
+              Bu soruları bilmiyorsanız Bilmiyorum seçeneği değerlendirme sırasında eksik bilgi
+              olarak ele alınır. Sayfa sizin yerinize tahmin yürütmez.
             </p>
 
             <div className="mt-4 grid gap-5">
               <TriStateField
-                legend="Herhangi bir sosyal guvenceniz var mi?"
+                legend="Herhangi bir sosyal güvenceniz var mı?"
                 name="hasSocialSecurity"
                 value={form.hasSocialSecurity}
-                onChange={(value) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      hasSocialSecurity: value,
-                    }));
-                  }
-                }
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    hasSocialSecurity: value,
+                  }));
+                }}
               />
               <TriStateField
-                legend="Aktif sigortaniz var mi?"
+                legend="Aktif sigortanız var mı?"
                 name="hasActiveInsurance"
                 value={form.hasActiveInsurance}
-                onChange={(value) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      hasActiveInsurance: value,
-                    }));
-                  }
-                }
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    hasActiveInsurance: value,
+                  }));
+                }}
               />
               <TriStateField
-                legend="Bir yakin uzerinden saglik kapsaminda misiniz?"
+                legend="Bir yakın üzerinden sağlık kapsamında mısınız?"
                 name="isCoveredAsDependent"
                 value={form.isCoveredAsDependent}
-                onChange={(value) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      isCoveredAsDependent: value,
-                    }));
-                  }
-                }
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isCoveredAsDependent: value,
+                  }));
+                }}
               />
             </div>
           </div>
@@ -261,7 +252,7 @@ export function GssToolPageClient() {
               disabled={isSubmitting}
               className="primary-button"
             >
-              {isSubmitting ? "Degerlendiriliyor..." : "GSS on degerlendirmesini calistir"}
+              {isSubmitting ? "Değerlendiriliyor..." : "GSS ön değerlendirmesini çalıştır"}
             </button>
             <button
               type="button"
@@ -279,7 +270,7 @@ export function GssToolPageClient() {
 
           {error ? (
             <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
-              <p className="font-semibold">Istek tamamlanamadi</p>
+              <p className="font-semibold">İstek tamamlanamadı</p>
               <p className="mt-2 leading-7">{error}</p>
               {fieldErrors ? (
                 <ul className="mt-3 space-y-1">
@@ -292,8 +283,7 @@ export function GssToolPageClient() {
               ) : null}
               {hasConfigError ? (
                 <p className="mt-3 leading-7">
-                  Frontend deploy ortaminda backend base URL tanimlanmadan bu arac canliya
-                  alinmamali.
+                  Değerlendirme bağlantısı tanımlanmadan bu araç canlıya alınmamalı.
                 </p>
               ) : null}
             </div>
@@ -317,7 +307,7 @@ export function GssToolPageClient() {
 
               <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
                 <div className="rounded-2xl bg-white/70 p-5">
-                  <h3 className="font-semibold">Bu sonuc ne anlatiyor?</h3>
+                  <h3 className="font-semibold">Bu sonuç ne anlatıyor?</h3>
                   {decisionView.primaryReason ? (
                     <div className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-4">
                       <p className="text-sm font-medium">{decisionView.primaryReason.title}</p>
@@ -338,7 +328,7 @@ export function GssToolPageClient() {
 
                   {decisionView.missingInformation.length > 0 ? (
                     <div className="mt-4 rounded-2xl bg-white/70 p-4">
-                      <h4 className="text-sm font-medium">Tamamlanmasi iyi olacak bilgiler</h4>
+                      <h4 className="text-sm font-medium">Tamamlanması iyi olacak bilgiler</h4>
                       <ul className="mt-3 space-y-3 text-sm leading-7">
                         {decisionView.missingInformation.map((fact) => (
                           <li key={`${fact.title}-${fact.body}`}>
@@ -377,36 +367,36 @@ export function GssToolPageClient() {
 
         <aside className="space-y-6">
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">On degerlendirme notu</h2>
+            <h2 className="text-lg font-semibold text-slate-950">Ön değerlendirme notu</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Bu test resmi kurum karari yerine gecmez. Sonuc ekrani size sadece bugunku bilgilerle
-              nasil bir yon ciktigini sade bicimde gosterir.
+              Bu test resmî kurum kararı yerine geçmez. Sonuç ekranı size sadece bugünkü bilgilerle
+              nasıl bir yön çıktığını sade biçimde gösterir.
             </p>
           </div>
 
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Bu testte hangi bilgiler sorulur?</h2>
             <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-700">
-              <li>Brut toplam hane geliri</li>
-              <li>Hanedeki kisi sayisi</li>
-              <li>Sosyal guvence durumu</li>
+              <li>Brüt toplam hane geliri</li>
+              <li>Hanedeki kişi sayısı</li>
+              <li>Sosyal güvence durumu</li>
               <li>Aktif sigorta bilgisi</li>
-              <li>Yakin uzerinden kapsam durumu</li>
+              <li>Yakın üzerinden kapsam durumu</li>
             </ul>
           </div>
 
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Kisa rehberlik</h2>
+            <h2 className="text-lg font-semibold text-slate-950">Kısa rehberlik</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Sonuc ekrani sonrasinda diger testlere donebilir veya ana sayfadan size daha uygun
-              olabilecek araci secebilirsiniz.
+              Sonuç ekranı sonrasında diğer testlere dönebilir veya ana sayfadan size daha uygun
+              olabilecek aracı seçebilirsiniz.
             </p>
             <div className="mt-4 flex flex-col gap-3">
               <Link href="/" className="secondary-link inline-flex">
-                Tum testlere don
+                Tüm testlere dön
               </Link>
               <Link href="/evde-bakim-maasi" className="secondary-link inline-flex">
-                Ornek canli rehber akisini gor
+                Örnek canlı rehber akışını gör
               </Link>
             </div>
           </div>
@@ -415,6 +405,3 @@ export function GssToolPageClient() {
     </main>
   );
 }
-
-
-

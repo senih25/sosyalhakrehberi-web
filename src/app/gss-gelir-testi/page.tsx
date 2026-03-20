@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { GssToolPageClient } from "./GssToolPageClient";
 
 export const metadata: Metadata = {
-  title: "GSS gelir testi uygunluk araci",
+  title: "GSS gelir testi uygunluk aracı",
   description:
-    "GSS gelir testi icin backend destekli, SEO uyumlu ve kullanimi kolay on degerlendirme araci.",
+    "GSS gelir testi için anlaşılır, kolay kullanımlı ve ön değerlendirme odaklı bir sayfa.",
   alternates: {
     canonical: "/gss-gelir-testi",
   },

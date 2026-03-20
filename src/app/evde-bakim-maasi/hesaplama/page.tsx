@@ -202,11 +202,14 @@ export default function HesaplamaPage() {
             Evde bakım maaşı için ön değerlendirme
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-700">
-            Bu arac resmi karar vermez. Tam bagimli bakim ihtiyacina yonelik sorularla on degerlendirme yapar ve sonucu aciklayici bicimde sunar.
+            Bu araç resmî karar vermez. Tam bağımlı bakım ihtiyacına yönelik sorularla ön
+            değerlendirme yapar ve sonucu açıklayıcı biçimde sunar.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnizca gerekli temel bilgiler istenir. Tam bagimlilik, gelir, hane ve temel durum bilgileri disinda kimlik numarasi, acik adres veya belge yukleme bu asamada istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Tam bağımlılık, gelir, hane ve temel
+            durum bilgileri dışında kimlik numarası, açık adres veya belge yükleme bu aşamada
+            istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
@@ -217,15 +220,13 @@ export default function HesaplamaPage() {
                 min="0"
                 max="100"
                 value={form.disabilityRate}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      disabilityRate: event.target.value,
-                    }));
-                  }
-                }
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    disabilityRate: event.target.value,
+                  }));
+                }}
                 placeholder="Örn. 80"
               />
             </label>
@@ -236,15 +237,13 @@ export default function HesaplamaPage() {
                 type="number"
                 min="0"
                 value={form.householdIncome}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      householdIncome: event.target.value,
-                    }));
-                  }
-                }
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    householdIncome: event.target.value,
+                  }));
+                }}
                 placeholder="Örn. 10000"
               />
             </label>
@@ -255,15 +254,13 @@ export default function HesaplamaPage() {
                 type="number"
                 min="1"
                 value={form.householdSize}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      householdSize: event.target.value,
-                    }));
-                  }
-                }
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    householdSize: event.target.value,
+                  }));
+                }}
                 placeholder="Örn. 4"
               />
             </label>
@@ -271,38 +268,34 @@ export default function HesaplamaPage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm font-medium text-slate-900">Temel doğrulamalar</p>
               <p className="mt-2 text-xs leading-6 text-slate-600">
-                Emin değilseniz Bilmiyorum seçeneğini kullanın. Frontend tahmin üretmez; bilgi
-                backend&apos;e bilinmiyor olarak gönderilir.
+                Emin değilseniz Bilmiyorum seçeneğini kullanın. Sayfa tahmin üretmez; bilgi
+                değerlendirme sistemine bilinmiyor olarak gönderilir.
               </p>
               <TriStateField
                 className="mt-4"
                 legend="Türkiye Cumhuriyeti vatandaşlık durumu"
                 name="isTurkishCitizen"
                 value={form.isTurkishCitizen}
-                onChange={(value) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      isTurkishCitizen: value,
-                    }));
-                  }
-                }
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isTurkishCitizen: value,
+                  }));
+                }}
               />
               <TriStateField
                 className="mt-4"
                 legend="Türkiye&apos;de ikamet durumu"
                 name="isResidentInTr"
                 value={form.isResidentInTr}
-                onChange={(value) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      isResidentInTr: value,
-                    }));
-                  }
-                }
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isResidentInTr: value,
+                  }));
+                }}
               />
             </div>
           </div>
@@ -342,7 +335,7 @@ export default function HesaplamaPage() {
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-7">
                 Bu adım yalnızca rehberlik içindir. Nihai karar bu ekranda verilmez; değerlendirme
-                yine backend motoru tarafından yapılır.
+                yine değerlendirme sistemi tarafından yapılır.
               </p>
 
               <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -377,8 +370,8 @@ export default function HesaplamaPage() {
 
               <ul className="mt-5 space-y-2 text-sm leading-7">
                 <li>Bu özet bilgilendirme amaçlıdır; uygunluk veya uygunsuzluk kararı vermez.</li>
-                <li>Resmi eşik ve threshold davranışı degerlendirme sirasinda authoritative olarak değerlendirilir.</li>
-                <li>Bilgiler doğruysa yine de devam ederek backend ön değerlendirmesini alabilirsiniz.</li>
+                <li>Resmî eşik davranışı değerlendirme sırasında yetkili sistem tarafından ele alınır.</li>
+                <li>Bilgiler doğruysa yine de devam ederek ön değerlendirme sonucunu alabilirsiniz.</li>
               </ul>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -420,8 +413,7 @@ export default function HesaplamaPage() {
               ) : null}
               {hasConfigError ? (
                 <p className="mt-3 leading-7">
-                  Frontend deploy ortamında backend base URL tanımlanmadan bu araç canlıya
-                  alınmamalı.
+                  Değerlendirme bağlantısı tanımlanmadan bu araç canlıya alınmamalı.
                 </p>
               ) : null}
             </div>
@@ -546,7 +538,7 @@ export default function HesaplamaPage() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Önemli not</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Bu araç resmi kurum kararı yerine geçmez. Sonuçlar yalnızca başvuru öncesi ön
+              Bu araç resmî kurum kararı yerine geçmez. Sonuçlar yalnızca başvuru öncesi ön
               değerlendirme ve bilgi amaçlıdır.
             </p>
           </div>
@@ -554,7 +546,7 @@ export default function HesaplamaPage() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Veri yaklaşımı</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Kimlik numarası, açık adres veya belge yükleme istenmez. MVP yalnızca gerekli temel
+              Kimlik numarası, açık adres veya belge yükleme istenmez. Bu akış yalnızca gerekli temel
               değerlendirme alanlarını kullanır.
             </p>
           </div>
@@ -572,9 +564,3 @@ export default function HesaplamaPage() {
     </main>
   );
 }
-
-
-
-
-
-

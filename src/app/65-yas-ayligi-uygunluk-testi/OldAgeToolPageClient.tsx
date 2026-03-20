@@ -22,14 +22,14 @@ const statusTone: Record<EligibilityStatus, string> = {
 };
 
 const statusBadgeCopy: Record<EligibilityStatus, string> = {
-  ELIGIBLE: "On degerlendirme olumlu",
+  ELIGIBLE: "Ön değerlendirme olumlu",
   NOT_ELIGIBLE: "Bilgileri yeniden kontrol edin",
-  NEEDS_INFO: "Eksik bilgi tamamlanmali",
+  NEEDS_INFO: "Eksik bilgi tamamlanmalı",
 };
 
 const triStateOptions: Array<{ label: string; value: TriStateAttestation }> = [
   { label: "Evet", value: true },
-  { label: "Hayir", value: false },
+  { label: "Hayır", value: false },
   { label: "Bilmiyorum", value: null },
 ];
 
@@ -82,7 +82,7 @@ function resultPrimaryAction(status: EligibilityStatus) {
   }
 
   return {
-    label: "Diger testlere don",
+    label: "Diğer testlere dön",
     href: "/#hangi-testi-secmeliyim",
   };
 }
@@ -126,7 +126,7 @@ export function OldAgeToolPageClient() {
         setError(err.message);
         setFieldErrors(err.details ?? null);
       } else {
-        setError("Beklenmeyen bir hata olustu. Lutfen daha sonra tekrar deneyin.");
+        setError("Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
       }
     } finally {
       setIsSubmitting(false);
@@ -148,126 +148,115 @@ export function OldAgeToolPageClient() {
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <section className="card-panel">
-          <p className="eyebrow">65 Yas Ayligi Testi</p>
+          <p className="eyebrow">65 Yaş Aylığı Testi</p>
           <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-            65 yas ayligi icin sade ve okunmasi kolay on degerlendirme
+            65 yaş aylığı için sade ve okunması kolay ön değerlendirme
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-700">
-            Bu arac resmi karar vermez. Yas, gelir ve sosyal guvence bilgilerinizle on degerlendirme sunar ve bir sonraki adimi aciklar.
+            Bu araç resmî karar vermez. Yaş, gelir ve sosyal güvence bilgilerinizle ön
+            değerlendirme sunar ve bir sonraki adımı açıklar.
           </p>
 
           <div className="mt-6 rounded-3xl bg-slate-50 p-5 text-base leading-8 text-slate-700">
-            Form olabildigince kisa tutuldu. Yazilar daha buyuk, secimler daha net ve butonlar daha
-            belirgindir. Emin olmadiginiz sorularda Bilmiyorum secenegini kullanabilirsiniz.
+            Form olabildiğince kısa tutuldu. Yazılar daha büyük, seçimler daha net ve butonlar
+            daha belirgindir. Emin olmadığınız sorularda Bilmiyorum seçeneğini kullanabilirsiniz.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-6">
             <label className="form-field text-lg">
-              <span>Yasiniz</span>
+              <span>Yaşınız</span>
               <input
                 className="min-h-14 text-lg"
                 type="number"
                 min="0"
                 max="120"
                 value={form.age}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      age: event.target.value,
-                    }));
-                  }
-                }
-                placeholder="Orn. 67"
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    age: event.target.value,
+                  }));
+                }}
+                placeholder="Örn. 67"
               />
             </label>
 
             <TriStateField
-              legend="Esiniz var mi?"
+              legend="Eşiniz var mı?"
               name="hasSpouse"
               value={form.hasSpouse}
-              onChange={(value) =>
-                {
-                  markFormStarted();
-                  setForm((current) => ({
-                    ...current,
-                    hasSpouse: value,
-                  }));
-                }
-              }
+              onChange={(value) => {
+                markFormStarted();
+                setForm((current) => ({
+                  ...current,
+                  hasSpouse: value,
+                }));
+              }}
             />
 
             <label className="form-field text-lg">
-              <span>Sizin aylik geliriniz</span>
+              <span>Sizin aylık geliriniz</span>
               <input
                 className="min-h-14 text-lg"
                 type="number"
                 min="0"
                 value={form.selfMonthlyIncome}
-                onChange={(event) =>
-                  {
-                    markFormStarted();
-                    setForm((current) => ({
-                      ...current,
-                      selfMonthlyIncome: event.target.value,
-                    }));
-                  }
-                }
-                placeholder="Orn. 5000"
+                onChange={(event) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    selfMonthlyIncome: event.target.value,
+                  }));
+                }}
+                placeholder="Örn. 5000"
               />
             </label>
 
             {form.hasSpouse === true ? (
               <label className="form-field text-lg">
-                <span>Esinizin aylik geliri</span>
+                <span>Eşinizin aylık geliri</span>
                 <input
                   className="min-h-14 text-lg"
                   type="number"
                   min="0"
                   value={form.spouseMonthlyIncome}
-                  onChange={(event) =>
-                    {
-                      markFormStarted();
-                      setForm((current) => ({
-                        ...current,
-                        spouseMonthlyIncome: event.target.value,
-                      }));
-                    }
-                  }
-                  placeholder="Orn. 6000"
+                  onChange={(event) => {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      spouseMonthlyIncome: event.target.value,
+                    }));
+                  }}
+                  placeholder="Örn. 6000"
                 />
               </label>
             ) : null}
 
             <TriStateField
-              legend="Herhangi bir sosyal guvenceniz var mi?"
+              legend="Herhangi bir sosyal güvenceniz var mı?"
               name="hasSocialSecurity"
               value={form.hasSocialSecurity}
-              onChange={(value) =>
-                {
-                  markFormStarted();
-                  setForm((current) => ({
-                    ...current,
-                    hasSocialSecurity: value,
-                  }));
-                }
-              }
+              onChange={(value) => {
+                markFormStarted();
+                setForm((current) => ({
+                  ...current,
+                  hasSocialSecurity: value,
+                }));
+              }}
             />
 
             <TriStateField
-              legend="Halen emekli ayligi aliyor musunuz?"
+              legend="Hâlen emekli aylığı alıyor musunuz?"
               name="receivesPension"
               value={form.receivesPension}
-              onChange={(value) =>
-                {
-                  markFormStarted();
-                  setForm((current) => ({
-                    ...current,
-                    receivesPension: value,
-                  }));
-                }
-              }
+              onChange={(value) => {
+                markFormStarted();
+                setForm((current) => ({
+                  ...current,
+                  receivesPension: value,
+                }));
+              }}
             />
           </div>
 
@@ -278,7 +267,7 @@ export function OldAgeToolPageClient() {
               disabled={isSubmitting}
               className="primary-button text-lg"
             >
-              {isSubmitting ? "Degerlendiriliyor..." : "65 yas ayligi testini calistir"}
+              {isSubmitting ? "Değerlendiriliyor..." : "65 yaş aylığı testini çalıştır"}
             </button>
             <button
               type="button"
@@ -296,7 +285,7 @@ export function OldAgeToolPageClient() {
 
           {error ? (
             <div className="mt-6 rounded-3xl border border-rose-200 bg-rose-50 p-5 text-base text-rose-900">
-              <p className="font-semibold">Istek tamamlanamadi</p>
+              <p className="font-semibold">İstek tamamlanamadı</p>
               <p className="mt-3 leading-8">{error}</p>
               {fieldErrors ? (
                 <ul className="mt-4 space-y-2">
@@ -309,8 +298,7 @@ export function OldAgeToolPageClient() {
               ) : null}
               {hasConfigError ? (
                 <p className="mt-3 leading-8">
-                  Frontend deploy ortaminda backend base URL tanimlanmadan bu arac canliya
-                  alinmamali.
+                  Değerlendirme bağlantısı tanımlanmadan bu araç canlıya alınmamalı.
                 </p>
               ) : null}
             </div>
@@ -334,7 +322,7 @@ export function OldAgeToolPageClient() {
 
               <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
                 <div className="rounded-2xl bg-white/70 p-5">
-                  <h3 className="text-lg font-semibold">Bu sonuc ne anlatiyor?</h3>
+                  <h3 className="text-lg font-semibold">Bu sonuç ne anlatıyor?</h3>
                   {decisionView.primaryReason ? (
                     <div className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-4">
                       <p className="text-base font-medium">{decisionView.primaryReason.title}</p>
@@ -355,7 +343,7 @@ export function OldAgeToolPageClient() {
 
                   {decisionView.missingInformation.length > 0 ? (
                     <div className="mt-4 rounded-2xl bg-white/70 p-4">
-                      <h4 className="text-base font-medium">Tamamlanmasi iyi olacak bilgiler</h4>
+                      <h4 className="text-base font-medium">Tamamlanması iyi olacak bilgiler</h4>
                       <ul className="mt-3 space-y-3 text-base leading-8">
                         {decisionView.missingInformation.map((fact) => (
                           <li key={`${fact.title}-${fact.body}`}>
@@ -398,19 +386,19 @@ export function OldAgeToolPageClient() {
 
         <aside className="space-y-6">
           <div className="card-panel">
-            <h2 className="text-xl font-semibold text-slate-950">On degerlendirme notu</h2>
+            <h2 className="text-xl font-semibold text-slate-950">Ön değerlendirme notu</h2>
             <p className="mt-3 text-base leading-8 text-slate-700">
-              Bu test resmi kurum karari yerine gecmez. Sonuc ekrani size simdi ne yapmanizin iyi
-              olacagini gosteren bir rehberdir.
+              Bu test resmî kurum kararı yerine geçmez. Sonuç ekranı size şimdi ne yapmanızın iyi
+              olacağını gösteren bir rehberdir.
             </p>
           </div>
 
           <div className="card-panel">
-            <h2 className="text-xl font-semibold text-slate-950">Kisa hazirlik listesi</h2>
+            <h2 className="text-xl font-semibold text-slate-950">Kısa hazırlık listesi</h2>
             <ul className="mt-3 space-y-3 text-base leading-8 text-slate-700">
-              <li>Yasinizi dogru girin.</li>
-              <li>Varsa es gelirini atlamayin.</li>
-              <li>Sosyal guvence ve emekli ayligi bilgisini netlestirin.</li>
+              <li>Yaşınızı doğru girin.</li>
+              <li>Varsa eş gelirini atlamayın.</li>
+              <li>Sosyal güvence ve emekli aylığı bilgisini netleştirin.</li>
             </ul>
           </div>
 
@@ -418,10 +406,10 @@ export function OldAgeToolPageClient() {
             <h2 className="text-xl font-semibold text-slate-950">Sonra nereye gitmeli?</h2>
             <div className="mt-4 flex flex-col gap-3">
               <Link href="/" className="secondary-link inline-flex text-base">
-                Diger testlere don
+                Diğer testlere dön
               </Link>
               <Link href="/gss-gelir-testi" className="secondary-link inline-flex text-base">
-                GSS testini de gor
+                GSS testini de gör
               </Link>
             </div>
           </div>
@@ -430,8 +418,3 @@ export function OldAgeToolPageClient() {
     </main>
   );
 }
-
-
-
-
-
