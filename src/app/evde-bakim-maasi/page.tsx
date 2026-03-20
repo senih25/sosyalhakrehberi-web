@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Evde Bakim Maasi Rehberi",
+  title: "Evde Bakım Maaşı Rehberi",
   description:
-    "Evde bakim maasi icin temel sartlari, gerekli bilgileri ve on degerlendirme mantigini sade bir dille aciklayan ana rehber sayfasi.",
+    "Evde bakım maaşı için temel şartları, gerekli bilgileri ve ön değerlendirme mantığını sade bir dille açıklayan ana rehber sayfası.",
   alternates: {
     canonical: "/evde-bakim-maasi",
   },
@@ -14,59 +14,59 @@ const promiseSections = [
   {
     title: "Bu sayfa ne sunar?",
     body:
-      "Evde bakim maasi hakkinda genel cerceveyi aciklar ve hesaplama sayfasina gecmeden once hangi bilgilerin onemli oldugunu gosterir.",
+      "Evde bakım maaşı hakkında genel çerçeveyi açıklar ve hesaplama sayfasına geçmeden önce hangi bilgilerin önemli olduğunu gösterir.",
   },
   {
     title: "Ne sunmaz?",
     body:
-      "Resmi hak kazanimi karari, kisiye ozel hukuki gorus veya kurum yerine gecen baglayici sonuc uretmez.",
+      "Resmî hak kazanımı kararı, kişiye özel hukuki görüş veya kurum yerine geçen bağlayıcı sonuç üretmez.",
   },
   {
-    title: "Nasil calisir?",
+    title: "Nasıl çalışır?",
     body:
-      "Bu sayfa yalnizca degerlendirme sonucunu, nedenleri ve eksik bilgi basliklarini aciklar.",
+      "Bu sayfa yalnızca değerlendirme sonucunu, nedenleri ve eksik bilgi başlıklarını açıklar.",
   },
 ];
 
 const checklist = [
-  "Engellilik orani",
-  "Aylik toplam hane geliri",
-  "Hanedeki kisi sayisi",
-  "Turkiye Cumhuriyeti vatandaslik durumu",
-  "Turkiye'de ikamet bilgisi",
-  "Tam bagimli bakim ihtiyaci bilgisi",
+  "Engellilik oranı",
+  "Aylık toplam hane geliri",
+  "Hanedeki kişi sayısı",
+  "Türkiye Cumhuriyeti vatandaşlık durumu",
+  "Türkiye'de ikamet bilgisi",
+  "Tam bağımlı bakım ihtiyacı bilgisi",
 ];
 
 const faqItems = [
   {
-    question: "Bu arac resmi sonuc verir mi?",
+    question: "Bu araç resmî sonuç verir mi?",
     answer:
-      "Hayir. Bu arac yalnizca on degerlendirme sunar. Nihai karar ilgili kurumun incelemesi ve guncel uygulamasi ile verilir.",
+      "Hayır. Bu araç yalnızca ön değerlendirme sunar. Nihai karar ilgili kurumun incelemesi ve güncel uygulaması ile verilir.",
   },
   {
-    question: "Hangi bilgilerle calisir?",
+    question: "Hangi bilgilerle çalışır?",
     answer:
-      "Yalnizca temel degerlendirme alanlari kullanilir. Kimlik numarasi, acik adres veya belge yukleme istenmez.",
+      "Yalnızca temel değerlendirme alanları kullanılır. Kimlik numarası, açık adres veya belge yükleme istenmez.",
   },
   {
-    question: "Karar kurallari bu sayfada mi kuruluyor?",
+    question: "Karar kuralları bu sayfada mı kuruluyor?",
     answer:
-      "Hayir. Uygunluk kurallari, esik degerler ve sonuc anlamlari bu sayfa disinda belirlenir.",
+      "Hayır. Uygunluk kuralları, eşik değerler ve sonuç anlamları bu sayfa dışında belirlenir.",
   },
 ];
 
 const detailGuides = [
   {
     href: "/evde-bakim-maasi/sartlar",
-    title: "Evde Bakim Maasi sartlari",
+    title: "Evde Bakım Maaşı şartları",
     body:
-      "Vatandaslik, ikamet, gelir ve hane bilgisi gibi temel basliklari kisa ve anlasilir bicimde ozetler.",
+      "Vatandaşlık, ikamet, gelir ve hane bilgisi gibi temel başlıkları kısa ve anlaşılır biçimde özetler.",
   },
   {
     href: "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
     title: "Gelir ve hane bilgisi rehberi",
     body:
-      "Gelir ve kisi sayisi alanlarinin neden istendigini ve sayfanin neden nihai gelir karari vermedigini aciklar.",
+      "Gelir ve kişi sayısı alanlarının neden istendiğini ve sayfanın neden nihai gelir kararı vermediğini açıklar.",
   },
 ];
 
@@ -78,35 +78,35 @@ export default function HomeCareAllowancePage() {
           <div className="card-panel">
             <p className="eyebrow">Ana Rehber</p>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Evde bakim maasi icin anlasilir aciklama ve guvenli on degerlendirme akisi
+              Evde bakım maaşı için anlaşılır açıklama ve güvenli ön değerlendirme akışı
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">
-              Evde bakim maasi, agir engelli bireyin tam bagimli bakim ihtiyacina iliskin belirli
-              kosullar altinda degerlendirilen bir destek alanidir. Bu sayfa, basvuru oncesi
-              hazirlik yapmaniza yardimci olmak icin sade aciklamalar ve hesaplama sayfasina gecis
+              Evde bakım maaşı, ağır engelli bireyin tam bağımlı bakım ihtiyacına ilişkin belirli
+              koşullar altında değerlendirilen bir destek alanıdır. Bu sayfa, başvuru öncesi
+              hazırlık yapmanıza yardımcı olmak için sade açıklamalar ve hesaplama sayfasına geçiş
               sunar.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
-                On degerlendirmeyi baslat
+                Ön değerlendirmeyi başlat
               </Link>
               <Link href="/" className="secondary-link">
-                Ana sayfaya don
+                Ana sayfaya dön
               </Link>
             </div>
           </div>
 
           <aside className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Guven notu</h2>
+            <h2 className="text-lg font-semibold text-slate-950">Güven notu</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Sonuclar yalnizca on degerlendirme niteligindedir. Nihai degerlendirme ilgili kurumun
-              incelemesi ve guncel uygulamasi ile belirlenir.
+              Sonuçlar yalnızca ön değerlendirme niteliğindedir. Nihai değerlendirme ilgili kurumun
+              incelemesi ve güncel uygulaması ile belirlenir.
             </p>
             <div className="mt-5 rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-900">Bu asamada istenmeyen veriler</p>
+              <p className="text-sm font-semibold text-slate-900">Bu aşamada istenmeyen veriler</p>
               <p className="mt-2 text-sm leading-7 text-slate-700">
-                Kimlik numarasi, acik adres, belge yukleme ve gereksiz kisisel veri bu kapsama
-                dahil degildir.
+                Kimlik numarası, açık adres, belge yükleme ve gereksiz kişisel veri bu kapsama
+                dâhil değildir.
               </p>
             </div>
           </aside>
@@ -124,7 +124,7 @@ export default function HomeCareAllowancePage() {
         <section className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <article className="card-panel">
             <h2 className="text-2xl font-semibold text-slate-950">
-              Hesaplama sayfasina gecmeden once hazirlamaniz iyi olur
+              Hesaplama sayfasına geçmeden önce hazırlamanız iyi olur
             </h2>
             <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
               {checklist.map((item) => (
@@ -141,20 +141,20 @@ export default function HomeCareAllowancePage() {
             </h2>
             <div className="mt-5 space-y-4 text-sm leading-7 text-slate-700">
               <p>
-                Sayfa size uc temel sonuc yonunden birini gosterebilir: uygun gorunuyor, uygun
-                gorunmuyor veya daha fazla bilgi gerekli.
+                Sayfa size üç temel sonuç yönünden birini gösterebilir: uygun görünüyor, uygun
+                görünmüyor veya daha fazla bilgi gerekli.
               </p>
               <p>
-                Sonuc ekraninda nedenler, eksik bilgiler ve yonlendirici aciklamalar gorunur.
-                Boylece hangi bilgiyle ilerlediginizi acik bicimde anlarsiniz.
+                Sonuç ekranında nedenler, eksik bilgiler ve yönlendirici açıklamalar görünür.
+                Böylece hangi bilgiyle ilerlediğinizi açık biçimde anlarsınız.
               </p>
               <div className="rounded-2xl bg-slate-50 p-4">
-                <p className="text-sm font-semibold text-slate-900">En hizli gecis yolu</p>
+                <p className="text-sm font-semibold text-slate-900">En hızlı geçiş yolu</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Temel bilgileri biliyorsaniz dogrudan hesaplama sayfasina gecebilirsiniz.
+                  Temel bilgileri biliyorsanız doğrudan hesaplama sayfasına geçebilirsiniz.
                 </p>
                 <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link mt-4 inline-flex">
-                  Hesaplama sayfasina git
+                  Hesaplama sayfasına git
                 </Link>
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function HomeCareAllowancePage() {
         </section>
 
         <section className="mt-8 card-panel">
-          <h2 className="text-2xl font-semibold text-slate-950">Sik sorulan kisa sorular</h2>
+          <h2 className="text-2xl font-semibold text-slate-950">Sık sorulan kısa sorular</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {faqItems.map((item) => (
               <article key={item.question} className="rounded-2xl bg-slate-50 p-5">
@@ -181,7 +181,7 @@ export default function HomeCareAllowancePage() {
                 <h3 className="font-semibold text-slate-900">{guide.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{guide.body}</p>
                 <Link href={guide.href} className="secondary-link mt-4 inline-flex">
-                  Rehberi ac
+                  Rehberi aç
                 </Link>
               </article>
             ))}

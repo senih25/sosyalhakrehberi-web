@@ -24,7 +24,7 @@ const sections = [
   {
     title: "Engellilik oranı ve bakım ihtiyacı",
     body:
-      "Engellilik oranı ön değerlendirmede önemli alanlardan biridir. Ancak nihai uygunluk, resmi inceleme ve güncel mevzuat çerçevesinde belirlenir.",
+      "Engellilik oranı ön değerlendirmede önemli alanlardan biridir. Ancak nihai uygunluk, resmî inceleme ve güncel mevzuat çerçevesinde belirlenir.",
   },
 ];
 
@@ -65,16 +65,16 @@ export default function HomeCareConditionsPage() {
           <article className="card-panel">
             <h2 className="text-2xl font-semibold text-slate-950">Ne yapmaz?</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Bu içerik hukuki görüş, resmi karar veya belge otomasyonu sunmaz. Eşik ve threshold
-              davranışı frontend tarafından hesaplanmaz.
+              Bu içerik hukuki görüş, resmî karar veya belge otomasyonu sunmaz. Eşik davranışı bu
+              sayfada hesaplanmaz.
             </p>
           </article>
 
           <article className="card-panel">
             <h2 className="text-2xl font-semibold text-slate-950">Sonraki adım</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Şart başlıklarını okuduktan sonra hesaplama aracında temel bilgileri girerek backend
-              destekli ön değerlendirme alabilirsiniz.
+              Şart başlıklarını okuduktan sonra hesaplama aracında temel bilgileri girerek ön
+              değerlendirme alabilirsiniz.
             </p>
           </article>
         </section>
@@ -82,6 +82,3 @@ export default function HomeCareConditionsPage() {
     </main>
   );
 }
-
-
-

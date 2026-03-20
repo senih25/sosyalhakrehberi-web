@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sosyal hak uygunluk testleri ve basvuru rehberleri",
+  title: "Sosyal hak uygunluk testleri ve başvuru rehberleri",
   description:
-    "Sosyal Hak Rehberi, anlasilir on degerlendirme sayfalari ve basvuru oncesi rehberler sunar.",
+    "Sosyal Hak Rehberi, anlaşılır ön değerlendirme sayfaları ve başvuru öncesi rehberler sunar.",
   alternates: {
     canonical: "/",
   },
@@ -14,90 +14,90 @@ const testCards = [
   {
     title: "GSS Gelir Testi",
     body:
-      "Genel Saglik Sigortasi kapsaminda gelir testi icin sade form, aciklayici sonuc ve temel rehberlik sunar.",
+      "Genel Sağlık Sigortası kapsamında gelir testi için sade form, açıklayıcı sonuç ve temel rehberlik sunar.",
     href: "/gss-gelir-testi",
     cta: "Teste git",
-    status: "Kullanima acik",
+    status: "Kullanıma açık",
   },
   {
-    title: "Evde Bakim Maasi Uygunluk Testi",
+    title: "Evde Bakım Maaşı Uygunluk Testi",
     body:
-      "Tam bagimli bakim ihtiyaci bulunan kisiler icin evde bakim maasi yonunu anlamaya yardim eden, aciklayici sonuc ve rehberlik akisi sunar.",
+      "Tam bağımlı bakım ihtiyacı bulunan kişiler için evde bakım maaşı yönünü anlamaya yardım eden, açıklayıcı sonuç ve rehberlik akışı sunar.",
     href: "/evde-bakim-maasi/hesaplama",
     cta: "Teste git",
-    status: "Kullanima acik",
+    status: "Kullanıma açık",
   },
   {
-    title: "65 Yas Ayligi Uygunluk Testi",
+    title: "65 Yaş Aylığı Uygunluk Testi",
     body:
-      "65 yas ayligi icin daha buyuk yazilar, sade sorular ve sonraki adimi aciklayan sonuc sayfasi sunar.",
+      "65 yaş aylığı için daha büyük yazılar, sade sorular ve sonraki adımı açıklayan sonuç sayfası sunar.",
     href: "/65-yas-ayligi-uygunluk-testi",
     cta: "Teste git",
-    status: "Kullanima acik",
+    status: "Kullanıma açık",
   },
   {
-    title: "Dogum Yardimi Uygunluk Testi",
+    title: "Doğum Yardımı Uygunluk Testi",
     body:
-      "Dogum yardimi sayfasi gorunur durumdadir. Bu baslik icin rehber ve test akisi hazirlaniyor.",
+      "Doğum yardımı sayfası görünür durumdadır. Bu başlık için rehber ve test akışı hazırlanıyor.",
     href: "/dogum-yardimi-uygunluk-testi",
-    cta: "Sayfayi gor",
-    status: "Hazirlaniyor",
+    cta: "Sayfayı gör",
+    status: "Hazırlanıyor",
   },
 ];
 
 const chooseItems = [
   {
-    title: "Saglik primleri ve gelir testi sorulariniz varsa",
+    title: "Sağlık primleri ve gelir testi sorularınız varsa",
     body:
-      "GSS Gelir Testi, sosyal guvence ve gelir testi baglamini netlestirmek isteyen kullanicilar icin dogru baslangic sayfasidir.",
+      "GSS Gelir Testi, sosyal güvence ve gelir testi bağlamını netleştirmek isteyen kullanıcılar için doğru başlangıç sayfasıdır.",
   },
   {
-    title: "Agir engelli yakin bakimi icin destek ariyorsaniz",
+    title: "Ağır engelli yakın bakımı için destek arıyorsanız",
     body:
-      "Evde Bakim Maasi Uygunluk Testi, tam bagimli bakim ihtiyacina yonelik sorular icin dogru baslangic sayfasidir.",
+      "Evde Bakım Maaşı Uygunluk Testi, tam bağımlı bakım ihtiyacına yönelik sorular için doğru başlangıç sayfasıdır.",
   },
   {
-    title: "Ileri yas destekleriyle ilgili hizli bir yon lazimsa",
+    title: "İleri yaş destekleriyle ilgili hızlı bir yön lazımsa",
     body:
-      "65 Yas Ayligi sayfasinda daha buyuk yazi, daha az soru ve daha sakin bir ilerleyis bulunur.",
+      "65 Yaş Aylığı sayfasında daha büyük yazı, daha az soru ve daha sakin bir ilerleyiş bulunur.",
   },
   {
-    title: "Dogum yardimi konusunda bilgi ariyorsaniz",
+    title: "Doğum yardımı konusunda bilgi arıyorsanız",
     body:
-      "Dogum Yardimi Uygunluk Testi sayfasi hazirlaniyor. Bu basligi simdiden gorebilir, aciklama yuzeyine ulasabilirsiniz.",
+      "Doğum Yardımı Uygunluk Testi sayfası hazırlanıyor. Bu başlığı şimdiden görebilir, açıklama yüzeyine ulaşabilirsiniz.",
   },
 ];
 
 const trustNotes = [
-  "Bu sitedeki sonuclar on degerlendirme niteligindedir; resmi karar yerine gecmez.",
-  "Karar kurallari bu sayfada kurulmaz; sonuc yalnizca aciklayici bicimde sunulur.",
-  "Gereksiz kisisel veri istemiyoruz. Kimlik numarasi, acik adres ve belge yukleme bu asamada yok.",
+  "Bu sitedeki sonuçlar ön değerlendirme niteliğindedir; resmî karar yerine geçmez.",
+  "Karar kuralları bu sayfada kurulmaz; sonuç yalnızca açıklayıcı biçimde sunulur.",
+  "Gereksiz kişisel veri istemiyoruz. Kimlik numarası, açık adres ve belge yükleme bu aşamada yok.",
 ];
 
 const guideLinks = [
   {
     href: "/blog",
-    title: "Blog ve rehber yazilari",
+    title: "Blog ve rehber yazıları",
     body:
-      "Testlerden sonra okunabilecek aciklamalari, yol gosterici yazi dizilerini ve rehber icerikleri tek yerde toplar.",
+      "Testlerden sonra okunabilecek açıklamaları, yol gösterici yazı dizilerini ve rehber içerikleri tek yerde toplar.",
   },
   {
     href: "/evde-bakim-maasi",
-    title: "Evde Bakim Maasi ana rehberi",
+    title: "Evde Bakım Maaşı ana rehberi",
     body:
-      "Hesaplamaya gecmeden once hangi bilgilerin gerekli oldugunu, sonuc ekraninin ne anlattigini ve bu sayfanin sinirlarini ozetler.",
+      "Hesaplamaya geçmeden önce hangi bilgilerin gerekli olduğunu, sonuç ekranının ne anlattığını ve bu sayfanın sınırlarını özetler.",
   },
   {
     href: "/evde-bakim-maasi/sartlar",
-    title: "Evde Bakim Maasi sartlari",
+    title: "Evde Bakım Maaşı şartları",
     body:
-      "Vatandaslik, ikamet, gelir ve hane bilgisi gibi temel basliklari kisa ve net sekilde toplar.",
+      "Vatandaşlık, ikamet, gelir ve hane bilgisi gibi temel başlıkları kısa ve net şekilde toplar.",
   },
   {
     href: "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
     title: "Gelir ve hane bilgisi rehberi",
     body:
-      "Gelir sorularinin neden istendigini ve gelir kapisinin neden yalnizca yol gosterici olarak kullanildigini anlatir.",
+      "Gelir sorularının neden istendiğini ve gelir kapısının neden yalnızca yol gösterici olarak kullanıldığını anlatır.",
   },
 ];
 
@@ -109,16 +109,16 @@ export default function Home() {
           <div className="max-w-3xl">
             <p className="eyebrow">Sosyal Hak Testleri</p>
             <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Sosyal hak testlerini tek giriste acin, sonucunuzu alin, sonraki adimi gorun
+              Sosyal hak testlerini tek girişte açın, sonucunuzu alın, sonraki adımı görün
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-              Sosyal Hak Rehberi tanitim sayfasi gibi degil, urun gibi calisir. Kullaniciyi
-              dogrudan uygun teste tasir, on degerlendirme sonucunu gosterir ve ilgili rehberlere
-              yonlendirir.
+              Sosyal Hak Rehberi tanıtım sayfası gibi değil, ürün gibi çalışır. Kullanıcıyı
+              doğrudan uygun teste taşır, ön değerlendirme sonucunu gösterir ve ilgili rehberlere
+              yönlendirir.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
-                Evde Bakim Maasi testini ac
+                Evde Bakım Maaşı testini aç
               </Link>
               <Link href="#hangi-testi-secmeliyim" className="secondary-link">
                 Hangi test bana uygun?
@@ -128,16 +128,16 @@ export default function Home() {
 
           <aside className="card-panel">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">
-              Guvenli kullanim
+              Güvenli kullanım
             </p>
             <div className="mt-4 space-y-4 text-sm leading-7 text-slate-700">
-              <p>Bu site resmi kurum karari vermez. On degerlendirme sonucu ve rehberlik sunar.</p>
-              <p>Evde Bakim Maasi sayfasi, mevcut guvenli akisin korundugu temel ornektir.</p>
+              <p>Bu site resmî kurum kararı vermez. Ön değerlendirme sonucu ve rehberlik sunar.</p>
+              <p>Evde Bakım Maaşı sayfası, mevcut güvenli akışın korunduğu temel örnektir.</p>
               <div className="rounded-2xl bg-slate-50 p-4">
-                <p className="font-semibold text-slate-900">Bugun ne yapabilirsiniz?</p>
+                <p className="font-semibold text-slate-900">Bugün ne yapabilirsiniz?</p>
                 <p className="mt-2">
-                  Evde Bakim Maasi, GSS ve 65 Yas sayfalarina hemen gecebilir; rehber ve bilgi
-                  sayfalarina ayni ekrandan ulasabilirsiniz.
+                  Evde Bakım Maaşı, GSS ve 65 Yaş sayfalarına hemen geçebilir; rehber ve bilgi
+                  sayfalarına aynı ekrandan ulaşabilirsiniz.
                 </p>
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function Home() {
               <p className="mt-4 text-sm leading-7 text-slate-700">{test.body}</p>
               <Link
                 href={test.href}
-                className={test.status === "Kullanima acik" ? "primary-link mt-6" : "secondary-link mt-6"}
+                className={test.status === "Kullanıma açık" ? "primary-link mt-6" : "secondary-link mt-6"}
               >
                 {test.cta}
               </Link>
@@ -170,9 +170,9 @@ export default function Home() {
         className="mx-auto grid max-w-6xl gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-10 lg:py-8"
       >
         <article className="card-panel">
-          <p className="eyebrow">Hangi testi secmeliyim?</p>
+          <p className="eyebrow">Hangi testi seçmeliyim?</p>
           <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-            Once sorununuzu secin, sonra en kisa yoldan ilgili sayfaya gecin
+            Önce sorununuzu seçin, sonra en kısa yoldan ilgili sayfaya geçin
           </h2>
           <div className="mt-5 grid gap-4">
             {chooseItems.map((item) => (
@@ -185,17 +185,17 @@ export default function Home() {
         </article>
 
         <aside className="card-panel">
-          <h2 className="text-xl font-semibold text-slate-950">Tek tikla ilgili sayfaya gidin</h2>
+          <h2 className="text-xl font-semibold text-slate-950">Tek tıkla ilgili sayfaya gidin</h2>
           <p className="mt-3 text-sm leading-7 text-slate-700">
-            Buradan kullanima acik testlere tek tikla gecebilir, hazirlanan sayfalarin da bilgi
-            yuzunu gorebilirsiniz.
+            Buradan kullanıma açık testlere tek tıkla geçebilir, hazırlanan sayfaların da bilgi
+            yüzünü görebilirsiniz.
           </p>
           <div className="mt-5 flex flex-col gap-3">
             <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
-              Evde Bakim Maasi testini baslat
+              Evde Bakım Maaşı testini başlat
             </Link>
             <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link">
-              Dogum Yardimi sayfasini ac
+              Doğum Yardımı sayfasını aç
             </Link>
           </div>
         </aside>
@@ -203,7 +203,7 @@ export default function Home() {
 
       <section className="mx-auto grid max-w-6xl gap-6 px-6 py-6 lg:grid-cols-[360px_minmax(0,1fr)] lg:px-10 lg:py-8">
         <aside className="card-panel">
-          <p className="eyebrow">Guven ve uyari</p>
+          <p className="eyebrow">Güven ve uyarı</p>
           <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-700">
             {trustNotes.map((note) => (
               <li key={note} className="rounded-2xl bg-slate-50 px-4 py-3">
@@ -214,9 +214,9 @@ export default function Home() {
         </aside>
 
         <article className="card-panel">
-          <p className="eyebrow">En cok okunan rehberler</p>
+          <p className="eyebrow">En çok okunan rehberler</p>
           <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-            Testten once ve sonra acilan temel rehberler
+            Testten önce ve sonra açılan temel rehberler
           </h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {guideLinks.map((guide) => (
@@ -224,7 +224,7 @@ export default function Home() {
                 <h3 className="font-semibold text-slate-900">{guide.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{guide.body}</p>
                 <Link href={guide.href} className="secondary-link mt-4 inline-flex">
-                  Rehberi ac
+                  Rehberi aç
                 </Link>
               </article>
             ))}
@@ -236,12 +236,12 @@ export default function Home() {
         <article className="card-panel">
           <p className="eyebrow">Proje bilgisi</p>
           <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-            Bu yuzey bir kamu kurumu portali degil, sosyal hizmet anlayisiyla kurulan bir rehberlik
+            Bu yüzey bir kamu kurumu portalı değil, sosyal hizmet anlayışıyla kurulan bir rehberlik
             projesidir
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-700">
-            Sosyal Hak Rehberi resmi karar vermez. Amaci, test sonuclarini sade bir dille sunmak,
-            kullaniciyi ilgili rehber iceriklere yonlendirmek ve ilk adimi daha anlasilir hale
+            Sosyal Hak Rehberi resmî karar vermez. Amacı, test sonuçlarını sade bir dille sunmak,
+            kullanıcıyı ilgili rehber içeriklere yönlendirmek ve ilk adımı daha anlaşılır hale
             getirmektir.
           </p>
         </article>
@@ -250,10 +250,10 @@ export default function Home() {
           <h2 className="text-xl font-semibold text-slate-950">Daha fazla bilgi</h2>
           <div className="mt-4 flex flex-col gap-3">
             <Link href="/hakkimizda" className="secondary-link">
-              Hakkimizda sayfasini ac
+              Hakkımızda sayfasını aç
             </Link>
             <Link href="/blog" className="secondary-link">
-              Blog ve rehberleri gor
+              Blog ve rehberleri gör
             </Link>
           </div>
         </aside>

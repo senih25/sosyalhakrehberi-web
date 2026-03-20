@@ -109,11 +109,11 @@ const fallbackReasonByStatus: Record<
 > = {
   ELIGIBLE: {
     title: "Mevcut bilgiler olumlu görünüyor",
-    body: "Paylaştığınız bilgilerle backend motoru uygunluk yönünde bir ön değerlendirme üretti.",
+    body: "Paylaştığınız bilgilerle değerlendirme sistemi uygunluk yönünde bir ön değerlendirme üretti.",
   },
   NOT_ELIGIBLE: {
     title: "Mevcut bilgilerle uygun görünmüyor",
-    body: "Paylaştığınız bilgilerle backend motoru şu aşamada uygunluk yönünde bir sonuç üretmedi.",
+    body: "Paylaştığınız bilgilerle değerlendirme sistemi şu aşamada uygunluk yönünde bir sonuç üretmedi.",
   },
   NEEDS_INFO: {
     title: "Karar için daha fazla bilgi gerekiyor",
@@ -130,7 +130,7 @@ const checklistByStatus: Record<
     items: [
       "Gelir ve hane bilgilerinizi başvuru öncesinde tekrar gözden geçirin.",
       "Bakım ihtiyacını destekleyen güncel bilgi ve belgeleri hazır tutun.",
-      "Resmi başvuru öncesinde rehber sayfasındaki şartları son kez okuyun.",
+      "Resmî başvuru öncesinde rehber sayfasındaki şartları son kez okuyun.",
     ],
     links: [
       {
@@ -245,7 +245,7 @@ export function buildDecisionViewModel(input: {
     return {
       title: "Ön değerlendirme olumlu görünüyor",
       summary:
-        "Backend motoru mevcut bilgilerle uygunluk yönünde bir ön değerlendirme üretti. Bu sonuç resmi hak sahipliği kararı değildir.",
+        "Değerlendirme sistemi mevcut bilgilerle uygunluk yönünde bir ön değerlendirme üretti. Bu sonuç resmî hak sahipliği kararı değildir.",
       primaryReason:
         primaryReason ?? {
           title: fallback.title,
@@ -265,7 +265,7 @@ export function buildDecisionViewModel(input: {
   return {
     title: "Ön değerlendirme olumsuz görünüyor",
     summary:
-      "Backend motoru girilen bilgilerle uygunluk yönünde sonuç üretmedi. Nihai değerlendirme ilgili kurum incelemesiyle yapılır.",
+      "Değerlendirme sistemi girilen bilgilerle uygunluk yönünde sonuç üretmedi. Nihai değerlendirme ilgili kurum incelemesiyle yapılır.",
     primaryReason:
       primaryReason ?? {
         title: fallback.title,

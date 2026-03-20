@@ -15,94 +15,94 @@ export type ToolGuidanceModel = {
 
 const guidanceByTool: Record<ToolKey, ToolGuidanceModel> = {
   "home-care": {
-    nextStepTitle: "Siradaki adim",
+    nextStepTitle: "Sıradaki adım",
     nextStepBody:
-      "Sonucunuzu gordukten sonra ilgili sartlari ve gelir rehberini acin. Gerekirse bilgilerinizi ayni ekrandan duzeltip yeniden deneyin.",
+      "Sonucunuzu gördükten sonra ilgili şartları ve gelir rehberini açın. Gerekirse bilgilerinizi aynı ekrandan düzeltip yeniden deneyin.",
     relatedGuides: [
       {
         href: "/evde-bakim-maasi",
-        label: "Evde Bakim Maasi ana rehberi",
-        body: "Aracin sinirlarini, temel kosullari ve sonuc ekraninin ne anlattigini kisa bir dille toplar.",
+        label: "Evde Bakım Maaşı ana rehberi",
+        body: "Aracın sınırlarını, temel koşulları ve sonuç ekranının ne anlattığını kısa bir dille toplar.",
       },
       {
         href: "/evde-bakim-maasi/sartlar",
-        label: "Evde Bakim Maasi sartlari",
-        body: "Vatandaslik, ikamet, gelir ve hane bilgisi gibi temel basliklari netlestirir.",
+        label: "Evde Bakım Maaşı şartları",
+        body: "Vatandaşlık, ikamet, gelir ve hane bilgisi gibi temel başlıkları netleştirir.",
       },
       {
         href: "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
         label: "Gelir ve hane bilgisi rehberi",
-        body: "Gelir kapisinin neden guidance-only oldugunu ve hangi bilgilerin istendigini aciklar.",
+        body: "Gelir kapısının neden yalnızca yol gösterici olduğunu ve hangi bilgilerin istendiğini açıklar.",
       },
     ],
     otherTests: [
       {
         href: "/gss-gelir-testi",
         label: "GSS Gelir Testi",
-        body: "Saglik guvencesi ve gelir testi ihtiyacina yonelik ayri bir on degerlendirme.",
+        body: "Sağlık güvencesi ve gelir testi ihtiyacına yönelik ayrı bir ön değerlendirme.",
       },
       {
         href: "/65-yas-ayligi-uygunluk-testi",
-        label: "65 Yas Ayligi Testi",
-        body: "Ileri yas destegi icin sade ve okunmasi kolay on degerlendirme araci.",
+        label: "65 Yaş Aylığı Testi",
+        body: "İleri yaş desteği için sade ve okunması kolay ön değerlendirme aracı.",
       },
     ],
   },
   gss: {
-    nextStepTitle: "Siradaki adim",
+    nextStepTitle: "Sıradaki adım",
     nextStepBody:
-      "Sosyal guvence durumunuzu ve gelir bilginizi netlestirdikten sonra rehber sayfasina goz atabilir veya diger testlerden size uygun olani acabilirsiniz.",
+      "Sosyal güvence durumunuzu ve gelir bilginizi netleştirdikten sonra rehber sayfasına göz atabilir veya diğer testlerden size uygun olanı açabilirsiniz.",
     relatedGuides: [
       {
         href: "/gss-gelir-testi/rehber",
         label: "GSS gelir testi rehberi",
-        body: "Bu testte hangi sorularin neden soruldugunu ve sonuc ekraninin nasil okunacagini ozetler.",
+        body: "Bu testte hangi soruların neden sorulduğunu ve sonuç ekranının nasıl okunacağını özetler.",
       },
       {
         href: "/",
-        label: "Hangi testi secmeliyim?",
-        body: "Ana sayfadaki secici blok hangi sosyal hak testiyle baslamaniz gerektigini anlatir.",
+        label: "Hangi testi seçmeliyim?",
+        body: "Ana sayfadaki seçici blok hangi sosyal hak testiyle başlamanız gerektiğini anlatır.",
       },
     ],
     otherTests: [
       {
         href: "/evde-bakim-maasi/hesaplama",
-        label: "Evde Bakim Maasi Testi",
-        body: "Agir engelli yakin bakimi icin destek arayan kullanicilar icin aktif tool.",
+        label: "Evde Bakım Maaşı Testi",
+        body: "Ağır engelli yakın bakımı için destek arayan kullanıcılar için aktif test.",
       },
       {
         href: "/65-yas-ayligi-uygunluk-testi",
-        label: "65 Yas Ayligi Testi",
-        body: "Ileri yas destegi icin gelismis, buyuk yazili ve sade akisa sahip tool sayfasi.",
+        label: "65 Yaş Aylığı Testi",
+        body: "İleri yaş desteği için gelişmiş, büyük yazılı ve sade akışa sahip test sayfası.",
       },
     ],
   },
   "old-age": {
-    nextStepTitle: "Siradaki adim",
+    nextStepTitle: "Sıradaki adım",
     nextStepBody:
-      "Yas, gelir ve sosyal guvence bilginizi gozden gecirdikten sonra rehbere bakin. Gerekirse diger testlere donerek daha uygun araci secin.",
+      "Yaş, gelir ve sosyal güvence bilginizi gözden geçirdikten sonra rehbere bakın. Gerekirse diğer testlere dönerek daha uygun aracı seçin.",
     relatedGuides: [
       {
         href: "/65-yas-ayligi-uygunluk-testi/rehber",
-        label: "65 Yas Ayligi rehberi",
-        body: "Es geliri, yas kosulu ve on degerlendirme sinirlarini sade sekilde aciklar.",
+        label: "65 Yaş Aylığı rehberi",
+        body: "Eş geliri, yaş koşulu ve ön değerlendirme sınırlarını sade şekilde açıklar.",
       },
       {
         href: "/",
-        label: "Hangi testi secmeliyim?",
-        body: "Ana sayfadaki secici blok sizi dogru araca yonlendirmek icin kisa bir yol sunar.",
+        label: "Hangi testi seçmeliyim?",
+        body: "Ana sayfadaki seçici blok sizi doğru araca yönlendirmek için kısa bir yol sunar.",
       },
     ],
     otherTests: [
       {
         href: "/gss-gelir-testi",
         label: "GSS Gelir Testi",
-        body: "Sosyal guvence ve gelir testi ihtiyacini ayri bir hatta degerlendiren tool.",
+        body: "Sosyal güvence ve gelir testi ihtiyacını ayrı bir hatta değerlendiren test.",
       },
       {
         href: "/evde-bakim-maasi/hesaplama",
-        label: "Evde Bakim Maasi Testi",
-        body: "Baska bir destek basligi ariyorsaniz aktif Home Care aracina gecis sunar.",
+        label: "Evde Bakım Maaşı Testi",
+        body: "Başka bir destek başlığı arıyorsanız aktif evde bakım testine geçiş sunar.",
       },
     ],
   },

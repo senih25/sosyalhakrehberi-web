@@ -29,19 +29,19 @@ export function buildTrustLayerModel(input: {
     items: [
       {
         title: "Bu bir ön değerlendirmedir",
-        body: "Bu ekrandaki sonuç resmi kurum kararı yerine geçmez. Nihai değerlendirme ilgili kurum incelemesiyle yapılır.",
+        body: "Bu ekrandaki sonuç resmî kurum kararı yerine geçmez. Nihai değerlendirme ilgili kurum incelemesiyle yapılır.",
       },
       {
-        title: "Karar mantığı backend tarafındadır",
-        body: "Frontend yalnızca sonucu sunar. Eşikler, policy kuralları ve değerlendirme semantiği backend motorunda yönetilir.",
+        title: "Karar kuralları ayrı değerlendirilir",
+        body: "Bu sayfa yalnızca sonucu sunar. Eşikler, kurallar ve değerlendirme anlamı ayrı sistemde yönetilir.",
       },
       {
         title: "Gereksiz kişisel veri istenmez",
         body: "Bu akışta kimlik numarası, açık adres veya belge yükleme istenmez. Yalnızca temel ön değerlendirme bilgileri kullanılır.",
       },
       {
-        title: "Policy bağlamı kayıtlıdır",
-        body: `Bu sonuç backend tarafında policy sürümü ${policyVersion} ve değerlendirme tarihi ${evaluationDate} ile üretilmiştir.`,
+        title: "Değerlendirme bağlamı kayıtlıdır",
+        body: `Bu sonuç değerlendirme sürümü ${policyVersion} ve değerlendirme tarihi ${evaluationDate} ile üretilmiştir.`,
       },
     ],
     links: [

@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "GSS gelir testi rehberi",
   description:
-    "GSS gelir testi sayfasinda hangi bilgilerin neden soruldugunu ve sonucun nasil okunmasi gerektigini aciklayan kisa rehber.",
+    "GSS gelir testi sayfasında hangi bilgilerin neden sorulduğunu ve sonucun nasıl okunması gerektiğini açıklayan kısa rehber.",
   alternates: {
     canonical: "/gss-gelir-testi/rehber",
   },
@@ -17,19 +17,19 @@ export default function GssGuidePage() {
         <section className="card-panel">
           <p className="eyebrow">GSS Rehberi</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-            GSS gelir testi sonucu nasil okunur?
+            GSS gelir testi sonucu nasıl okunur?
           </h1>
           <p className="mt-5 text-base leading-8 text-slate-700">
-            GSS gelir testi araci resmi karar vermez. Sosyal guvence, aktif sigorta ve gelir
-            bilginizi degerlendirme sistemine iletir; size on degerlendirme ve bir sonraki adim icin
-            kisa yonlendirme sunar.
+            GSS gelir testi aracı resmî karar vermez. Sosyal güvence, aktif sigorta ve gelir
+            bilginizi değerlendirme sistemine iletir; size ön değerlendirme ve bir sonraki adım için
+            kısa yönlendirme sunar.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/gss-gelir-testi" className="primary-link">
-              GSS testini ac
+              GSS testini aç
             </Link>
             <Link href="/" className="secondary-link">
-              Diger testleri gor
+              Diğer testleri gör
             </Link>
           </div>
         </section>
@@ -37,24 +37,22 @@ export default function GssGuidePage() {
         <section className="card-panel">
           <h2 className="text-2xl font-semibold text-slate-950">Bu testte neler sorulur?</h2>
           <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-700">
-            <li>Brut toplam hane geliri</li>
-            <li>Hanedeki kisi sayisi</li>
-            <li>Sosyal guvence durumu</li>
+            <li>Brüt toplam hane geliri</li>
+            <li>Hanedeki kişi sayısı</li>
+            <li>Sosyal güvence durumu</li>
             <li>Aktif sigorta bilgisi</li>
-            <li>Bir yakin uzerinden kapsam durumu</li>
+            <li>Bir yakın üzerinden kapsam durumu</li>
           </ul>
         </section>
 
         <section className="card-panel">
-          <h2 className="text-2xl font-semibold text-slate-950">Sonuc ekraninda ne gorursunuz?</h2>
+          <h2 className="text-2xl font-semibold text-slate-950">Sonuç ekranında ne görürsünüz?</h2>
           <p className="mt-4 text-sm leading-7 text-slate-700">
-            Sonuc ekrani size teknik kod gostermez. Bunun yerine neden olumlu, olumsuz veya eksik
-            bilgi gerektiren bir on degerlendirme ciktigini sade bir dille aciklar.
+            Sonuç ekranı size teknik kod göstermez. Bunun yerine neden olumlu, olumsuz veya eksik
+            bilgi gerektiren bir ön değerlendirme çıktığını sade bir dille açıklar.
           </p>
         </section>
       </div>
     </main>
   );
 }
-
-
