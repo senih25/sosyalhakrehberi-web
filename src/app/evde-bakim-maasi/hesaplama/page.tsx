@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
 import { buildDecisionViewModel } from "@/lib/eligibility-explanations";
 import {
@@ -17,6 +18,7 @@ import {
   type IncomeGateSnapshot,
 } from "@/lib/income-gate";
 import { buildTrustLayerModel } from "@/lib/trust-layer";
+import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
 
 const statusTone: Record<EligibilityStatus, string> = {
@@ -170,6 +172,7 @@ export default function HesaplamaPage() {
         metadata: result.metadata,
       })
     : null;
+  const guidanceModel = getToolGuidanceModel("home-care");
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -502,6 +505,8 @@ export default function HesaplamaPage() {
                   </div>
                 </div>
               ) : null}
+
+              <ToolGuidanceSurface model={guidanceModel} showNextStep={false} />
             </section>
           ) : null}
         </section>
@@ -536,3 +541,4 @@ export default function HesaplamaPage() {
     </main>
   );
 }
+

@@ -11,7 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "/",
     "/65-yas-ayligi-uygunluk-testi",
+    "/65-yas-ayligi-uygunluk-testi/rehber",
     "/gss-gelir-testi",
+    "/gss-gelir-testi/rehber",
     "/evde-bakim-maasi",
     "/evde-bakim-maasi/hesaplama",
     "/evde-bakim-maasi/sartlar",
@@ -24,3 +26,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "/" ? 1 : 0.8,
   }));
 }
+

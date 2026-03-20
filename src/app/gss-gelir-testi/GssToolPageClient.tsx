@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
 import { buildGssDecisionViewModel } from "@/lib/gss-explanations";
+import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import {
   buildGssPayload,
   initialGssFormState,
@@ -121,6 +123,7 @@ export function GssToolPageClient() {
       })
     : null;
   const primaryAction = result ? resultPrimaryAction(result.status) : null;
+  const guidanceModel = getToolGuidanceModel("gss");
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -333,6 +336,8 @@ export function GssToolPageClient() {
                   </div>
                 </div>
               </div>
+
+              <ToolGuidanceSurface model={guidanceModel} />
             </section>
           ) : null}
         </section>
@@ -377,3 +382,4 @@ export function GssToolPageClient() {
     </main>
   );
 }
+
