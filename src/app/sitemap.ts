@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "/",
+    "/blog",
+    "/hakkimizda",
     "/65-yas-ayligi-uygunluk-testi",
     "/65-yas-ayligi-uygunluk-testi/rehber",
     "/gss-gelir-testi",
