@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
 import { buildOldAgeDecisionViewModel } from "@/lib/old-age-explanations";
+import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import {
   buildOldAgePayload,
   initialOldAgeFormState,
@@ -121,6 +123,7 @@ export function OldAgeToolPageClient() {
       })
     : null;
   const primaryAction = result ? resultPrimaryAction(result.status) : null;
+  const guidanceModel = getToolGuidanceModel("old-age");
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -351,6 +354,8 @@ export function OldAgeToolPageClient() {
                   </div>
                 </div>
               </div>
+
+              <ToolGuidanceSurface model={guidanceModel} />
             </section>
           ) : null}
         </section>
@@ -389,3 +394,4 @@ export function OldAgeToolPageClient() {
     </main>
   );
 }
+
