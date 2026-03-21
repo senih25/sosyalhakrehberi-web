@@ -23,7 +23,7 @@ const testCards = [
     title: "Evde Bakım Maaşı Uygunluk Testi",
     body:
       "Tam bağımlı bakım ihtiyacı bulunan kişiler için evde bakım maaşı yönünü anlamaya yardım eden, açıklayıcı sonuç ve rehberlik akışı sunar.",
-    href: "/evde-bakim-maasi/hesaplama",
+    href: "/start",
     cta: "Teste git",
     status: "Kullanıma açık",
   },
@@ -117,7 +117,7 @@ export default function Home() {
               yönlendirir.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
+              <Link href="/start" className="primary-link">
                 Evde Bakım Maaşı testini aç
               </Link>
               <Link href="#hangi-testi-secmeliyim" className="secondary-link">
@@ -191,7 +191,7 @@ export default function Home() {
             yüzünü görebilirsiniz.
           </p>
           <div className="mt-5 flex flex-col gap-3">
-            <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
+            <Link href="/start" className="primary-link">
               Evde Bakım Maaşı testini başlat
             </Link>
             <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link">
