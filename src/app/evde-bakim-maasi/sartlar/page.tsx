@@ -43,7 +43,7 @@ export default function HomeCareConditionsPage() {
             yardımcı olur.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
+            <Link href="/start" className="primary-link">
               Ön değerlendirmeyi başlat
             </Link>
             <Link href="/evde-bakim-maasi" className="secondary-link">

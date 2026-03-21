@@ -151,10 +151,11 @@ export default function HomeCareAllowancePage() {
               <div className="rounded-2xl bg-slate-50 p-4">
                 <p className="text-sm font-semibold text-slate-900">En hızlı geçiş yolu</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Temel bilgileri biliyorsanız doğrudan hesaplama sayfasına geçebilirsiniz.
+                  Temel bilgileri biliyorsanız başlangıç sayfasından ilerleyerek aynı akışa
+                  güvenli biçimde geçebilirsiniz.
                 </p>
-                <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link mt-4 inline-flex">
-                  Hesaplama sayfasına git
+                <Link href="/start" className="secondary-link mt-4 inline-flex">
+                  Başlangıç sayfasına git
                 </Link>
               </div>
             </div>
