@@ -6,6 +6,7 @@ const fieldLabelMap: Record<string, string> = {
   has_valid_foreigner_identity_number: "Geçerli yabancı kimlik numarası",
   has_valid_residence_permit: "Geçerli oturma izni",
   has_valid_health_report: "Geçerli sağlık raporu",
+  is_fully_dependent: "Tam bağımlılık durumu",
   care_recipient_disability_rate: "Sağlık raporu oranı",
   care_dependency_status: "Tam bağımlılık durumu",
   care_need_confirmed_by_board: "Heyet bakım raporu veya bakım ihtiyacı tespiti",

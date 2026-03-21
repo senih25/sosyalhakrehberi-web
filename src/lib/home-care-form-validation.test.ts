@@ -11,3 +11,11 @@ test("requires the report rate for the home care form", () => {
 test("returns no field errors when the report rate is provided", () => {
   assert.equal(getHomeCareFormFieldErrors({ disabilityRate: "75" }), null);
 });
+
+test("blocks report rates below 50 before submit", () => {
+  assert.deepEqual(getHomeCareFormFieldErrors({ disabilityRate: "49" }), {
+    care_recipient_disability_rate: [
+      "Evde bakım maaşı testi için en az %50 oran girebilirsiniz.",
+    ],
+  });
+});

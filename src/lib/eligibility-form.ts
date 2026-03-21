@@ -1,10 +1,6 @@
 import type { EligibilityCheckRequest } from "@/lib/types";
 
 export type TriStateAttestation = true | false | null;
-export type CareDependencyStatus =
-  | "full_dependency"
-  | "partial_dependency"
-  | null;
 
 export type EligibilityFormState = {
   disabilityRate: string;
@@ -14,7 +10,7 @@ export type EligibilityFormState = {
   isResidentInTr: TriStateAttestation;
   hasValidForeignerIdentityNumber: TriStateAttestation;
   hasValidResidencePermit: TriStateAttestation;
-  careDependencyStatus: CareDependencyStatus;
+  isFullyDependent: TriStateAttestation;
   careNeedConfirmedByBoard: TriStateAttestation;
   caregiverSameResidence: TriStateAttestation;
   hasAdditionalIncomeOrAssets: TriStateAttestation;
@@ -28,7 +24,7 @@ export const initialEligibilityFormState: EligibilityFormState = {
   isResidentInTr: null,
   hasValidForeignerIdentityNumber: null,
   hasValidResidencePermit: null,
-  careDependencyStatus: null,
+  isFullyDependent: null,
   careNeedConfirmedByBoard: null,
   caregiverSameResidence: null,
   hasAdditionalIncomeOrAssets: null,
@@ -72,8 +68,8 @@ export function buildEligibilityPayload(
     }
   }
 
-  if (form.careDependencyStatus !== null) {
-    facts.care_dependency_status = form.careDependencyStatus;
+  if (form.isFullyDependent !== null) {
+    facts.is_fully_dependent = form.isFullyDependent;
   }
 
   if (form.careNeedConfirmedByBoard !== null) {
