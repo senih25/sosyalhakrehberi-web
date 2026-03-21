@@ -18,6 +18,7 @@ export type EligibilityFacts = {
   has_valid_foreigner_identity_number?: boolean;
   has_valid_residence_permit?: boolean;
   has_valid_health_report?: boolean;
+  is_fully_dependent?: boolean;
   care_dependency_status?: string | null;
   care_need_confirmed_by_board?: boolean;
   caregiver_same_residence?: boolean;

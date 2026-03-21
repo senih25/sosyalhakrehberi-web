@@ -11,5 +11,14 @@ export function getHomeCareFormFieldErrors(
     };
   }
 
+  const numericRate = Number(disabilityRate);
+  if (!Number.isFinite(numericRate) || numericRate < 50) {
+    return {
+      care_recipient_disability_rate: [
+        "Evde bakım maaşı testi için en az %50 oran girebilirsiniz.",
+      ],
+    };
+  }
+
   return null;
 }

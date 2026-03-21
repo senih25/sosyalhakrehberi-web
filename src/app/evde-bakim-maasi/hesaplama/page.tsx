@@ -7,7 +7,6 @@ import { ApiClientError, checkEligibility } from "@/lib/api";
 import {
   buildEligibilityPayload,
   initialEligibilityFormState,
-  type CareDependencyStatus,
   type EligibilityFormState,
   type TriStateAttestation,
 } from "@/lib/eligibility-form";
@@ -70,28 +69,6 @@ const triStateOptions: Array<{
   { label: "Evet", value: true },
   { label: "Hayır", value: false },
   { label: "Bilmiyorum", value: null },
-];
-
-const careDependencyOptions: Array<{
-  description: string;
-  label: string;
-  value: CareDependencyStatus;
-}> = [
-  {
-    label: "Tam bağımlı",
-    value: "full_dependency",
-    description: "Günlük bakım ihtiyacı sürekli destek gerektiriyor.",
-  },
-  {
-    label: "Kısmi bağımlılık / tam bağımlı değil",
-    value: "partial_dependency",
-    description: "Bakım ihtiyacı var ama tam bağımlılık teyidi bulunmuyor.",
-  },
-  {
-    label: "Bilmiyorum",
-    value: null,
-    description: "Emin değilseniz bu seçeneği kullanın; bilgi eksik olarak değerlendirilir.",
-  },
 ];
 
 function resultPrimaryAction(status: EligibilityStatus) {
@@ -248,6 +225,8 @@ export default function HesaplamaPage() {
     () => normalizeReasons(result?.reasons, { sortBySeverity: false }),
     [result?.reasons],
   );
+  const primaryReason = reasonsNorm[0] ?? null;
+  const additionalReasons = reasonsNorm.slice(1);
   const missingNorm = useMemo(
     () => normalizeMissingFacts(result?.missing_facts),
     [result?.missing_facts],
@@ -378,49 +357,23 @@ export default function HesaplamaPage() {
                 />
               </label>
 
-              <fieldset className="mt-5">
-                <legend className="text-sm font-medium text-slate-900">
-                  Tam bağımlılık durumu
-                </legend>
-                <div className="mt-3 grid gap-3 md:grid-cols-3">
-                  {careDependencyOptions.map((option) => {
-                    const checked = form.careDependencyStatus === option.value;
-
-                    return (
-                      <label
-                        key={`careDependency-${option.label}`}
-                        className={`cursor-pointer rounded-2xl border p-4 text-sm transition ${
-                          checked
-                            ? "border-slate-900 bg-slate-900 text-white"
-                            : "border-slate-200 bg-white text-slate-700 hover:border-slate-400"
-                        }`}
-                      >
-                        <input
-                          className="sr-only"
-                          type="radio"
-                          name="careDependencyStatus"
-                          checked={checked}
-                          onChange={() => {
-                            markFormStarted();
-                            setForm((current) => ({
-                              ...current,
-                              careDependencyStatus: option.value,
-                            }));
-                          }}
-                        />
-                        <span className="block font-medium">{option.label}</span>
-                        <span
-                          className={`mt-2 block text-xs leading-6 ${
-                            checked ? "text-white/80" : "text-slate-600"
-                          }`}
-                        >
-                          {option.description}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </fieldset>
+              <TriStateField
+                className="mt-5"
+                legend="Tam bağımlı mı?"
+                name="isFullyDependent"
+                value={form.isFullyDependent}
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isFullyDependent: value,
+                  }));
+                }}
+              />
+              <p className="mt-2 text-xs leading-6 text-slate-600">
+                Evet derseniz tam bağımlı bakım ihtiyacı bulunduğunu, Hayır derseniz bulunmadığını,
+                Bilmiyorum derseniz bu bilginin eksik olduğunu bildirirsiniz.
+              </p>
 
               <div className="mt-5 grid gap-5 md:grid-cols-2">
                 <div>
@@ -675,22 +628,50 @@ export default function HesaplamaPage() {
                 <div className="rounded-2xl bg-white/70 p-5" id="why">
                   <h3 className="font-semibold">Neden bu sonuç çıktı?</h3>
                   {reasonsNorm.length > 0 ? (
-                    <ul className="mt-4 space-y-3 text-sm leading-7">
-                      {reasonsNorm.map((reason) => (
-                        <li
-                          key={`${reason.code}-${reason.message}-${reason.severity}`}
+                    <div className="mt-4 space-y-4 text-sm leading-7">
+                      {primaryReason ? (
+                        <div
                           className={`rounded-2xl border p-4 ${
-                            reason.severity === "ERROR"
+                            result.status === "NOT_ELIGIBLE"
                               ? "border-rose-200 bg-rose-50/70"
-                              : reason.severity === "WARNING"
-                                ? "border-amber-200 bg-amber-50/70"
-                                : "border-white/70 bg-white/70"
+                              : "border-white/70 bg-white/70"
                           }`}
                         >
-                          <p className="font-medium text-slate-950">{reason.message}</p>
-                        </li>
-                      ))}
-                    </ul>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
+                            {result.status === "NOT_ELIGIBLE"
+                              ? "Birincil neden"
+                              : "Öne çıkan açıklama"}
+                          </p>
+                          <p className="mt-2 font-medium text-slate-950">{primaryReason.message}</p>
+                        </div>
+                      ) : null}
+
+                      {result.status === "NOT_ELIGIBLE" && additionalReasons.length > 0 ? (
+                        <div className="rounded-2xl border border-rose-200 bg-white/70 p-4">
+                          <h4 className="font-medium text-slate-950">
+                            Sonucu etkileyen diğer nedenler
+                          </h4>
+                          <ul className="mt-3 space-y-2">
+                            {additionalReasons.map((reason) => (
+                              <li key={`${reason.code}-${reason.message}`} className="rounded-2xl bg-rose-50/70 p-3">
+                                {reason.message}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : additionalReasons.length > 0 ? (
+                        <ul className="space-y-2">
+                          {additionalReasons.map((reason) => (
+                            <li
+                              key={`${reason.code}-${reason.message}`}
+                              className="rounded-2xl border border-white/70 bg-white/70 p-4"
+                            >
+                              {reason.message}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
                   ) : (
                     <p className="mt-4 rounded-2xl bg-white/70 p-4 text-sm leading-7">
                       {getWhyFallbackCopy()}

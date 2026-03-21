@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   buildEligibilityPayload,
-  type CareDependencyStatus,
   initialEligibilityFormState,
   type EligibilityFormState,
 } from "./eligibility-form.ts";
@@ -15,7 +14,7 @@ function makeFormState(
     disabilityRate: "80",
     householdIncome: "10000",
     householdSize: "4",
-    careDependencyStatus: "full_dependency",
+    isFullyDependent: true,
     ...overrides,
   };
 }
@@ -40,7 +39,7 @@ test("maps yes attestations to true without changing the canonical request shape
       household_size: 4,
       is_turkish_citizen: true,
       is_resident_in_tr: true,
-      care_dependency_status: "full_dependency",
+      is_fully_dependent: true,
       care_need_confirmed_by_board: true,
       caregiver_same_residence: true,
       has_additional_income_or_assets: false,
@@ -92,7 +91,7 @@ test("keeps explicit false attestations while blank numeric fields remain nullab
       householdSize: "",
       isTurkishCitizen: false,
       isResidentInTr: true,
-      careDependencyStatus: null,
+      isFullyDependent: null,
     }),
     "req-blank",
   );
@@ -126,7 +125,7 @@ test("sends the non-citizen path and care dependency fields when provided", () =
       isTurkishCitizen: false,
       hasValidForeignerIdentityNumber: true,
       hasValidResidencePermit: true,
-      careDependencyStatus: "partial_dependency" satisfies CareDependencyStatus,
+      isFullyDependent: false,
       careNeedConfirmedByBoard: false,
       caregiverSameResidence: true,
       hasAdditionalIncomeOrAssets: true,
@@ -141,7 +140,7 @@ test("sends the non-citizen path and care dependency fields when provided", () =
     is_turkish_citizen: false,
     has_valid_foreigner_identity_number: true,
     has_valid_residence_permit: true,
-    care_dependency_status: "partial_dependency",
+    is_fully_dependent: false,
     care_need_confirmed_by_board: false,
     caregiver_same_residence: true,
     has_additional_income_or_assets: true,
