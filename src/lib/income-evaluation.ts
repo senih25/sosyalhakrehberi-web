@@ -73,7 +73,9 @@ export function formatCurrency(value: number | null | undefined): string | null 
   })} TL`;
 }
 
-export function getIncomeStatusTitle(status: IncomeEvaluationResponse["status"]): string {
+export function getIncomeStatusTitle(
+  status: IncomeEvaluationResponse["status"],
+): string {
   if (status === "ELIGIBLE") {
     return "Gelir değerlendirmesi olumlu görünüyor";
   }

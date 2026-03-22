@@ -1,6 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import {
+  BenefitCard,
+} from "@/components/result/BenefitCard";
+import { DecisionExplanationBlock } from "@/components/result/DecisionExplanationBlock";
+import { PrimaryActionBlock } from "@/components/result/PrimaryActionBlock";
+import { RiskBlock } from "@/components/result/RiskBlock";
+import { StepByStepGuidance } from "@/components/result/StepByStepGuidance";
 import { ApiClientError, createLead, evaluateIncome } from "@/lib/api";
 import { trackIncomeEvaluationEvent } from "@/lib/income-evaluation-analytics";
 import {
@@ -10,13 +17,18 @@ import {
   getIncomeStatusTitle,
   initialIncomeLeadFormState,
   initialIncomeFormState,
-  type IncomeLeadFormState,
   type IncomeFormState,
+  type IncomeLeadFormState,
 } from "@/lib/income-evaluation";
-import type {
-  IncomeEvaluationResponse,
-  EligibilityStatus,
-} from "@/lib/types";
+import {
+  adaptEligibleBenefits,
+  adaptGuidanceSteps,
+  adaptPrimaryBenefit,
+  adaptReasonMessages,
+  adaptRiskMessages,
+  adaptRuleTraceMessages,
+} from "@/lib/income-result-view";
+import type { EligibilityStatus, IncomeEvaluationResponse } from "@/lib/types";
 
 const statusTone: Record<EligibilityStatus, string> = {
   ELIGIBLE: "border-emerald-200 bg-emerald-50 text-emerald-950",
@@ -30,26 +42,6 @@ const statusBadge: Record<EligibilityStatus, string> = {
   NEEDS_INFO: "Ek bilgi gerekli",
 };
 
-function getFallbackMessage(status: EligibilityStatus): string {
-  if (status === "ELIGIBLE") {
-    return "Backend bu gelir bilgileriyle olumlu bir yön gösterdi.";
-  }
-
-  if (status === "NOT_ELIGIBLE") {
-    return "Backend bu gelir bilgileriyle olumsuz bir yön gösterdi.";
-  }
-
-  return "Backend daha net bir sonuç için ek bilgi bekliyor.";
-}
-
-function getGuidanceText(result: IncomeEvaluationResponse): string {
-  return result.ui_hints?.guidance_text?.trim() || result.message?.trim() || getFallbackMessage(result.status);
-}
-
-function getNextSteps(result: IncomeEvaluationResponse): string[] {
-  return result.ui_hints?.next_steps?.filter((step) => step.trim().length > 0) ?? [];
-}
-
 export function IncomeTestPageClient() {
   const [form, setForm] = useState<IncomeFormState>(initialIncomeFormState);
   const [leadForm, setLeadForm] = useState<IncomeLeadFormState>(
@@ -57,7 +49,9 @@ export function IncomeTestPageClient() {
   );
   const [result, setResult] = useState<IncomeEvaluationResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(
+    null,
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
   const [conversionIntent, setConversionIntent] = useState<
@@ -82,6 +76,7 @@ export function IncomeTestPageClient() {
     try {
       const response = await evaluateIncome(buildIncomeEvaluationPayload(form));
       trackIncomeEvaluationEvent("income_test_completed");
+
       if (response.status === "ELIGIBLE") {
         trackIncomeEvaluationEvent("income_test_result_ELIGIBLE");
       }
@@ -89,14 +84,14 @@ export function IncomeTestPageClient() {
       if (response.status === "NOT_ELIGIBLE") {
         trackIncomeEvaluationEvent("income_test_result_NOT_ELIGIBLE");
       }
+
       setResult(response);
     } catch (err) {
       trackIncomeEvaluationEvent("income_test_completed");
+      setError("Şu anda işlem yapılamıyor, lütfen tekrar deneyin.");
+
       if (err instanceof ApiClientError) {
-        setError("Şu anda işlem yapılamıyor, lütfen tekrar deneyin.");
         setFieldErrors(err.details ?? null);
-      } else {
-        setError("Şu anda işlem yapılamıyor, lütfen tekrar deneyin.");
       }
     } finally {
       setIsSubmitting(false);
@@ -136,13 +131,38 @@ export function IncomeTestPageClient() {
     }
   };
 
-  const guidanceText = result ? getGuidanceText(result) : null;
-  const nextSteps = result ? getNextSteps(result) : [];
-  const perCapitaIncome = formatCurrency(result?.per_capita_income);
-  const threshold = formatCurrency(result?.threshold);
   const showEmptyState = useMemo(
     () => !hasSubmittedOnce && !isSubmitting && !result && !error,
     [error, hasSubmittedOnce, isSubmitting, result],
+  );
+
+  const guidanceText = result?.ui_hints?.guidance_text?.trim() || result?.message?.trim() || null;
+  const perCapitaIncome = formatCurrency(result?.per_capita_income);
+  const threshold = formatCurrency(result?.threshold);
+
+  const benefits = useMemo(
+    () => adaptEligibleBenefits(result?.eligible_benefits),
+    [result?.eligible_benefits],
+  );
+  const primaryBenefit = useMemo(
+    () => adaptPrimaryBenefit(result?.eligible_benefits),
+    [result?.eligible_benefits],
+  );
+  const reasonMessages = useMemo(
+    () => adaptReasonMessages(result?.reasons),
+    [result?.reasons],
+  );
+  const ruleTraceMessages = useMemo(
+    () => adaptRuleTraceMessages(result?.rule_trace),
+    [result?.rule_trace],
+  );
+  const riskReasons = useMemo(
+    () => (result?.status === "NOT_ELIGIBLE" ? adaptRiskMessages(result.reasons) : []),
+    [result?.reasons, result?.status],
+  );
+  const guidanceSteps = useMemo(
+    () => adaptGuidanceSteps(result?.ui_hints, result?.eligible_benefits),
+    [result?.eligible_benefits, result?.ui_hints],
   );
 
   return (
@@ -154,8 +174,9 @@ export function IncomeTestPageClient() {
             Gelir uygunluğunu kısa form ile değerlendirin
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">
-            Hane kişi sayısı ve toplam gelir bilgisini gönderin. Sonuç yalnızca backend’in
-            döndürdüğü uygunluk durumu, kişi başı gelir, eşik ve rehber ipuçlarıyla gösterilir.
+            Hane kişi sayısı ve toplam gelir bilgisini gönderin. Sonuç yalnızca
+            backend&apos;in döndürdüğü uygunluk durumu, kişi başı gelir, eşik ve
+            rehber ipuçlarıyla gösterilir.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -223,7 +244,8 @@ export function IncomeTestPageClient() {
             <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-950">Bu test ne sağlar?</p>
               <p className="mt-2 leading-7">
-                Bu test ile gelir durumunuza göre sosyal haklara uygunluğunuzu öğrenebilirsiniz.
+                Bu test ile gelir durumunuza göre sosyal haklara uygunluğunuzu
+                öğrenebilirsiniz.
               </p>
             </div>
           ) : null}
@@ -253,7 +275,8 @@ export function IncomeTestPageClient() {
                 <ul className="mt-3 space-y-1">
                   {Object.entries(fieldErrors).map(([field, messages]) => (
                     <li key={field}>
-                      <span className="font-medium">{field}</span>: {messages.join(" ")}
+                      <span className="font-medium">{field}</span>:{" "}
+                      {messages.join(" ")}
                     </li>
                   ))}
                 </ul>
@@ -270,223 +293,183 @@ export function IncomeTestPageClient() {
 
           {result ? (
             <section className={`mt-6 rounded-3xl border p-6 ${statusTone[result.status]}`}>
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em]">
-                    {statusBadge[result.status]}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold">
-                    {getIncomeStatusTitle(result.status)}
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-7">{guidanceText}</p>
-                </div>
+              <div className="rounded-3xl bg-white/70 p-6">
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em]">
+                      {statusBadge[result.status]}
+                    </p>
+                    <h2 className="mt-3 text-2xl font-semibold">
+                      {getIncomeStatusTitle(result.status)}
+                    </h2>
+                    {guidanceText ? (
+                      <p className="mt-3 max-w-2xl text-sm leading-7">
+                        {guidanceText}
+                      </p>
+                    ) : null}
+                  </div>
 
-                <div className="rounded-2xl bg-white/80 px-4 py-3 text-sm font-medium">
-                  {result.status}
+                  <div className="flex flex-wrap gap-3">
+                    <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                      Kişi başı gelir: {perCapitaIncome ?? "Gösterilmedi"}
+                    </span>
+                    <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                      Eşik: {threshold ?? "Gösterilmedi"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
-                <article className="rounded-2xl bg-white/70 p-5">
-                  <h3 className="font-semibold text-slate-950">Değerlendirme özeti</h3>
-                  <dl className="mt-4 grid gap-4">
-                    <div>
-                      <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                        Kişi başı gelir
-                      </dt>
-                      <dd className="mt-1 text-lg font-semibold text-slate-950">
-                        {perCapitaIncome ?? "Gösterilmedi"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                        Eşik
-                      </dt>
-                      <dd className="mt-1 text-lg font-semibold text-slate-950">
-                        {threshold ?? "Gösterilmedi"}
-                      </dd>
-                    </div>
-                  </dl>
-                </article>
+              <div className="mt-6 space-y-6">
+                <PrimaryActionBlock benefit={primaryBenefit} />
 
-                <article className="rounded-2xl bg-white/70 p-5">
-                  <h3 className="font-semibold text-slate-950">Sonraki adımlar</h3>
-                  {nextSteps.length > 0 ? (
-                    <ol className="mt-4 space-y-3 text-sm leading-7">
-                      {nextSteps.map((step) => (
-                        <li key={step} className="rounded-2xl bg-white/70 p-4">
-                          {step}
-                        </li>
+                <DecisionExplanationBlock
+                  reasons={reasonMessages}
+                  ruleTraceItems={ruleTraceMessages}
+                />
+
+                {result.status === "NOT_ELIGIBLE" ? (
+                  <RiskBlock reasons={riskReasons} />
+                ) : null}
+
+                <StepByStepGuidance steps={guidanceSteps} />
+
+                <section className="rounded-3xl border border-slate-200 bg-white/80 p-6">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-950">
+                        Size uygun olabilecek haklar
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-700">
+                        Backend sıralamasına göre öncelikli haklar aşağıda listelenir.
+                      </p>
+                    </div>
+                  </div>
+
+                  {benefits.length > 0 ? (
+                    <div className="mt-4 grid gap-4">
+                      {benefits.map((benefit, index) => (
+                        <BenefitCard
+                          key={`${benefit.name}-${benefit.priority}-${benefit.reason}`}
+                          benefit={benefit}
+                          isRecommended={index === 0}
+                        />
                       ))}
-                    </ol>
+                    </div>
                   ) : (
                     <p className="mt-4 text-sm leading-7 text-slate-700">
-                      Backend bu sonuç için ek bir yönlendirme döndürmedi.
+                      Bu aşamada uygun bir sosyal hak bulunamadı.
                     </p>
                   )}
-                  {result.status === "ELIGIBLE" ? (
-                    <button
-                      type="button"
-                      onClick={() => console.log("income_test_cta_view_eligible_rights")}
-                      className="secondary-button mt-4"
-                    >
-                      Uygun olduğunuz hakları gör
-                    </button>
-                  ) : null}
-                </article>
-              </div>
+                </section>
 
-              <div className="mt-6 rounded-2xl border border-slate-200 bg-white/80 p-5">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="max-w-2xl">
-                    <h3 className="font-semibold text-slate-950">
-                      Bu sonuç neye göre hesaplandı?
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-700">
-                      Bu değerlendirme 2026 yılı mevzuatına göre yapılmıştır.
-                    </p>
-                  </div>
-                  <p className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs leading-6 text-slate-600">
-                    Bu sonuç resmi karar değildir, yalnızca bilgilendirme amaçlıdır.
-                  </p>
-                </div>
-
-                <div className="mt-4 grid gap-4 md:grid-cols-2">
-                  <article className="rounded-2xl bg-slate-50 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                      Kişi başı gelir
-                    </p>
-                    <p className="mt-2 text-lg font-semibold text-slate-950">
-                      {perCapitaIncome ?? "Gösterilmedi"}
-                    </p>
-                  </article>
-
-                  <article className="rounded-2xl bg-slate-50 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                      Gelir eşiği
-                    </p>
-                    <p className="mt-2 text-lg font-semibold text-slate-950">
-                      {threshold ?? "Gösterilmedi"}
-                    </p>
-                  </article>
-                </div>
-
-                <details className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-slate-950">
-                    Detayları gör
-                  </summary>
-                  <div className="mt-4 space-y-3 text-sm leading-7 text-slate-700">
-                    <p>Geliriniz eşik ile karşılaştırıldı.</p>
-                    <p>
-                      Sonuç ekranındaki kişi başı gelir ve gelir eşiği değerleri doğrudan
-                      backend değerlendirmesinden alınır.
-                    </p>
-                    <p>
-                      Backend bu test için ek rehber metni döndürdüyse, yukarıdaki açıklama ve
-                      sonraki adımlar bölümünde aynen gösterilir.
-                    </p>
-                  </div>
-                </details>
-              </div>
-              <div className="mt-6 rounded-2xl border border-slate-200 bg-white/80 p-5">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="max-w-2xl">
-                    <h3 className="font-semibold text-slate-950">
-                      Başvuru sürecinde destek ister misiniz?
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-700">
-                      Sonucu bozmadan daha detaylı yönlendirme veya danışman desteği
-                      talep edebilirsiniz.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <button
-                      type="button"
-                      onClick={() => handleConversionClick("detailed-analysis")}
-                      className="secondary-button"
-                    >
-                      Detaylı analiz al
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleConversionClick("consultation")}
-                      className="secondary-button"
-                    >
-                      Danışman desteği al
-                    </button>
-                  </div>
-                </div>
-
-                {conversionIntent ? (
-                  <div className="mt-5 rounded-2xl bg-slate-50 p-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <label className="form-field">
-                        <span>Ad soyad (isteğe bağlı)</span>
-                        <input
-                          type="text"
-                          value={leadForm.name}
-                          onChange={(event) =>
-                            setLeadForm((current) => ({
-                              ...current,
-                              name: event.target.value,
-                            }))
-                          }
-                          placeholder="Adınızı yazabilirsiniz"
-                        />
-                      </label>
-
-                      <label className="form-field">
-                        <span>Telefon veya e-posta (isteğe bağlı)</span>
-                        <input
-                          type="text"
-                          value={leadForm.contact}
-                          onChange={(event) =>
-                            setLeadForm((current) => ({
-                              ...current,
-                              contact: event.target.value,
-                            }))
-                          }
-                          placeholder="Telefon veya e-posta"
-                        />
-                      </label>
+                <section className="rounded-3xl border border-slate-200 bg-white/80 p-6">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="max-w-2xl">
+                      <h3 className="text-xl font-semibold text-slate-950">
+                        Bu süreci birlikte yönetelim
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-700">
+                        Başvurunuzu daha doğru planlamak için detaylı analiz veya
+                        danışman desteği talep edebilirsiniz.
+                      </p>
                     </div>
 
-                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <div className="flex flex-col gap-3 sm:flex-row">
                       <button
                         type="button"
-                        onClick={handleLeadSubmit}
-                        disabled={isLeadSubmitting}
-                        className="primary-button"
-                      >
-                        {isLeadSubmitting ? "Gönderiliyor..." : "Talep bırak"}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setConversionIntent(null);
-                          setLeadError(null);
-                          setLeadSuccess(null);
-                        }}
+                        onClick={() => handleConversionClick("detailed-analysis")}
                         className="secondary-button"
                       >
-                        Daha sonra karar ver
+                        Detaylı analiz al
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleConversionClick("consultation")}
+                        className="primary-button"
+                      >
+                        Başvurunu doğru yap
                       </button>
                     </div>
-
-                    {leadError ? (
-                      <p className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-7 text-rose-900">
-                        {leadError}
-                      </p>
-                    ) : null}
-
-                    {leadSuccess ? (
-                      <p className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-7 text-emerald-950">
-                        {leadSuccess}
-                      </p>
-                    ) : null}
                   </div>
-                ) : null}
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    Uzman desteği ile süreci hızlandırabilirsiniz.
+                  </p>
+
+                  {conversionIntent ? (
+                    <div className="mt-5 rounded-2xl bg-slate-50 p-4">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <label className="form-field">
+                          <span>Ad soyad (isteğe bağlı)</span>
+                          <input
+                            type="text"
+                            value={leadForm.name}
+                            onChange={(event) =>
+                              setLeadForm((current) => ({
+                                ...current,
+                                name: event.target.value,
+                              }))
+                            }
+                            placeholder="Adınızı yazabilirsiniz"
+                          />
+                        </label>
+
+                        <label className="form-field">
+                          <span>Telefon veya e-posta (isteğe bağlı)</span>
+                          <input
+                            type="text"
+                            value={leadForm.contact}
+                            onChange={(event) =>
+                              setLeadForm((current) => ({
+                                ...current,
+                                contact: event.target.value,
+                              }))
+                            }
+                            placeholder="Telefon veya e-posta"
+                          />
+                        </label>
+                      </div>
+
+                      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <button
+                          type="button"
+                          onClick={handleLeadSubmit}
+                          disabled={isLeadSubmitting}
+                          className="primary-button"
+                        >
+                          {isLeadSubmitting ? "Gönderiliyor..." : "Talep bırak"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setConversionIntent(null);
+                            setLeadError(null);
+                            setLeadSuccess(null);
+                          }}
+                          className="secondary-button"
+                        >
+                          Daha sonra karar ver
+                        </button>
+                      </div>
+
+                      <p className="mt-3 text-xs leading-6 text-slate-500">
+                        Bilgileriniz yalnızca sizinle iletişime geçmek için kullanılır.
+                      </p>
+
+                      {leadError ? (
+                        <p className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-7 text-rose-900">
+                          {leadError}
+                        </p>
+                      ) : null}
+
+                      {leadSuccess ? (
+                        <p className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-7 text-emerald-950">
+                          {leadSuccess}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </section>
               </div>
             </section>
           ) : null}
@@ -496,13 +479,15 @@ export function IncomeTestPageClient() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Nasıl çalışır?</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Frontend yalnız form verisini gönderir. Uygunluk kararı, kişi başı gelir,
-              eşik ve rehber ipuçları backend tarafından üretilir.
+              Frontend yalnız form verisini gönderir. Uygunluk kararı, kişi başı
+              gelir, eşik ve rehber ipuçları backend tarafından üretilir.
             </p>
           </div>
 
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Bu formda hangi bilgiler var?</h2>
+            <h2 className="text-lg font-semibold text-slate-950">
+              Bu formda hangi bilgiler var?
+            </h2>
             <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-700">
               <li>Hanedeki kişi sayısı</li>
               <li>Toplam gelir</li>
