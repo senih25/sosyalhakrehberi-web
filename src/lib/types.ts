@@ -102,15 +102,28 @@ export type IncomeEvaluationUiHints = {
   next_steps?: string[] | null;
 };
 
+export type IncomeNextStepDetails = {
+  description?: string | null;
+};
+
+export type IncomeEligibleBenefit = {
+  name?: string | null;
+  reason?: string | null;
+  confidence?: "high" | "medium" | "low" | string | null;
+  priority?: number | null;
+  next_step_details?: IncomeNextStepDetails | null;
+};
+
 export type IncomeEvaluationResponse = {
   status: EligibilityStatus;
   message?: string | null;
   per_capita_income?: number | null;
   threshold?: number | null;
+  reasons?: DecisionReason[] | null;
   ui_hints?: IncomeEvaluationUiHints | null;
   decision?: string | null;
   rule_trace?: Record<string, unknown> | string[] | null;
-  eligible_benefits?: unknown[] | null;
+  eligible_benefits?: IncomeEligibleBenefit[] | null;
   routing_context?: Record<string, unknown> | null;
 };
 
