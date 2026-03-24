@@ -32,9 +32,9 @@ export const homepageChooseItems = [
   {
     title: "Doğum yardımı hakkında bilgi arıyorsanız",
     body:
-      "Doğum Yardımı yüzeyi hazırdır; açıklamaları görebilir ve sayfanın mevcut kapsamını inceleyebilirsiniz.",
+      "Doğum Yardımı testi canlıdır. Kısa sorularla ön değerlendirme alabilir ve sonraki adım rehberini görebilirsiniz.",
     href: "/dogum-yardimi-uygunluk-testi",
-    cta: "Doğum yardımı sayfasını aç",
+    cta: "Doğum yardımı testini aç",
   },
 ];
 

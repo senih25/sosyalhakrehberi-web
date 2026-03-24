@@ -3,7 +3,8 @@ export type EligibilityStatus = "ELIGIBLE" | "NOT_ELIGIBLE" | "NEEDS_INFO";
 export type EligibilityBenefitCode =
   | "TR_HOME_CARE_ALLOWANCE"
   | "TR_GSS"
-  | "TR_OLD_AGE_PENSION";
+  | "TR_OLD_AGE_PENSION"
+  | "TR_BIRTH_GRANT";
 
 export type EligibilityFacts = {
   age?: number | null;
@@ -30,6 +31,14 @@ export type EligibilityFacts = {
   self_monthly_income?: number | null;
   spouse_monthly_income?: number | null;
   receives_pension?: boolean;
+  child_birth_date?: string | null;
+  child_is_live_birth?: boolean;
+  child_is_kps_registered?: boolean;
+  child_is_alive?: boolean;
+  applicant_is_turkish_citizen?: boolean;
+  applicant_resides_in_tr?: boolean;
+  child_resides_in_tr?: boolean;
+  previous_live_children_count?: number | null;
 };
 
 export type EligibilityCheckContext = {
@@ -75,10 +84,32 @@ export type EligibilityMetadata = {
   policy_version: string;
   jurisdiction: string;
   evaluation_date: string | null;
+  benefit_family?: string;
+  requires_income_test?: boolean;
+  visible_test_name?: string;
   policy_jurisdiction?: string;
   policy_effective_from?: string;
   policy_source_effective_date?: string;
   policy_snapshot_hash?: string;
+  application_guidance?: {
+    application_state?: string | null;
+    primary_channel?: string | null;
+    description?: string | null;
+  } | null;
+};
+
+export type GuidanceItem = {
+  title: string;
+  url: string;
+};
+
+export type BirthGrantBenefitDetails = {
+  child_order: number;
+  payment_type: "ONE_TIME" | "MONTHLY" | string;
+  payment_amount: number;
+  total_estimated_amount?: number | null;
+  remaining_months?: number | null;
+  calculation_profile?: string | null;
 };
 
 export type EligibilityCheckResponse = {
@@ -90,6 +121,10 @@ export type EligibilityCheckResponse = {
   missing_facts: MissingFact[];
   rule_results: Record<string, RuleResult> | RuleResult[];
   metadata: EligibilityMetadata;
+  user_message?: string | null;
+  disclaimer?: string | null;
+  guidance_items?: GuidanceItem[];
+  benefit_details?: BirthGrantBenefitDetails | null;
 };
 
 export type IncomeEvaluationRequest = {
