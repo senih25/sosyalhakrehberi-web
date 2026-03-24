@@ -137,6 +137,12 @@ Deployment planning documents:
 - `docs/test-payloads.md`
 - `docs/home-care-live-smoke-checklist.md`
 
+Production runtime is explicitly defined with `nixpacks.toml` so platform builds can:
+
+- install with `npm ci`
+- build with `npm run build`
+- start the app without the extra `npm start` wrapper warning
+
 ## Status
 
 Current state of the repository:
