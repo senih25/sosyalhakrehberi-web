@@ -18,76 +18,82 @@ export type BirthGrantDecisionViewModel = {
   primaryReason: BirthGrantExplanationItem | null;
   secondaryReasons: BirthGrantExplanationItem[];
   missingInformation: BirthGrantExplanationItem[];
+  specialReviewNotes: BirthGrantExplanationItem[];
   paymentSummary: string | null;
   paymentDetail: string | null;
   nextStepTitle: string;
   nextStepBody: string;
+  applicationPathHint: string | null;
   helperLinks: GuidanceItem[];
+  trustNote: string;
 };
+
+const defaultTrustNote =
+  "Bu sonuç ön değerlendirme niteliğindedir; nihai değerlendirme ilgili kurumun incelemesine göre belirlenir.";
 
 const reasonMap: Record<string, BirthGrantExplanationItem> = {
   LIVE_BIRTH_REQUIRED: {
-    title: "Başvuru canlı doğumdan sonra yapılır",
-    body: "Doğum yardımı için test ancak canlı doğum gerçekleştikten sonra anlamlı bir ön değerlendirme üretebilir.",
+    title: "Başvuru canlı doğumdan sonra değerlendirilir",
+    body: "Doğum yardımı için anlamlı ön değerlendirme, canlı doğum bilgisi netleştikten sonra yapılabilir.",
   },
   BIRTH_DATE_OUT_OF_RANGE: {
-    title: "Doğum tarihi kapsama girmiyor",
-    body: "Bu model 1 Ocak 2025 ve sonrasındaki doğumlar için tasarlandı.",
+    title: "Doğum tarihi yeniden kontrol edilmeli",
+    body: "Doğum tarihi bu yardımın kapsama dönemini etkileyebilir.",
   },
   CITIZENSHIP_REQUIREMENT_NOT_MET: {
-    title: "Vatandaslik bilgisi sonucu etkiliyor",
-    body: "Basvuru sahibinin vatandaslik bilgisi uygun gorunmediginde test olumsuz sonuc dondurur.",
+    title: "Vatandaşlık bilgisi sonucu etkiliyor",
+    body: "Başvuruyu yapacak kişinin vatandaşlık bilgisi olumlu görünmediğinde sonuç değişebilir.",
   },
   PARENT_CITIZENSHIP_REQUIREMENT_NOT_MET: {
-    title: "Aile vatandaslik bilgisi sonucu etkiliyor",
-    body: "Anne veya babadan en az birinin Turk vatandasi oldugu bilgisi olmadan olumlu sonuc uretilemez.",
+    title: "Ebeveyn bilgisi yeniden kontrol edilmeli",
+    body: "Anne veya baba bilgisindeki eksiklik ya da uyumsuzluk başvuru yolunu etkileyebilir.",
   },
   RESIDENCY_REQUIREMENT_NOT_MET: {
-    title: "Ikamet bilgisi sonucu etkiliyor",
-    body: "Basvuru yapan kisi ve cocuk icin Turkiye ikamet bilgisi on degerlendirmede kullanilir.",
+    title: "İkamet bilgisi sonucu etkiliyor",
+    body: "Başvuru yapan kişi ve çocuk için ikamet bilgisi ön değerlendirmede dikkate alınır.",
   },
   KPS_REGISTRATION_REQUIRED: {
-    title: "KPS kaydi tamamlanmali",
-    body: "Dogum yardimi basvurusunda Kimlik Paylasim Sistemi kaydinin tamamlanmis olmasi beklenir.",
+    title: "KPS kaydı tamamlanmalı",
+    body: "Doğum bilgisinin nüfus sisteminde görünmesi başvuru yolunu netleştirmeye yardımcı olur.",
   },
   CHILD_STATUS_NOT_ELIGIBLE: {
-    title: "Cocuk durumu tekrar kontrol edilmeli",
-    body: "Test cocugun basvuru anindaki durumunu dogrulamadan olumlu sonuc vermez.",
+    title: "Çocuğun durumu yeniden kontrol edilmeli",
+    body: "Başvuru anındaki çocuk durumu netleşmeden güvenli sonuç üretilemez.",
   },
 };
 
 const missingFactMap: Record<string, BirthGrantExplanationItem> = {
   child_is_live_birth: {
     title: "Doğum bilgisini netleştirin",
-    body: "Doğum gerçekleşti mi sorusu bu testin ilk ayrımıdır.",
+    body: "Canlı doğum gerçekleşti mi sorusu bu testin ilk ayrımıdır.",
   },
   child_birth_date: {
     title: "Doğum tarihini ekleyin",
-    body: "Doğum tarihi kapsama dönemi ve ödeme profilini anlamak için gerekir.",
+    body: "Doğum tarihi başvuru akışını ve ödeme profilini anlamak için gerekir.",
   },
   child_is_kps_registered: {
-    title: "KPS kaydini kontrol edin",
-    body: "KPS kaydi olmadan basvuru yolu netlesmeyebilir.",
+    title: "KPS kaydını kontrol edin",
+    body: "KPS kaydı olmadan başvuru yolu netleşmeyebilir.",
   },
   child_is_alive: {
-    title: "Cocugun mevcut durumunu secin",
-    body: "Basvuru anindaki cocuk durumu olmadan guvenli sonuc uretilemez.",
+    title: "Çocuğun mevcut durumunu seçin",
+    body: "Başvuru anındaki çocuk durumu olmadan güvenli sonuç üretilemez.",
   },
   applicant_is_turkish_citizen: {
-    title: "Vatandaslik bilgisini secin",
-    body: "Basvuruyu yapacak kisi icin vatandaslik bilgisi gerekir.",
+    title: "Vatandaşlık bilgisini seçin",
+    body: "Başvuruyu yapacak kişi için vatandaşlık bilgisi gerekir.",
   },
   applicant_resides_in_tr: {
-    title: "Ikamet bilgisini secin",
-    body: "Basvuru yapan kisi icin Turkiye ikamet bilgisi gerekir.",
+    title: "İkamet bilgisini seçin",
+    body: "Başvuru yapan kişi için Türkiye'de ikamet bilgisi gerekir.",
   },
   child_resides_in_tr: {
-    title: "Cocugun ikamet bilgisini secin",
-    body: "Cocuk icin Turkiye ikamet bilgisi gerekir.",
+    title: "Çocuğun ikamet bilgisini seçin",
+    body: "Çocuk için Türkiye'de ikamet bilgisi gerekir.",
   },
   previous_live_children_count: {
-    title: "Kacinci cocuk oldugunu secin",
-    body: "Odeme profili cocuk sirasina gore belirlenir.",
+    title: "Kaçıncı çocuk olduğunu seçin",
+    body: "Ödeme profili çocuk sırasına göre değişebilir.",
   },
 };
 
@@ -98,7 +104,7 @@ function mapReason(reason: DecisionReason, status: EligibilityStatus): BirthGran
         status === "ELIGIBLE"
           ? "Ön değerlendirme olumlu görünüyor"
           : status === "NEEDS_INFO"
-            ? "Ek bilgi gerekli"
+            ? "Biraz daha bilgi gerekli"
             : "Ön değerlendirme olumsuz görünüyor",
       body: reason.message,
     }
@@ -109,7 +115,7 @@ function mapMissingFact(fact: MissingFact): BirthGrantExplanationItem {
   return (
     missingFactMap[fact.key] ?? {
       title: "Bir bilgiyi tamamlayın",
-      body: fact.message || "Eksik bilgiyi netleştirdikten sonra testi yeniden çalıştırın.",
+      body: fact.message || "Eksik bilgiyi netleştirip testi yeniden deneyin.",
     }
   );
 }
@@ -136,7 +142,7 @@ function buildPaymentSummary(benefitDetails?: BirthGrantBenefitDetails | null): 
   if (benefitDetails.payment_type === "ONE_TIME") {
     return {
       paymentSummary: `${formatMoney(benefitDetails.payment_amount)} tek sefer`,
-      paymentDetail: "Ilk cocuk icin destek tek seferlik odeme profiliyle gorunuyor.",
+      paymentDetail: "İlk çocuk için destek tek seferlik ödeme profiline yakın görünüyor.",
     };
   }
 
@@ -156,6 +162,15 @@ function buildPaymentSummary(benefitDetails?: BirthGrantBenefitDetails | null): 
   };
 }
 
+function buildSpecialReviewNotes(reasons: DecisionReason[]): BirthGrantExplanationItem[] {
+  return reasons
+    .filter((reason) => String(reason.severity).toUpperCase() === "WARNING")
+    .map((reason) => ({
+      title: "Ek belge veya inceleme gerekebilir",
+      body: reason.message,
+    }));
+}
+
 export function buildBirthGrantDecisionViewModel(input: {
   status: EligibilityStatus;
   reasons: DecisionReason[];
@@ -164,64 +179,77 @@ export function buildBirthGrantDecisionViewModel(input: {
   benefitDetails?: BirthGrantBenefitDetails | null;
   metadata?: EligibilityMetadata;
   userMessage?: string | null;
+  disclaimer?: string | null;
 }): BirthGrantDecisionViewModel {
-  const mappedReasons = input.reasons.map((reason) => mapReason(reason, input.status));
+  const mappedReasons = input.reasons
+    .filter((reason) => String(reason.severity).toUpperCase() !== "WARNING")
+    .map((reason) => mapReason(reason, input.status));
   const [primaryReason, ...secondaryReasons] = mappedReasons;
   const missingInformation = input.missingFacts.map(mapMissingFact);
   const payment = buildPaymentSummary(input.benefitDetails);
-  const applicationGuidance = input.metadata?.application_guidance?.description;
+  const applicationPathHint = input.metadata?.application_guidance?.description ?? null;
+  const specialReviewNotes = buildSpecialReviewNotes(input.reasons);
 
   if (input.status === "ELIGIBLE") {
     return {
-      title: "Dogum yardimi icin on uygun gorunuyorsunuz",
+      title: "Başvurabilirsiniz gibi görünüyor",
       summary:
         input.userMessage ??
-        "Bu sonuc resmi karar yerine gecmez. Yine de basvuru yolunu ve odeme profilini anlamak icin guclu bir ilk referans sunar.",
+        "Mevcut bilgilerle başvuru yolu açık görünüyor. Yine de resmi inceleme ve belge kontrolü devam eder.",
       primaryReason: primaryReason ?? null,
       secondaryReasons,
       missingInformation,
+      specialReviewNotes,
       paymentSummary: payment.paymentSummary,
       paymentDetail: payment.paymentDetail,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalısınız?",
       nextStepBody:
-        applicationGuidance ??
-        "Dogum yardimi basvuru kanalini kontrol edin ve resmi basvuru oncesinde KPS kaydi ile temel bilgileri tekrar dogrulayin.",
+        applicationPathHint ??
+        "Başvuru kanalını kontrol edin ve resmi başvuru öncesinde doğum kaydı ile temel bilgilerinizi yeniden doğrulayın.",
+      applicationPathHint,
       helperLinks: input.guidanceItems ?? [],
+      trustNote: input.disclaimer ?? defaultTrustNote,
     };
   }
 
   if (input.status === "NEEDS_INFO") {
     return {
-      title: "Sonuc icin biraz daha bilgi gerekli",
+      title: "Biraz daha bilgi gerekli",
       summary:
         input.userMessage ??
-        "Sistem guvenli bir on degerlendirme uretmek icin ek bilgi istiyor. Eksik alanlari tamamlayip tekrar deneyebilirsiniz.",
+        "Sistem güvenli bir ön değerlendirme üretmek için ek bilgi istiyor. Eksik alanları tamamlayıp tekrar deneyebilirsiniz.",
       primaryReason: primaryReason ?? null,
       secondaryReasons,
       missingInformation,
+      specialReviewNotes,
       paymentSummary: payment.paymentSummary,
       paymentDetail: payment.paymentDetail,
-      nextStepTitle: "Simdi ne yapmali?",
+      nextStepTitle: "Şimdi ne yapmalısınız?",
       nextStepBody:
-        "Ozellikle dogum tarihi, KPS kaydi ve cocuk sirasi net degilse bunlari tamamlayip ayni sayfada yeniden deneyin.",
+        "Özellikle doğum tarihi, KPS kaydı ve çocuk sırası net değilse bunları tamamlayıp aynı sayfada yeniden deneyin.",
+      applicationPathHint,
       helperLinks: input.guidanceItems ?? [],
+      trustNote: input.disclaimer ?? defaultTrustNote,
     };
   }
 
   return {
-    title: "Dogum yardimi icin on uygun gorunmuyorsunuz",
+    title: "Şu anda uygun görünmüyor",
     summary:
       input.userMessage ??
-      "Bu sonuc resmi karar yerine gecmez. Ancak mevcut bilgilerle test olumlu bir gorunum vermiyor.",
+      "Mevcut bilgilerle başvuru yolu açık görünmüyor. Yine de resmi rehberi inceleyip bilgilerinizi tekrar kontrol edebilirsiniz.",
     primaryReason: primaryReason ?? null,
     secondaryReasons,
     missingInformation,
+    specialReviewNotes,
     paymentSummary: payment.paymentSummary,
     paymentDetail: payment.paymentDetail,
-    nextStepTitle: "Simdi ne yapmali?",
+    nextStepTitle: "Şimdi ne yapmalısınız?",
     nextStepBody:
-      applicationGuidance ??
-      "Vatandaslik, ikamet veya canli dogum bilgilerini tekrar kontrol edin. Emin olmadiginiz durumda resmi rehber uzerinden basvuru kosullarini okuyun.",
+      applicationPathHint ??
+      "Vatandaşlık, ikamet veya canlı doğum bilgilerini yeniden kontrol edin. Emin olmadığınız durumda resmi rehber üzerinden başvuru koşullarını okuyun.",
+    applicationPathHint,
     helperLinks: input.guidanceItems ?? [],
+    trustNote: input.disclaimer ?? defaultTrustNote,
   };
 }

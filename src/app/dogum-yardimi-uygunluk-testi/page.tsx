@@ -4,7 +4,7 @@ import { BirthGrantToolPageClient } from "./BirthGrantToolPageClient";
 export const metadata: Metadata = {
   title: "Doğum yardımı uygunluk testi",
   description:
-    "Doğum yardımı için 2026 güncel ödeme mantığına ve temel başvuru adımlarına göre ön değerlendirme sunan araç.",
+    "Doğum yardımı için adım adım ön değerlendirme, sonuç açıklaması ve başvuru öncesi rehber sunan araç.",
   alternates: {
     canonical: "/dogum-yardimi-uygunluk-testi",
   },

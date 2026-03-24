@@ -13,7 +13,7 @@ test("birth grant decision view keeps backend message as summary when provided",
       },
     ],
     missingFacts: [],
-    userMessage: "Backend yönlendirmesi gösteriliyor.",
+    userMessage: "Başvuru yolu açık görünüyor.",
     benefitDetails: {
       child_order: 1,
       payment_type: "ONE_TIME",
@@ -21,7 +21,7 @@ test("birth grant decision view keeps backend message as summary when provided",
     },
   });
 
-  assert.equal(view.summary, "Backend yönlendirmesi gösteriliyor.");
+  assert.equal(view.summary, "Başvuru yolu açık görünüyor.");
   assert.equal(view.paymentSummary, "5.000 TL tek sefer");
 });
 
@@ -39,4 +39,21 @@ test("birth grant decision view maps missing facts into guidance items", () => {
 
   assert.equal(view.missingInformation.length, 1);
   assert.match(view.missingInformation[0].title, /Doğum tarihini ekleyin/i);
+});
+
+test("birth grant decision view surfaces warning reasons as special review notes", () => {
+  const view = buildBirthGrantDecisionViewModel({
+    status: "ELIGIBLE",
+    reasons: [
+      {
+        code: "MANUAL_REVIEW",
+        message: "Başvuru sırasında ek belge istenebilir.",
+        severity: "WARNING",
+      },
+    ],
+    missingFacts: [],
+  });
+
+  assert.equal(view.specialReviewNotes.length, 1);
+  assert.match(view.specialReviewNotes[0].body, /ek belge/i);
 });
