@@ -44,10 +44,10 @@ const testCards = [
   {
     title: "Doğum Yardımı Uygunluk Testi",
     body:
-      "Sayfa görünür durumdadır. Bu başlık için rehber ve test akışı hazırlanmaya devam ediyor.",
+      "Kısa sorularla doğum yardımı için ön değerlendirme alır, sonucu sade biçimde açıklar ve başvuru rehberine yönlendirir.",
     href: "/dogum-yardimi-uygunluk-testi",
-    cta: "Bilgi sayfasını aç",
-    status: "Hazırlanıyor",
+    cta: "Sayfayı aç",
+    status: "Kullanıma açık",
   },
 ];
 

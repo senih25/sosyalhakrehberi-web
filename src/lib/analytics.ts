@@ -1,6 +1,6 @@
 import type { EligibilityStatus } from "@/lib/types";
 
-export type ToolAnalyticsTool = "home-care" | "gss" | "old-age";
+export type ToolAnalyticsTool = "home-care" | "gss" | "old-age" | "birth-grant";
 export type ToolAnalyticsSurface = "tool-page" | "result" | "guidance";
 export type ToolAnalyticsTargetKind = "guide" | "tool" | "primary-action";
 
