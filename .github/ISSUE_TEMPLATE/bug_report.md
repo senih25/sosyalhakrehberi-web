@@ -1,24 +1,16 @@
 ---
 name: Bug report
-about: Report a product, UI, or integration problem
-title: "Bug: "
+about: Report a problem in the system
+title: "[BUG] "
 labels: bug
-assignees: ""
 ---
 
-## Summary
-Describe the problem clearly.
+## What happened?
 
-## Steps to Reproduce
-1. 
-2. 
-3. 
+## Expected result
 
-## Expected Behavior
-What should have happened?
+## Steps to reproduce
 
-## Actual Behavior
-What happened instead?
+## API response (if any)
 
-## Notes
-Add screenshots, logs, or environment details if helpful.
+## Screenshots

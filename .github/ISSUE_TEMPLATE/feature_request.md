@@ -1,21 +1,14 @@
 ---
 name: Feature request
-about: Suggest a focused improvement for product, content, or infrastructure
-title: "Feature: "
+about: Suggest an improvement
+title: "[FEATURE] "
 labels: enhancement
-assignees: ""
 ---
 
-## Summary
-Describe the requested improvement.
+## Problem
 
-## Why It Matters
-Explain the user, product, or repo value.
+## Proposed solution
 
-## Proposed Scope
-- 
-- 
-- 
+## User impact
 
-## Constraints
-Note any API, MVP, or security boundaries that must be preserved.
+## Additional context
