@@ -136,6 +136,8 @@ Frontend:
 
 ---
 
+---
+
 ## 🔍 Example Output
 
 ```json
@@ -147,68 +149,53 @@ Frontend:
   ],
   "next_step": "Apply via local office"
 }
-
-## 📈 Scaling and Sustainability
+📈 Scaling and Sustainability
 
 Each guided test triggers backend processing.
 
 As usage grows:
 
-- API load increases
-- infrastructure cost increases
+API load increases
+infrastructure cost increases
 
 To sustain the platform, these layers must continue operating reliably:
 
-- backend engine
-- hosting
-- development
-- maintenance
-
----
-
-## 💖 Supporting the Project
+backend engine
+hosting
+development
+maintenance
+💖 Supporting the Project
 
 This is a public-benefit system.
 
 Support helps us:
 
-- keep it free
-- improve quality
-- reach more people
-
----
-
-## 🤝 Contributing
+keep it free
+improve quality
+reach more people
+🤝 Contributing
 
 Use Issues for:
 
-- bugs
-- policy updates
-- improvements
-
----
-
-## 💬 Community
+bugs
+policy updates
+improvements
+💬 Community
 
 Use Discussions for ideas and feedback.
 
----
+🖼️ Project Identity
 
-# Technical Documentation
-
-## Tech Stack
-
-- Next.js
-- React
-- TypeScript
-
-## Local Dev
-
-```bash
+Technical Documentation
+Tech Stack
+Next.js
+React
+TypeScript
+Local Development
 npm ci
 npm run dev
-
 License
 
 This repository is proprietary and distributed under an All Rights Reserved notice.
 See LICENSE
+.
