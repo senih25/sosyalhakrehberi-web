@@ -1,140 +1,137 @@
-# Sosyal Hak Rehberi – Digital Social Rights Guidance Platform
+# Sosyal Hak Rehberi – Dijital Sosyal Haklar Rehberlik Platformu
 
 ![Social Rights Guide](./public/assets/hero.jpg)
 
-Frontend repository of **https://sosyalhakrehberi.com/**
+Frontend repository of **[https://sosyalhakrehberi.com/](https://sosyalhakrehberi.com/)**
 
-A public-oriented digital platform that helps individuals understand and access their social rights in Turkey.
+Bireylerin Türkiye’deki sosyal haklarını anlamalarına ve bu haklara erişmelerine yardımcı olan kamu odaklı dijital platform.
 
-- Website: https://sosyalhakrehberi.com/
-- Instagram: https://www.instagram.com/sosyalhizmet.danismanligi/
-- Contact: info@sosyalhizmetdanismani.com
+* Website: [https://sosyalhakrehberi.com/](https://sosyalhakrehberi.com/)
+* Instagram: [https://www.instagram.com/sosyalhizmet.danismanligi/](https://www.instagram.com/sosyalhizmet.danismanligi/)
+* Contact: [info@sosyalhizmetdanismani.com](mailto:info@sosyalhizmetdanismani.com)
 
 ---
 
 ## 🌍 What is this?
 
-Sosyal Hak Rehberi is a guidance and awareness platform designed to make social rights:
+Sosyal Hak Rehberi, sosyal hakları:
 
-- understandable
-- accessible
-- actionable
+* anlaşılabilir
+* erişilebilir
+* uygulanabilir
 
-It helps users:
+hale getirmeyi amaçlayan bir rehberlik platformudur.
 
-- learn which benefits they may be eligible for
-- understand decision logic clearly
-- take the correct next steps
+Kullanıcılara:
 
-> This platform provides guidance only and is not an official government decision system.
+* hangi haklara sahip olabileceklerini anlamalarını sağlar
+* karar mantığını açık şekilde gösterir
+* doğru sonraki adımları sunar
+
+> Bu platform resmi bir devlet sistemi değildir, yalnızca rehberlik sağlar.
 
 ---
 
 ## 🎯 Why it exists
 
-Many individuals:
+Birçok birey:
 
-- do not know their rights
-- apply incorrectly and get rejected
-- cannot navigate complex bureaucratic processes
+* haklarını bilmez
+* yanlış başvuru yapar
+* karmaşık süreçleri yönetemez
 
-This platform aims to:
+Bu platform:
 
-- reduce failed applications
-- increase awareness of rights
-- provide structured guidance
+* hatalı başvuruları azaltmayı
+* farkındalığı artırmayı
+* rehberlik sağlamayı
+
+aamaclar.
 
 ---
 
 ## 🌍 Social Impact & Context
 
-Access to social rights remains a significant challenge.
+Sosyal haklara erişim önemli bir problemdir.
 
-According to official public reports and national statistics:
+Resmi veriler ve saha gözlemleri göstermektedir ki:
 
-- millions of individuals benefit from social assistance programs in Turkey
-- a large number of applications are incomplete or incorrectly submitted
-- many eligible individuals cannot access benefits due to lack of guidance
+* milyonlarca kişi sosyal yardımlardan faydalanmaktadır
+* başvuruların önemli kısmı eksik veya hatalıdır
+* birçok hak sahibi birey rehberlik eksikliği nedeniyle haklarına ulaşamaz
 
-These challenges create:
+Bu durum:
 
-- unnecessary administrative workload for institutions
-- delayed or rejected applications
-- loss of access to essential support
+* kurumlarda iş yükü oluşturur
+* başvuru süreçlerini uzatır
+* vatandaşların hak kaybına yol açar
 
 ---
 
 ## 🎯 Mission
 
-To provide a clear, structured, and accessible digital guidance system  
-that helps individuals understand their social rights and take the correct actions.
+Bireylerin sosyal haklarını doğru anlamasını sağlayan açık, yapılandırılmış ve erişilebilir bir rehberlik sistemi sunmak.
 
 ---
 
 ## 🚀 Vision
 
-To build a scalable Social Rights Operating System that:
-
-- improves awareness of rights
-- reduces incorrect applications
-- supports efficient public service processes
-- enables fair access to benefits
+Milyonlarca kullanıcıya ulaşan, ölçeklenebilir bir **Sosyal Hak İşletim Sistemi** oluşturmak.
 
 ---
 
 ## ⚖️ Public Value
 
-This platform acts as a digital social rights guide by:
+Bu platform:
 
-- empowering individuals with knowledge
-- supporting fair access to public resources
-- reducing friction between citizens and institutions
+* bireyleri güçlendirir
+* kamu kaynaklarına adil erişimi destekler
+* vatandaş-kurum arasındaki sürtünmeyi azaltır
 
 ---
 
 ## ⚙️ How it works
 
-1. User starts a guided test
-2. Inputs basic information
-3. Frontend sends request to backend
-4. Backend evaluates eligibility
-5. Frontend renders:
-   - decision
-   - explanation
-   - next steps
+1. Kullanıcı testi başlatır
+2. Bilgilerini girer
+3. Frontend backend’e gönderir
+4. Backend değerlendirir
+5. Frontend sonucu gösterir:
+
+   * karar
+   * açıklama
+   * sonraki adımlar
 
 ---
 
 ## 🧩 Product Position
 
-- `SocialRightOS` → backend decision engine
-- `sosyalhakrehberi-web` → public frontend
+* SocialRightOS → backend karar motoru
+* sosyalhakrehberi-web → frontend
 
-The frontend is the:
+Frontend:
 
-- SEO layer
-- UX layer
-- conversion layer
+* UX
+* SEO
+* yönlendirme
 
-The backend is the:
+Backend:
 
-- source of truth
-- eligibility logic layer
-- policy rules layer
+* karar
+* kural
+* uygunluk hesaplama
 
 ---
 
 ## ❗ Core Principle
 
-> Backend decides, frontend renders.
+> Backend decides, frontend renders
 
 Frontend:
 
-- does **not** calculate eligibility
-- does **not** store thresholds
-- does **not** interpret rules
-
----
+* karar vermez
+* eşik hesaplamaz
+* kural içermez
 
 ---
 
@@ -149,6 +146,9 @@ Frontend:
   ],
   "next_step": "Apply via local office"
 }
+
+---
+
 📈 Scaling and Sustainability
 
 Each guided test triggers backend processing.
@@ -184,8 +184,6 @@ improvements
 
 Use Discussions for ideas and feedback.
 
-🖼️ Project Identity
-
 Technical Documentation
 Tech Stack
 Next.js
@@ -198,4 +196,3 @@ License
 
 This repository is proprietary and distributed under an All Rights Reserved notice.
 See LICENSE
-.
