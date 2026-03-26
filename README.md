@@ -1,159 +1,214 @@
-# sosyalhakrehberi-web
+# Sosyal Hak Rehberi – Digital Social Rights Guidance Platform
 
-Public-facing Next.js frontend for the SocialRightOS system.
+![Social Rights Guide](./public/assets/hero.jpg)
 
-This repository is the SEO, tool, and trust layer for the Home Care MVP. It is designed to present clear public guidance, route users into a lightweight eligibility flow, and consume backend decisions without owning policy semantics.
+Frontend repository of **https://sosyalhakrehberi.com/**
 
-## Product Position
+A public-oriented digital platform that helps individuals understand and access their social rights in Turkey.
 
-- `SocialRightOS` is the backend decision engine.
-- `sosyalhakrehberi-web` is the public growth frontend.
-- The frontend is responsible for content, UX, metadata, and conversion flow.
-- The backend is responsible for eligibility logic, thresholds, derived facts, and canonical decision semantics.
+- Website: https://sosyalhakrehberi.com/
+- Instagram: https://www.instagram.com/sosyalhizmet.danismanligi/
+- Contact: info@sosyalhizmetdanismani.com
 
-## Current MVP Scope
+---
 
-This repository is intentionally narrow.
+## 🌍 What is this?
 
-- single domain strategy
-- single benefit MVP
-- only `TR_HOME_CARE_ALLOWANCE`
-- no auth
-- no dashboard
-- no mobile app
-- no frontend-owned eligibility logic
+Sosyal Hak Rehberi is a guidance and awareness platform designed to make social rights:
 
-The primary user-facing routes are:
+- understandable
+- accessible
+- actionable
 
-- `/`
-- `/evde-bakim-maasi`
-- `/evde-bakim-maasi/hesaplama`
+It helps users:
 
-## Architecture Boundary
+- learn which benefits they may be eligible for
+- understand decision logic clearly
+- take the correct next steps
 
-The frontend must adapt to the backend contract, not the other way around.
+> This platform provides guidance only and is not an official government decision system.
 
-Rules:
+---
 
-- do not invent backend request fields
-- do not invent backend response fields
-- do not compute thresholds in the frontend
-- do not reinterpret backend `status`, `reasons`, `missing_facts`, or `metadata`
-- do not turn preliminary guidance into official entitlement language
+## 🎯 Why it exists
 
-Canonical backend endpoint:
+Many individuals:
 
-- `POST /api/v1/eligibility-check`
+- do not know their rights
+- apply incorrectly and get rejected
+- cannot navigate complex bureaucratic processes
+
+This platform aims to:
+
+- reduce failed applications
+- increase awareness of rights
+- provide structured guidance
+
+---
+
+## 🌍 Social Impact & Context
+
+Access to social rights remains a significant challenge.
+
+According to official public reports and national statistics:
+
+- millions of individuals benefit from social assistance programs in Turkey
+- a large number of applications are incomplete or incorrectly submitted
+- many eligible individuals cannot access benefits due to lack of guidance
+
+These challenges create:
+
+- unnecessary administrative workload for institutions
+- delayed or rejected applications
+- loss of access to essential support
+
+---
+
+## 🎯 Mission
+
+To provide a clear, structured, and accessible digital guidance system  
+that helps individuals understand their social rights and take the correct actions.
+
+---
+
+## 🚀 Vision
+
+To build a scalable Social Rights Operating System that:
+
+- improves awareness of rights
+- reduces incorrect applications
+- supports efficient public service processes
+- enables fair access to benefits
+
+---
+
+## ⚖️ Public Value
+
+This platform acts as a digital social rights guide by:
+
+- empowering individuals with knowledge
+- supporting fair access to public resources
+- reducing friction between citizens and institutions
+
+---
+
+## ⚙️ How it works
+
+1. User starts a guided test
+2. Inputs basic information
+3. Frontend sends request to backend
+4. Backend evaluates eligibility
+5. Frontend renders:
+   - decision
+   - explanation
+   - next steps
+
+---
+
+## 🧩 Product Position
+
+- `SocialRightOS` → backend decision engine
+- `sosyalhakrehberi-web` → public frontend
+
+The frontend is the:
+
+- SEO layer
+- UX layer
+- conversion layer
+
+The backend is the:
+
+- source of truth
+- eligibility logic layer
+- policy rules layer
+
+---
+
+## ❗ Core Principle
+
+> Backend decides, frontend renders.
+
+Frontend:
+
+- does **not** calculate eligibility
+- does **not** store thresholds
+- does **not** interpret rules
+
+---
+
+## 🔍 Example Output
+
+```json
+{
+  "decision": "eligible",
+  "confidence": "high",
+  "rule_trace": [
+    "income_below_threshold"
+  ],
+  "next_step": "Apply via local office"
+}
+
+## 📈 Scaling and Sustainability
+
+Each guided test triggers backend processing.
+
+As usage grows:
+
+- API load increases
+- infrastructure cost increases
+
+To sustain the platform, these layers must continue operating reliably:
+
+- backend engine
+- hosting
+- development
+- maintenance
+
+---
+
+## 💖 Supporting the Project
+
+This is a public-benefit system.
+
+Support helps us:
+
+- keep it free
+- improve quality
+- reach more people
+
+---
+
+## 🤝 Contributing
+
+Use Issues for:
+
+- bugs
+- policy updates
+- improvements
+
+---
+
+## 💬 Community
+
+Use Discussions for ideas and feedback.
+
+---
+
+# Technical Documentation
 
 ## Tech Stack
 
-- Next.js 16
-- React 19
+- Next.js
+- React
 - TypeScript
-- Tailwind CSS 4
 
-## Local Development
-
-1. Install dependencies:
+## Local Dev
 
 ```bash
 npm ci
-```
-
-2. Create a local env file from the example:
-
-```bash
-copy .env.example .env.local
-```
-
-3. Set the backend base URL:
-
-```bash
-NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
-```
-
-4. Start the app:
-
-```bash
 npm run dev
-```
 
-Open [http://localhost:3000](http://localhost:3000).
+License
 
-## Quality Checks
-
-Run the local checks:
-
-```bash
-npm run lint
-npx tsc --noEmit
-npm run build
-```
-
-GitHub Actions also runs reproducible lint and build checks on pull requests and tracked branches.
-
-## Repository Goals
-
-This repo should communicate the following clearly:
-
-- trust-first public UX
-- clean Turkish copy
-- strong Home Care pillar content
-- backend-safe calculation flow
-- sponsor- and partner-ready engineering discipline
-
-## What This Repo Is Not
-
-This repo is not:
-
-- the source of truth for policy logic
-- a case management tool
-- a CRM
-- a benefit dashboard
-- a substitute for official institutional review
-
-## Environment Variables
-
-Current frontend environment requirements:
-
-- `NEXT_PUBLIC_API_BASE_URL`: base URL for the SocialRightOS backend
-- `NEXT_PUBLIC_SITE_URL`: canonical site URL for metadata and robots behavior
-
-See `.env.example`.
-
-## Deployment Readiness
-
-Deployment planning documents:
-
-- `docs/rollout-roadmap.md`
-- `docs/staging-readiness.md`
-- `docs/env-map.md`
-- `docs/deploy-decision-memo.md`
-- `docs/staging-deploy-runbook.md`
-- `docs/staging-handoff-brief.md`
-- `docs/staging-request-brief.md`
-- `docs/launch-blockers.md`
-- `docs/staging-smoke-report.md`
-- `docs/test-payloads.md`
-- `docs/home-care-live-smoke-checklist.md`
-
-Production runtime is explicitly defined with `nixpacks.toml` so platform builds can:
-
-- install with `npm install --include=dev`
-- build with `npm run build`
-- start the app without the extra `npm start` wrapper warning
-
-## Status
-
-Current state of the repository:
-
-- Home Care public flow rollout is complete
-- contract-safe frontend client is in place
-- guided result, income gate, trust layer, and content cluster are in place
-- live smoke and indexing smoke have passed
-- the current Home Care track is in stabilization hold unless a concrete bug or explicit product/legal decision reopens it
-
-## License
-
-This repository is proprietary and distributed under an `All Rights Reserved` notice.
-See [LICENSE](LICENSE).
+This repository is proprietary and distributed under an All Rights Reserved notice.
+See LICENSE
