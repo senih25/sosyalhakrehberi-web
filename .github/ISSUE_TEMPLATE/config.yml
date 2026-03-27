@@ -1,10 +1,1 @@
-﻿blank_issues_enabled: false
-
-contact_links:
-  - name: General discussion
-    url: https://github.com/senihb/sosyalhakrehberi-web/discussions
-    about: Ask questions or discuss ideas
-
-  - name: About the project
-    url: https://github.com/senihb/sosyalhakrehberi-web
-    about: Learn about the system
+﻿blank_issues_enabled: true
