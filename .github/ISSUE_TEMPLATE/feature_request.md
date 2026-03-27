@@ -1,14 +1,47 @@
----
+﻿---
 name: Feature request
-about: Suggest an improvement
+about: Suggest a product, UX, or system improvement
 title: "[FEATURE] "
-labels: enhancement
+labels: enhancement,feature
 ---
 
-## Problem
+## 💡 Feature Request
+Describe the feature you would like to see and why it is needed.
 
-## Proposed solution
+---
 
-## User impact
+## 🎯 Problem
+What real-world problem does this solve?  
+Explain the current limitation or user pain.
 
-## Additional context
+---
+
+## 🧩 Proposed Solution
+Describe your suggested solution.  
+If possible, include flow, UI idea, or API behavior.
+
+---
+
+## 👤 User Impact
+Who benefits from this?
+
+- [ ] Individuals
+- [ ] Institutions
+- [ ] NGOs
+- [ ] Other
+
+---
+
+## ⚖️ Impact on Decision System
+Does this affect eligibility logic?
+
+- [ ] Yes
+- [ ] No
+- [ ] Not sure
+
+---
+
+## 📈 Expected Outcome
+What measurable improvement would this bring?
+
+(e.g. better clarity, fewer errors, faster decisions)

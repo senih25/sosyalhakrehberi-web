@@ -1,16 +1,41 @@
----
+﻿---
 name: Bug report
-about: Report a problem in the system
+about: Report a technical issue or unexpected system behavior
 title: "[BUG] "
 labels: bug
 ---
 
-## What happened?
+## 🐛 Bug Description
+Briefly describe the issue.
 
-## Expected result
+---
 
-## Steps to reproduce
+## 🔁 Steps to Reproduce
+1.
+2.
+3.
 
-## API response (if any)
+---
 
-## Screenshots
+## ✅ Expected Behavior
+What did you expect to happen?
+
+---
+
+## ❌ Actual Behavior
+What actually happened?
+
+---
+
+## 📡 API / System Output (if available)
+Paste response if relevant.
+
+---
+
+## 📷 Screenshots
+Add screenshots if possible.
+
+---
+
+## 🧠 Additional Context
+Any extra details that may help.
