@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  outputFileTracingRoot: process.cwd(),
+
+  // Production güvenli ayarlar
+  reactStrictMode: true,
+
+  // Railway / container uyumluluğu
+  experimental: {
+    outputFileTracingRoot: process.cwd(),
+  },
 };
 
 module.exports = nextConfig;
