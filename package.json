@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
+    "postbuild": "node scripts/copy-standalone-assets.mjs",
+    "start": "HOSTNAME=0.0.0.0 node .next/standalone/server.js",
     "start:next": "next start -H 0.0.0.0 -p 8080",
     "lint": "eslint",
     "test": "node --experimental-strip-types --test --test-isolation=none src/**/*.test.ts"
