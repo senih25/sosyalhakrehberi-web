@@ -52,16 +52,27 @@ export async function checkEligibility(
   });
 
   if (!response.ok) {
+    const contentType = response.headers.get("content-type") ?? "";
     let errorBody: ApiErrorResponse | null = null;
+    let fallbackMessage = "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.";
 
     try {
-      errorBody = (await response.json()) as ApiErrorResponse;
+      if (contentType.includes("application/json")) {
+        errorBody = (await response.json()) as ApiErrorResponse;
+      } else {
+        await response.text();
+
+        if (response.status === 404) {
+          fallbackMessage =
+            "Backend karar servisine ulaşılamadı. API base URL veya proxy yapılandırmasını kontrol edin.";
+        }
+      }
     } catch {
       errorBody = null;
     }
 
     throw new ApiClientError(
-      errorBody?.message ?? "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.",
+      errorBody?.message ?? fallbackMessage,
       response.status,
       {
         correlationId:
