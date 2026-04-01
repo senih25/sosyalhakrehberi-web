@@ -57,6 +57,12 @@ const faqItems = [
 
 const detailGuides = [
   {
+    href: "/evde-bakim-maasi/basvuru-rehberi",
+    title: "Evde Bakım Maaşı başvuru hazırlık rehberi",
+    body:
+      "Hangi kuruma hangi hazırlıkla gidileceğini ve hangi belge başlıklarının önceden toparlanabileceğini açıklar.",
+  },
+  {
     href: "/evde-bakim-maasi/sartlar",
     title: "Evde Bakım Maaşı şartları",
     body:
@@ -87,7 +93,7 @@ export default function HomeCareAllowancePage() {
               sunar.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
+              <Link href="/start" className="primary-link">
                 Ön değerlendirmeyi başlat
               </Link>
               <Link href="/" className="secondary-link">
@@ -151,10 +157,11 @@ export default function HomeCareAllowancePage() {
               <div className="rounded-2xl bg-slate-50 p-4">
                 <p className="text-sm font-semibold text-slate-900">En hızlı geçiş yolu</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Temel bilgileri biliyorsanız doğrudan hesaplama sayfasına geçebilirsiniz.
+                  Temel bilgileri biliyorsanız başlangıç sayfasından ilerleyerek aynı akışa
+                  güvenli biçimde geçebilirsiniz.
                 </p>
-                <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link mt-4 inline-flex">
-                  Hesaplama sayfasına git
+                <Link href="/start" className="secondary-link mt-4 inline-flex">
+                  Başlangıç sayfasına git
                 </Link>
               </div>
             </div>
@@ -175,7 +182,7 @@ export default function HomeCareAllowancePage() {
 
         <section className="mt-8 card-panel">
           <h2 className="text-2xl font-semibold text-slate-950">Detay rehberleri</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
             {detailGuides.map((guide) => (
               <article key={guide.href} className="rounded-2xl bg-slate-50 p-5">
                 <h3 className="font-semibold text-slate-900">{guide.title}</h3>
@@ -191,3 +198,4 @@ export default function HomeCareAllowancePage() {
     </main>
   );
 }
+

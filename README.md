@@ -1,153 +1,220 @@
-# sosyalhakrehberi-web
+# Sosyal Hak Rehberi – Dijital Sosyal Haklar Rehberlik Platformu
 
-Public-facing Next.js frontend for the SocialRightOS system.
+![Social Rights Guide](./public/assets/hero.jpg)
 
-This repository is the SEO, tool, and trust layer for the Home Care MVP. It is designed to present clear public guidance, route users into a lightweight eligibility flow, and consume backend decisions without owning policy semantics.
+Frontend repository of **[https://sosyalhakrehberi.com/](https://sosyalhakrehberi.com/)**
 
-## Product Position
+Bireylerin Türkiye’deki sosyal haklarını anlamalarına ve bu haklara erişmelerine yardımcı olan kamu odaklı dijital platform.
 
-- `SocialRightOS` is the backend decision engine.
-- `sosyalhakrehberi-web` is the public growth frontend.
-- The frontend is responsible for content, UX, metadata, and conversion flow.
-- The backend is responsible for eligibility logic, thresholds, derived facts, and canonical decision semantics.
+* Website: [https://sosyalhakrehberi.com/](https://sosyalhakrehberi.com/)
+* Instagram: [https://www.instagram.com/sosyalhizmet.danismanligi/](https://www.instagram.com/sosyalhizmet.danismanligi/)
+* Contact: [info@sosyalhizmetdanismani.com](mailto:info@sosyalhizmetdanismani.com)
 
-## Current MVP Scope
+---
 
-This repository is intentionally narrow.
+## 🌍 What is this?
 
-- single domain strategy
-- single benefit MVP
-- only `TR_HOME_CARE_ALLOWANCE`
-- no auth
-- no dashboard
-- no mobile app
-- no frontend-owned eligibility logic
+Sosyal Hak Rehberi, sosyal hakları:
 
-The primary user-facing routes are:
+* anlaşılabilir
+* erişilebilir
+* uygulanabilir
 
-- `/`
-- `/evde-bakim-maasi`
-- `/evde-bakim-maasi/hesaplama`
+hale getirmeyi amaçlayan bir rehberlik platformudur.
 
-## Architecture Boundary
+Kullanıcılara:
 
-The frontend must adapt to the backend contract, not the other way around.
+* hangi haklara sahip olabileceklerini anlamalarını sağlar
+* karar mantığını açık şekilde gösterir
+* doğru sonraki adımları sunar
 
-Rules:
+> Bu platform resmi bir devlet sistemi değildir, yalnızca rehberlik sağlar.
 
-- do not invent backend request fields
-- do not invent backend response fields
-- do not compute thresholds in the frontend
-- do not reinterpret backend `status`, `reasons`, `missing_facts`, or `metadata`
-- do not turn preliminary guidance into official entitlement language
+---
 
-Canonical backend endpoint:
+## 🎯 Why it exists
 
-- `POST /api/v1/eligibility-check`
+Birçok birey:
+
+* haklarını bilmez
+* yanlış başvuru yapar
+* karmaşık süreçleri yönetemez
+
+Bu platform:
+
+* hatalı başvuruları azaltmayı
+* farkındalığı artırmayı
+* rehberlik sağlamayı
+
+aamaclar.
+
+---
+
+## 🌍 Social Impact & Context
+
+Sosyal haklara erişim önemli bir problemdir.
+
+Resmi veriler ve saha gözlemleri göstermektedir ki:
+
+* milyonlarca kişi sosyal yardımlardan faydalanmaktadır
+* başvuruların önemli kısmı eksik veya hatalıdır
+* birçok hak sahibi birey rehberlik eksikliği nedeniyle haklarına ulaşamaz
+
+Bu durum:
+
+* kurumlarda iş yükü oluşturur
+* başvuru süreçlerini uzatır
+* vatandaşların hak kaybına yol açar
+
+---
+
+## 🎯 Mission
+
+Bireylerin sosyal haklarını doğru anlamasını sağlayan açık, yapılandırılmış ve erişilebilir bir rehberlik sistemi sunmak.
+
+---
+
+## 🚀 Vision
+
+Milyonlarca kullanıcıya ulaşan, ölçeklenebilir bir **Sosyal Hak İşletim Sistemi** oluşturmak.
+
+---
+
+## ⚖️ Public Value
+
+Bu platform:
+
+* bireyleri güçlendirir
+* kamu kaynaklarına adil erişimi destekler
+* vatandaş-kurum arasındaki sürtünmeyi azaltır
+
+---
+
+## ⚙️ How it works
+
+1. Kullanıcı testi başlatır
+2. Bilgilerini girer
+3. Frontend backend’e gönderir
+4. Backend değerlendirir
+5. Frontend sonucu gösterir:
+
+   * karar
+   * açıklama
+   * sonraki adımlar
+
+---
+
+## 🧩 Product Position
+
+* socialrightlabs → backend karar motoru
+* sosyalhakrehberi-web → frontend
+
+Frontend:
+
+* UX
+* SEO
+* yönlendirme
+
+Backend:
+
+* karar
+* kural
+* uygunluk hesaplama
+
+---
+
+## ❗ Core Principle
+
+> Backend decides, frontend renders
+
+Frontend:
+
+* karar vermez
+* eşik hesaplamaz
+* kural içermez
+
+---
+
+## 🔍 Example Output
+
+```json
+{
+  "decision": "eligible",
+  "confidence": "high",
+  "rule_trace": [
+    "income_below_threshold"
+  ],
+  "next_step": "Apply via local office"
+}
+```
+
+---
+
+## 📈 Scaling and Sustainability
+
+Each guided test triggers backend processing.
+
+As usage grows:
+
+* API load increases
+* infrastructure cost increases
+
+To sustain the platform, these layers must continue operating reliably:
+
+* backend engine
+* hosting
+* development
+* maintenance
+
+---
+
+## 💖 Supporting the Project
+
+This is a public-benefit system.
+
+Support helps us:
+
+* keep it free
+* improve quality
+* reach more people
+
+---
+
+## 🤝 Contributing
+
+Use Issues for:
+
+* bugs
+* policy updates
+* improvements
+
+---
+
+## 💬 Community
+
+Use Discussions for ideas and feedback.
+
+---
+
+# Technical Documentation
 
 ## Tech Stack
 
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS 4
+* Next.js
+* React
+* TypeScript
 
 ## Local Development
 
-1. Install dependencies:
-
 ```bash
 npm ci
-```
-
-2. Create a local env file from the example:
-
-```bash
-copy .env.example .env.local
-```
-
-3. Set the backend base URL:
-
-```bash
-NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
-```
-
-4. Start the app:
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Quality Checks
-
-Run the local checks:
-
-```bash
-npm run lint
-npx tsc --noEmit
-npm run build
-```
-
-GitHub Actions also runs reproducible lint and build checks on pull requests and tracked branches.
-
-## Repository Goals
-
-This repo should communicate the following clearly:
-
-- trust-first public UX
-- clean Turkish copy
-- strong Home Care pillar content
-- backend-safe calculation flow
-- sponsor- and partner-ready engineering discipline
-
-## What This Repo Is Not
-
-This repo is not:
-
-- the source of truth for policy logic
-- a case management tool
-- a CRM
-- a benefit dashboard
-- a substitute for official institutional review
-
-## Environment Variables
-
-Current frontend environment requirements:
-
-- `NEXT_PUBLIC_API_BASE_URL`: base URL for the SocialRightOS backend
-- `NEXT_PUBLIC_SITE_URL`: canonical site URL for metadata and robots behavior
-
-See `.env.example`.
-
-## Deployment Readiness
-
-Deployment planning documents:
-
-- `docs/rollout-roadmap.md`
-- `docs/staging-readiness.md`
-- `docs/env-map.md`
-- `docs/deploy-decision-memo.md`
-- `docs/staging-deploy-runbook.md`
-- `docs/staging-handoff-brief.md`
-- `docs/staging-request-brief.md`
-- `docs/launch-blockers.md`
-- `docs/staging-smoke-report.md`
-- `docs/test-payloads.md`
-- `docs/home-care-live-smoke-checklist.md`
-
-## Status
-
-Current state of the repository:
-
-- Home Care public flow rollout is complete
-- contract-safe frontend client is in place
-- guided result, income gate, trust layer, and content cluster are in place
-- live smoke and indexing smoke have passed
-- the current Home Care track is in stabilization hold unless a concrete bug or explicit product/legal decision reopens it
+---
 
 ## License
 
-This repository is proprietary and distributed under an `All Rights Reserved` notice.
+This repository is proprietary and distributed under an **All Rights Reserved** notice.
 See [LICENSE](LICENSE).
+

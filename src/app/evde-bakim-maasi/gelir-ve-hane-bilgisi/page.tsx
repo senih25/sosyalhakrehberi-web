@@ -32,8 +32,8 @@ export default function HomeCareIncomeGuidePage() {
             gelir kararı değildir.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
-              Hesaplama sayfasına git
+            <Link href="/start" className="primary-link">
+              Başlangıç sayfasına git
             </Link>
             <Link href="/evde-bakim-maasi" className="secondary-link">
               Ana rehbere dön
@@ -72,3 +72,4 @@ export default function HomeCareIncomeGuidePage() {
     </main>
   );
 }
+

@@ -1,4 +1,4 @@
-export type ToolKey = "home-care" | "gss" | "old-age";
+export type ToolKey = "home-care" | "gss" | "old-age" | "birth-grant";
 
 export type ToolGuidanceLink = {
   href: string;
@@ -106,8 +106,48 @@ const guidanceByTool: Record<ToolKey, ToolGuidanceModel> = {
       },
     ],
   },
+  "birth-grant": {
+    nextStepTitle: "Sıradaki adım",
+    nextStepBody:
+      "Doğum yardımı testi gelir şartı aramaz. Sonuç ekranında hangi bilginin eksik olduğunu ve başvuru için hangi kanalın daha uygun olduğunu takip edin.",
+    relatedGuides: [
+      {
+        href: "/dogum-yardimi-uygunluk-testi/rehber",
+        label: "Doğum yardımı başvuru rehberi",
+        body: "Başvuru kanallarını, temel belge mantığını ve sonuç ekranının nasıl okunacağını kısa dille toplar.",
+      },
+      {
+        href: "/dogum-yardimi-uygunluk-testi/e-devlet-basvurusu",
+        label: "e-Devlet doğum yardımı başvurusu",
+        body: "e-Devlet üzerinden başvuru düşünüyorsanız önce hangi bilgileri kontrol etmeniz gerektiğini anlatır.",
+      },
+      {
+        href: "/dogum-yardimi-uygunluk-testi/odeme-takvimi",
+        label: "Doğum yardımı ödeme takvimi",
+        body: "Başvuru sonrası ödemenin ne zaman ve nasıl takip edilebileceğini sade biçimde özetler.",
+      },
+      {
+        href: "/dogum-yardimi-uygunluk-testi/sss",
+        label: "Doğum yardımı SSS",
+        body: "Canlı doğum, vatandaşlık, ikamet ve ödeme mantığı hakkında sık sorulan soruları toplar.",
+      },
+    ],
+    otherTests: [
+      {
+        href: "/gss-gelir-testi",
+        label: "GSS Gelir Testi",
+        body: "Doğum yardımı dışında gelir veya sağlık güvencesi temelli bir destek arıyorsanız bu araca geçin.",
+      },
+      {
+        href: "/evde-bakim-maasi/hesaplama",
+        label: "Evde Bakım Maaşı Testi",
+        body: "Bakım ihtiyacı ve hane gelirine bağlı destekler için ayrı aktif teste geçebilirsiniz.",
+      },
+    ],
+  },
 };
 
 export function getToolGuidanceModel(tool: ToolKey): ToolGuidanceModel {
   return guidanceByTool[tool];
 }
+
