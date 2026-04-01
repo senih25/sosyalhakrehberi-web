@@ -21,7 +21,6 @@ const proxyTarget =
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  reactStrictMode: true,
   async rewrites() {
     if (publicApiBaseUrl !== "/api-proxy" || !proxyTarget) {
       return [];

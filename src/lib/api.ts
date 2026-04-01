@@ -9,7 +9,9 @@ import {
 } from "./types.ts";
 
 const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
-const PRODUCTION_API_ORIGIN = "https://api.sosyalhakrehberi.com";
+
+// The path that Next.js rewrites to the real backend (see next.config.ts).
+// All production API calls are routed through this proxy to avoid CORS issues.
 const PROXY_API_BASE_URL = "/api-proxy";
 
 export class ApiClientError extends Error {
@@ -69,6 +71,18 @@ function toClientError(
   });
 }
 
+/**
+ * Resolves the base URL used for all API fetch calls.
+ *
+ * In production, NEXT_PUBLIC_API_BASE_URL is set to the real backend origin
+ * (e.g. "https://api.sosyalhakrehberi.com"). Any full HTTPS origin is treated
+ * as a production URL and routed through the Next.js proxy rewrite at
+ * /api-proxy, which forwards the request to the backend server-side — avoiding
+ * CORS issues and keeping credentials off the public internet.
+ *
+ * In development, NEXT_PUBLIC_API_BASE_URL is typically an HTTP localhost URL
+ * (e.g. "http://localhost:8080") and is used directly without proxying.
+ */
 export function resolveApiBaseUrl(baseUrl = RAW_API_BASE_URL): string {
   if (!baseUrl) {
     throw new ApiClientError(
@@ -77,7 +91,10 @@ export function resolveApiBaseUrl(baseUrl = RAW_API_BASE_URL): string {
     );
   }
 
-  if (baseUrl === PRODUCTION_API_ORIGIN) {
+  // Route any full HTTPS origin through the Next.js proxy rewrite so that
+  // browser requests never hit the backend directly (avoids CORS and 502s).
+  // HTTP origins (e.g. localhost in development) are used as-is.
+  if (/^https:\/\//i.test(baseUrl)) {
     return PROXY_API_BASE_URL;
   }
 
@@ -124,42 +141,6 @@ export async function checkEligibility(
   }
 }
 
-export async function evaluateIncome(
-  payload: IncomeEvaluationRequest,
-): Promise<IncomeEvaluationResponse> {
-  try {
-    const response = await fetch(`${getApiBaseUrl()}/api/evaluate/income`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      const errorBody = await readErrorResponse(response);
-      throw toClientError(
-        response,
-        "Istek islenemedi. Lutfen daha sonra tekrar deneyin.",
-        errorBody,
-      );
-    }
-
-    return (await response.json()) as IncomeEvaluationResponse;
-  } catch (error) {
-    if (error instanceof ApiClientError) {
-      throw error;
-    }
-
-    throw new ApiClientError(
-      "Backend yaniti alinamadi. CORS ayarlarini veya ag baglantisini kontrol edin.",
-      502,
-    );
-  }
-}
-
 export async function createLead(
   payload: LeadCreateRequest,
 ): Promise<LeadCreateResponse | null> {
@@ -192,6 +173,42 @@ export async function createLead(
     } catch {
       return null;
     }
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      throw error;
+    }
+
+    throw new ApiClientError(
+      "Backend yaniti alinamadi. CORS ayarlarini veya ag baglantisini kontrol edin.",
+      502,
+    );
+  }
+}
+
+export async function evaluateIncome(
+  payload: IncomeEvaluationRequest,
+): Promise<IncomeEvaluationResponse> {
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/evaluate/income`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      const errorBody = await readErrorResponse(response);
+      throw toClientError(
+        response,
+        "Istek islenemedi. Lutfen daha sonra tekrar deneyin.",
+        errorBody,
+      );
+    }
+
+    return (await response.json()) as IncomeEvaluationResponse;
   } catch (error) {
     if (error instanceof ApiClientError) {
       throw error;
